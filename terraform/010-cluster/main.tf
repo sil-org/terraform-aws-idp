@@ -128,6 +128,7 @@ module "ecs-service-cloudwatch-dashboard" {
 
   service_names = [
     "${var.idp_name}-id-broker",
+    "${var.idp_name}-id-broker-email",
     "${var.idp_name}-phpmyadmin",
     "${var.idp_name}-pw-manager",
     "${var.idp_name}-simplesamlphp",
