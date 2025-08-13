@@ -127,8 +127,6 @@ module "ecs-service-cloudwatch-dashboard" {
   dashboard_name = "${var.app_name}-${var.app_env}-${data.aws_region.current.name}"
 
   service_names = [
-    "${var.idp_name}-email-service-api",
-    "${var.idp_name}-email-service-cron",
     "${var.idp_name}-id-broker",
     "${var.idp_name}-phpmyadmin",
     "${var.idp_name}-pw-manager",
