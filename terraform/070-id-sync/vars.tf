@@ -162,13 +162,13 @@ variable "heartbeat_method" {
 }
 
 variable "appconfig_app_id" {
-  description = "DEPRECATED"
+  description = "DEPRECATED: use SSM parameters like \"/idp-{idp_name}/MFA_API_SECRET\""
   type        = string
   default     = ""
 }
 
 variable "appconfig_env_id" {
-  description = "DEPRECATED"
+  description = "DEPRECATED: use SSM parameters like \"/idp-{idp_name}/MFA_API_SECRET\""
   type        = string
   default     = ""
 }
