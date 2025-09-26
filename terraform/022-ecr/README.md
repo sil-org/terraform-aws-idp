@@ -1,6 +1,18 @@
 # 022-ecr - EC2 Container Service Image Repository
 This module is used to create ECR image repositories for ECS services
 
+# Deprecation notice
+
+This module will be removed in the next major version. The resources will be moved to their respective service
+workspaces:
+
+| Repository    | Workspace         |
+|---------------|-------------------|
+| id-broker     | 040-id-broker     |
+| pw-api        | 050-pw-manager    |
+| simplesamlphp | 060-simplesamlphp |
+| id-sync       | (obsolete)        |
+
 ## What this does
 
  - Create ECR repositories for id-broker, pw-manager, simplesamlphp, and id-sync
