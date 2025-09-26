@@ -3,7 +3,8 @@ output "ui_hostname" {
 }
 
 output "api_hostname" {
-  value = "${var.api_subdomain}.${var.cloudflare_domain}"
+  description = "DEPRECATED: may be removed in the next major version."
+  value       = "${var.api_subdomain}.${var.cloudflare_domain}"
 }
 
 output "api_public_dns_value" {
@@ -12,5 +13,6 @@ output "api_public_dns_value" {
 }
 
 output "db_pwmanager_user" {
-  value = var.mysql_user
+  description = "DEPRECATED: may be removed in the next major version."
+  value       = var.mysql_user
 }

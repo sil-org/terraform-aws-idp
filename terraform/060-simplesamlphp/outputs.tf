@@ -1,9 +1,11 @@
 output "hostname" {
-  value = "${var.subdomain}.${var.cloudflare_domain}"
+  description = "DEPRECATED: may be removed in the next major version."
+  value       = "${var.subdomain}.${var.cloudflare_domain}"
 }
 
 output "db_ssp_user" {
-  value = var.mysql_user
+  description = "DEPRECATED: may be removed in the next major version."
+  value       = var.mysql_user
 }
 
 output "admin_pass" {
