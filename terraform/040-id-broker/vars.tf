@@ -105,24 +105,27 @@ variable "email_brand_logo" {
 }
 
 variable "email_service_accessToken" {
-  description = "Access Token for Email Service API"
+  description = "DEPRECATED: Access Token for Email Service API"
   type        = string
+  default     = ""
 }
 
 variable "email_service_assertValidIp" {
-  description = "Whether or not to assert IP address for Email Service API is trusted"
+  description = "DEPRECATED: Whether or not to assert IP address for Email Service API is trusted"
   type        = string
   default     = "true"
 }
 
 variable "email_service_baseUrl" {
-  description = "Base URL to Email Service API"
+  description = "DEPRECATED: Base URL to Email Service API"
   type        = string
+  default     = ""
 }
 
 variable "email_service_validIpRanges" {
-  description = "List of valid IP ranges to Email Service API"
+  description = "DEPRECATED: List of valid IP ranges to Email Service API"
   type        = list(string)
+  default     = []
 }
 
 variable "email_signature" {
