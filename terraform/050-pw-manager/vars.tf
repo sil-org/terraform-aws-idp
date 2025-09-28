@@ -40,6 +40,7 @@ variable "auth_saml_checkResponseSigning" {
 variable "auth_saml_entityId" {
   description = "SP entity ID. DEPRECATED: future versions will use \"$${var.api_subdomain}.$${var.cloudflare_domain}\""
   type        = string
+  default     = ""
 }
 
 variable "auth_saml_idp_url" {
@@ -138,6 +139,7 @@ variable "email_service_accessToken" {
     DEPRECATED: This will be removed in the next major version. Use the email service integrated in id-broker.
   EOT
   type        = string
+  default     = ""
 }
 
 variable "email_service_assertValidIp" {
@@ -155,6 +157,7 @@ variable "email_service_baseUrl" {
     DEPRECATED: This will be removed in the next major version. Use the email service integrated in id-broker.
   EOT
   type        = string
+  default     = ""
 }
 
 variable "email_service_validIpRanges" {
@@ -163,6 +166,7 @@ variable "email_service_validIpRanges" {
     DEPRECATED: This will be removed in the next major version. Use the email service integrated in id-broker.
   EOT
   type        = list(string)
+  default     = []
 }
 
 variable "email_signature" {
