@@ -1,6 +1,11 @@
 # 041-id-broker-search-lambda - Lambda function for calling id-broker search api
 This module is used to create a lambda function for calling id-broker's search api
 
+# Deprecation notice
+
+This module will be removed in the next major version. The ID Broker Search Lambda is at end of life. Other tools
+can be created to interact with the ID Broker API since it can now be accessed from public routes.
+
 ## What this does
 
  - Create a lambda function
