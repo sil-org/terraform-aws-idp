@@ -313,6 +313,15 @@ variable "mfa_allow_disable" {
   default = "true"
 }
 
+variable "mfa_api_base_url" {
+  description = <<-EOT
+    The base URL of the MFA API. Must include the scheme and a trailing slash. Replaces `mfa_totp_apibaseurl` and
+    `mfa_webauthn_apibaseurl`.
+  EOT
+  type        = string
+  default     = ""
+}
+
 variable "mfa_lifetime" {
   type    = string
   default = "+2 hours"
@@ -334,11 +343,15 @@ variable "mfa_required_for_new_users" {
 }
 
 variable "mfa_totp_apibaseurl" {
-  type = string
+  description = "DEPRECATED: use `mfa_api_base_url`"
+  type        = string
+  default     = ""
 }
 
 variable "mfa_webauthn_apibaseurl" {
-  type = string
+  description = "DEPRECATED: use `mfa_api_base_url`"
+  type        = string
+  default     = ""
 }
 
 variable "rp_origins" {
