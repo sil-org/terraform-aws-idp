@@ -314,10 +314,7 @@ variable "mfa_allow_disable" {
 }
 
 variable "mfa_api_base_url" {
-  description = <<-EOT
-    The base URL of the MFA API. Must include the scheme and a trailing slash. Replaces `mfa_totp_apibaseurl` and
-    `mfa_webauthn_apibaseurl`.
-  EOT
+  description = "The base URL of the MFA API. Must include the scheme and a trailing slash."
   type        = string
   default     = ""
 }
@@ -340,18 +337,6 @@ variable "mfa_manager_help_bcc" {
 variable "mfa_required_for_new_users" {
   type    = string
   default = "false"
-}
-
-variable "mfa_totp_apibaseurl" {
-  description = "DEPRECATED: use `mfa_api_base_url`"
-  type        = string
-  default     = ""
-}
-
-variable "mfa_webauthn_apibaseurl" {
-  description = "DEPRECATED: use `mfa_api_base_url`"
-  type        = string
-  default     = ""
 }
 
 variable "rp_origins" {

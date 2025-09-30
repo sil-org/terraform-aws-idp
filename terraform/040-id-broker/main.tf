@@ -157,8 +157,8 @@ locals {
     mfa_manager_bcc                            = var.mfa_manager_bcc
     mfa_manager_help_bcc                       = var.mfa_manager_help_bcc
     mfa_required_for_new_users                 = var.mfa_required_for_new_users
-    mfa_totp_apibaseurl                        = var.mfa_totp_apibaseurl
-    mfa_webauthn_apibaseurl                    = var.mfa_webauthn_apibaseurl
+    mfa_totp_apibaseurl                        = var.mfa_api_base_url
+    mfa_webauthn_apibaseurl                    = var.mfa_api_base_url
     rp_origins                                 = var.rp_origins
     minimum_backup_codes_before_nag            = var.minimum_backup_codes_before_nag
     mysql_host                                 = var.mysql_host
