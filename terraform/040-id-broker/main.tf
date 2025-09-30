@@ -168,10 +168,10 @@ locals {
     mfa_manager_bcc                            = var.mfa_manager_bcc
     mfa_manager_help_bcc                       = var.mfa_manager_help_bcc
     mfa_required_for_new_users                 = var.mfa_required_for_new_users
-    mfa_totp_apibaseurl                        = var.mfa_totp_apibaseurl
+    mfa_totp_apibaseurl                        = coalesce(var.mfa_api_base_url, var.mfa_totp_apibaseurl)
     mfa_totp_apikey                            = var.mfa_totp_apikey
     mfa_totp_apisecret                         = var.mfa_totp_apisecret
-    mfa_webauthn_apibaseurl                    = var.mfa_webauthn_apibaseurl
+    mfa_webauthn_apibaseurl                    = coalesce(var.mfa_api_base_url, var.mfa_webauthn_apibaseurl)
     mfa_webauthn_apikey                        = var.mfa_webauthn_apikey
     mfa_webauthn_apisecret                     = var.mfa_webauthn_apisecret
     mfa_webauthn_appid                         = var.mfa_webauthn_appid
