@@ -117,7 +117,7 @@ module "backup_task" {
 
   name                   = "${var.idp_name}-${var.app_name}-${var.app_env}"
   event_rule_description = "Start scheduled backup"
-  event_schedule         = local.event_schedule
+  event_schedule         = var.event_schedule
   ecs_cluster_arn        = var.ecs_cluster_id
   task_definition_arn    = aws_ecs_task_definition.cron_td.arn
   tags = {
@@ -133,10 +133,6 @@ resource "aws_ecs_task_definition" "cron_td" {
   family                = "${var.idp_name}-${var.app_name}-${var.app_env}"
   container_definitions = local.task_def_backup
   network_mode          = "bridge"
-}
-
-locals {
-  event_schedule = var.cron_schedule != "" ? var.cron_schedule : var.event_schedule
 }
 
 /*

@@ -185,18 +185,6 @@ variable "create_dns_record" {
   default     = true
 }
 
-variable "appconfig_app_id" {
-  description = "DEPRECATED: use SSM parameters like \"/idp-{idp_name}/MFA_API_SECRET\""
-  type        = string
-  default     = ""
-}
-
-variable "appconfig_env_id" {
-  description = "DEPRECATED: use SSM parameters like \"/idp-{idp_name}/MFA_API_SECRET\""
-  type        = string
-  default     = ""
-}
-
 variable "cduser_username" {
   type    = string
   default = "IAM user name for the CD user. Used to create ECS deployment policy."

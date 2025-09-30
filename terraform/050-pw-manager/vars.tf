@@ -37,12 +37,6 @@ variable "auth_saml_checkResponseSigning" {
   default = "true"
 }
 
-variable "auth_saml_entityId" {
-  description = "SP entity ID. DEPRECATED: future versions will use \"$${var.api_subdomain}.$${var.cloudflare_domain}\""
-  type        = string
-  default     = ""
-}
-
 variable "auth_saml_idp_url" {
   description = "Base URL of the IdP, e.g. \"https://login.example.com\""
   type        = string
@@ -65,12 +59,6 @@ variable "auth_saml_signRequest" {
   default     = "true"
 }
 
-variable "auth_saml_sloUrl" {
-  description = "Single logout URL for IdP. DEPRECATED: specify auth_saml_idp_url"
-  type        = string
-  default     = ""
-}
-
 variable "auth_saml_spCertificate" {
   description = "Public cert data for this SP"
   type        = string
@@ -79,12 +67,6 @@ variable "auth_saml_spCertificate" {
 variable "auth_saml_spPrivateKey" {
   description = "Private cert data for this SP"
   type        = string
-}
-
-variable "auth_saml_ssoUrl" {
-  description = "Single sign-on URL for IdP. DEPRECATED: specify auth_saml_idp_url"
-  type        = string
-  default     = ""
 }
 
 variable "cduser_username" {
@@ -131,42 +113,6 @@ variable "ecs_cluster_id" {
 
 variable "ecsServiceRole_arn" {
   type = string
-}
-
-variable "email_service_accessToken" {
-  description = <<EOT
-    Access Token for Email Service API
-    DEPRECATED: This will be removed in the next major version. Use the email service integrated in id-broker.
-  EOT
-  type        = string
-  default     = ""
-}
-
-variable "email_service_assertValidIp" {
-  description = <<EOT
-    Whether or not to assert IP address for Email Service API is trusted
-    DEPRECATED: This will be removed in the next major version. Use the email service integrated in id-broker.
-  EOT
-  type        = string
-  default     = "true"
-}
-
-variable "email_service_baseUrl" {
-  description = <<EOT
-    Base URL to Email Service API
-    DEPRECATED: This will be removed in the next major version. Use the email service integrated in id-broker.
-  EOT
-  type        = string
-  default     = ""
-}
-
-variable "email_service_validIpRanges" {
-  description = <<EOT
-    List of valid IP ranges to Email Service API
-    DEPRECATED: This will be removed in the next major version. Use the email service integrated in id-broker.
-  EOT
-  type        = list(string)
-  default     = []
 }
 
 variable "email_signature" {
@@ -304,16 +250,6 @@ variable "ui_subdomain" {
   type = string
 }
 
-variable "use_broker_email_service" {
-  description = <<EOT
-    Use the email service capability bundled in id-broker instead of the separate email-service service. Requires
-    idp-id-broker version 8.1.0 or later.
-    NOTICE: this will default to true in the next major version.
-  EOT
-  type        = string
-  default     = "false"
-}
-
 variable "vpc_id" {
   type = string
 }
@@ -322,18 +258,6 @@ variable "create_dns_record" {
   description = "Controls creation of a DNS CNAME record for the ECS service."
   type        = bool
   default     = true
-}
-
-variable "appconfig_app_id" {
-  description = "DEPRECATED: use SSM parameters like \"/idp-{idp_name}/MFA_API_SECRET\""
-  type        = string
-  default     = ""
-}
-
-variable "appconfig_env_id" {
-  description = "DEPRECATED: use SSM parameters like \"/idp-{idp_name}/MFA_API_SECRET\""
-  type        = string
-  default     = ""
 }
 
 variable "ssl_ca_base64" {

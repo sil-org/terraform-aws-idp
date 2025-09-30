@@ -37,22 +37,15 @@ ssl certificate, core application load balancer, and a CloudWatch log group
 
 ## Outputs
 
- - `aws_zones` - The list of zones deployed in
- - `cloudflare_sg_id` - Security group ID for Cloudflare HTTPS access
  - `db_subnet_group_name` - Database subnet group name
- - `nat_gateway_ip` - NAT gateway elastic IP address
  - `private_subnet_ids` - List of private subnet ids in VPC
  - `private_subnet_cidr_blocks` - A list of private subnet CIDR blocks, ex: `["10.0.11.0/24","10.0.22.0/24"]`
  - `public_subnet_ids` - List of public subnet ids in VPC
  - `public_subnet_cidr_blocks` - A list of public subnet CIDR blocks, ex: `["10.0.10.0/24","10.0.12.0/24"]`
  - `vpc_default_sg_id` - The default security group ID for the VPC
  - `vpc_id` - ID for the VPC
- - `alb_arn` - ARN for application load balancer
- - `alb_default_tg_arn` - ARN for default target group on load balancer
  - `alb_dns_name` - DNS name for ALB
  - `alb_https_listener_arn` - ARN for HTTPS listener on ALB
- - `alb_id` - ID for ALB
- - `wildcard_cert_arn` - ARN to wildcard ACM certificate
  - `cloudwatch_log_group_name` - Name of the CloudWatch log group
  
 ## Example Usage

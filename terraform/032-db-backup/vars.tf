@@ -21,12 +21,6 @@ variable "cpu" {
   default = "32"
 }
 
-variable "cron_schedule" {
-  description = "Schedule for CRON execution. DEPRECATED: use event_schedule"
-  type        = string
-  default     = ""
-}
-
 variable "db_names" {
   type = list(string)
 

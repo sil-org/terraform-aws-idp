@@ -17,14 +17,11 @@ The password manager UI can be deployed using the [silinternatonal/pages/cloudfl
  - `app_env` - Application environment
  - `app_name` - Application name
  - `auth_saml_checkResponseSigning`  - true/false whether to check response for signature. Default: `true`
- - `auth_saml_entityId` - Entity ID for this SP
  - `auth_saml_idpCertificate` - Public cert contents for IdP 
  - `auth_saml_requireEncryptedAssertion` - true/false whether to require assertion to be encrypted. Default: `true`
  - `auth_saml_signRequest` - true/false whether to sign auth requests. Default: `true`
- - `auth_saml_sloUrl` - SLO url for IdP
  - `auth_saml_spCertificate` - Public cert contents for this SP
  - `auth_saml_spPrivateKey` - Private cert contents for this SP
- - `auth_saml_ssoUrl` - SSO url for IdP
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
  - `cloudwatch_log_group_name` - CloudWatch log group name
  - `cpu` - Amount of CPU to allocate to API container
@@ -33,10 +30,6 @@ The password manager UI can be deployed using the [silinternatonal/pages/cloudfl
  - `docker_image` - URL to Docker image
  - `ecs_cluster_id` - ID for ECS Cluster
  - `ecsServiceRole_arn` - ARN for ECS Service Role
- - `email_service_accessToken` - Access Token for Email Service API
- - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted. Default: `true`
- - `email_service_baseUrl` - Base URL to Email Service API
- - `email_service_validIpRanges` - List of valid IP ranges to Email Service API
  - `email_signature` - Email signature line
  - `id_broker_access_token` - Access token for calling id-broker
  - `id_broker_assertValidBrokerIp` - Whether or not to assert IP address for ID Broker API is trusted. Default: `true`
@@ -70,11 +63,9 @@ The password manager UI can be deployed using the [silinternatonal/pages/cloudfl
  - `support_phone` - Phone number for end user support, displayed on PW UI.
  - `support_url` - URL for end user support, displayed on PW UI.
 
-## Outputs
+## Output
 
  - `ui_hostname` - Full hostname for UI
- - `api_hostname` - Full hostname for API
- - `db_pwmanager_user` - Username for mysql
 
 ## Usage Example
 
@@ -87,14 +78,11 @@ module "pwmanager" {
   app_env                             = var.app_env
   app_name                            = var.app_name
   auth_saml_checkResponseSigning      = var.auth_saml_checkResponseSigning
-  auth_saml_entityId                  = var.auth_saml_entityId
   auth_saml_idpCertificate            = var.auth_saml_idpCertificate
   auth_saml_requireEncryptedAssertion = var.auth_saml_requireEncryptedAssertion
   auth_saml_signRequest               = var.auth_saml_signRequest
-  auth_saml_sloUrl                    = var.auth_saml_sloUrl
   auth_saml_spCertificate             = var.auth_saml_spCertificate
   auth_saml_spPrivateKey              = var.auth_saml_spPrivateKey
-  auth_saml_ssoUrl                    = var.auth_saml_ssoUrl
   cloudflare_domain                   = var.cloudflare_domain
   cloudwatch_log_group_name           = var.cloudwatch_log_group_name
   code_length                         = var.code_length
@@ -104,10 +92,6 @@ module "pwmanager" {
   docker_image                        = data.terraform_remote_state.ecr.ecr_repo_pwapi
   ecs_cluster_id                      = data.terraform_remote_state.core.ecs_cluster_id
   ecsServiceRole_arn                  = data.terraform_remote_state.core.ecsServiceRole_arn
-  email_service_accessToken           = data.terraform_remote_state.email.access_token_pwmanager
-  email_service_assertValidIp         = var.email_service_assertValidIp
-  email_service_baseUrl               = "https://${data.terraform_remote_state.email.hostname}"
-  email_service_validIpRanges         = data.terraform_remote_state.cluster.private_subnet_cidr_blocks
   email_signature                     = data.terraform_remote_state.broker.email_signature
   extra_hosts                         = var.extra_hosts
   help_center_url                     = data.terraform_remote_state.broker.help_center_url

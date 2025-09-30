@@ -20,22 +20,12 @@ This module is used to create an ECS service running id-broker.
  - `desired_count` - Desired count of tasks running in ECS service
  - `ecs_cluster_id` - ID for ECS Cluster
  - `ecsServiceRole_arn` - ARN for ECS Service Role
- - `email_service_accessToken` - Access token for Email Service API
- - `email_service_baseUrl` - Base URL (e.g. 'https://email.example.com') to Email Service API
- - `email_service_validIpRanges` - List of valid IP address ranges for Email Service API
  - `help_center_url` - URL to password manager help center
  - `idp_name` - Short name of IdP for use in logs and email alerts
  - `internal_alb_dns_name` - DNS name for the IdP-in-a-Box's internal Application Load Balancer (Note 1)
  - `internal_alb_listener_arn` - ARN for the IdP-in-a-Box's internal ALB's listener (Note 2)
  - `mfa_totp_apibaseurl` - Base URL to TOTP api
- - `mfa_totp_apikey` - API key for TOTP api
- - `mfa_totp_apisecret` - API secret for TOTP api
  - `mfa_webauthn_apibaseurl` - Base URL for WebAuthn api
- - `mfa_webauthn_apikey` - API key for WebAuthn api
- - `mfa_webauthn_apisecret` - API secret for WebAuthn api
- - `mfa_webauthn_appid` - AppID for WebAuthn api
- - `mfa_webauthn_rpdisplayname` - Relying Party Display Name
- - `mfa_webauthn_rpid` - Relying Party ID 
  - `rp_origins` - CSV list of allowed Relying Party Origins
  - `mysql_host` - Address for RDS instance
  - `mysql_pass` - MySQL password for id-broker
@@ -54,7 +44,6 @@ Note 2: `internal_alb_listener_arn` can be omitted if `alb_listener_arn` is prov
  - `abandoned_user_abandoned_period` - Time a user record can remain abandoned before HR is notified. Default: `+6 months`
  - `abandoned_user_best_practice_url` - URL for best practices, referenced in notification email. Default: (none)
  - `abandoned_user_deactivate_instructions_url` - URL for instruction on how to deactivate user accounts, referenced in notification email. Default: (none)
- - `appconfig_app_id` - DEPRECATED - AppConfig application ID created by AWS. This cannot be the application name. Use with `appconfig_env_id`.
  - `contingent_user_duration` - How long before a new user without a primary email address expires. Default: `+4 weeks`
  - `cpu` - Amount of CPU (AWS CPU units, 1000 = 1 cpu) to allocate to primary container. Default: `250`
  - `cpu_cron` - How much CPU (AWS CPU units, 1000 = 1 cpu) to allocate to cron service. Default: `128`
@@ -66,7 +55,6 @@ Note 2: `internal_alb_listener_arn` can be omitted if `alb_listener_arn` is prov
  - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
  - `email_signature` - Signature for use in emails. Default is empty string
  - `enable_email_service` - Enable the email service, replacing the separate email-service module.  Required for idp-id-broker version 8.0.0 or higher. Default: `false`
- - `appconfig_env_id` - DEPRECATED - AppConfig environment ID created by AWS. This cannot be the environment name. Use with `appconfig_app_id`.
  - `event_schedule` - Task run schedule. Default: `cron(0 0 * * ? *)`
  - `from_email` - Email address provided on the FROM header of email notifications. Required for idp-id-broker version 8.0.0 or higher. Default: `""`
  - `from_name` - Email address provided on the FROM header of email notifications. Default: `""`
@@ -145,7 +133,6 @@ Note 2: `internal_alb_listener_arn` can be omitted if `alb_listener_arn` is prov
 ## Outputs
 
  - `hostname` - The url to id-broker
- - `db_idbroker_user` - ID Broker MySQL username
  - `access_token_pwmanager` - Access token for PW Manager to use in API calls to id-broker
  - `access_token_ssp` - Access token for simpleSAMLphp to use in API calls to id-broker
  - `access_token_idsync` - Access token for id-sync to use in API calls to id-broker
@@ -172,10 +159,6 @@ module "broker" {
   email_repeat_delay_days          = var.email_repeat_delay_days
   ecs_cluster_id                   = data.terraform_remote_state.core.ecs_cluster_id
   ecsServiceRole_arn               = data.terraform_remote_state.core.ecsServiceRole_arn
-  email_service_accessToken        = data.terraform_remote_state.email.access_token_idbroker
-  email_service_assertValidIp      = var.email_service_assertValidIp
-  email_service_baseUrl            = "https://${data.terraform_remote_state.email.hostname}"
-  email_service_validIpRanges      = data.terraform_remote_state.cluster.private_subnet_cidr_blocks
   email_signature                  = var.email_signature
   event_schedule                   = "cron(1 0 * * ? 0)"
   ga_api_secret                    = var.ga_api_secret
@@ -205,19 +188,14 @@ module "broker" {
   method_lifetime                  = var.method_lifetime
   method_maxAttempts               = var.method_maxAttempts
   mfa_allow_disable                = var.mfa_allow_disable
+  mfa_apikey                       = var.mfa_totp_apikey
+  mfa_apisecret                    = var.mfa_totp_apisecret
   mfa_lifetime                     = var.mfa_lifetime
   mfa_manager_bcc                  = var.mfa_manager_bcc
   mfa_manager_help_bcc             = var.mfa_manager_help_bcc
   mfa_required_for_new_users       = var.mfa_required_for_new_users
   mfa_totp_apibaseurl              = var.mfa_totp_apibaseurl
-  mfa_totp_apikey                  = var.mfa_totp_apikey
-  mfa_totp_apisecret               = var.mfa_totp_apisecret
   mfa_webauthn_apibaseurl          = var.mfa_webauthn_apibaseurl
-  mfa_webauthn_apikey              = var.mfa_webauthn_apikey
-  mfa_webauthn_apisecret           = var.mfa_webauthn_apisecret
-  mfa_webauthn_appid               = var.mfa_webauthn_appid
-  mfa_webauthn_rpdisplayname       = var.mfa_webauthn_rpdisplayname
-  mfa_webauthn_rpid                = var.mfa_webauthn_rpid
   rp_origins                       = var.rp_origins
   minimum_backup_codes_before_nag  = var.minimum_backup_codes_before_nag
   mysql_host                       = data.terraform_remote_state.database.rds_address

@@ -9,10 +9,6 @@ module "sync" {
   cpu                          = ""
   docker_image                 = ""
   ecs_cluster_id               = ""
-  email_service_accessToken    = ""
-  email_service_assertValidIp  = ""
-  email_service_baseUrl        = ""
-  email_service_validIpRanges  = [""]
   enable_new_user_notification = ""
   enable_sync                  = true
   event_schedule               = ""

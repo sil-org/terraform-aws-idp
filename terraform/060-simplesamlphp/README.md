@@ -52,10 +52,8 @@ This module is used to create an ECS service running simpleSAMLphp.
  - `show_saml_errors` - Whether or not to show saml errors. Default: `false`
  - `theme_color_scheme` - The color scheme to use for SSP. Default: `'indigo-purple'`
 
-## Outputs
+## Output
 
- - `hostname` - URL to SSP
- - `db_ssp_user` - MySQL Username
  - `admin_pass` - SSP Admin password
 
 ## Usage Example

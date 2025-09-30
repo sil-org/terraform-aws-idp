@@ -25,42 +25,6 @@ variable "docker_image" {
   type = string
 }
 
-variable "email_service_accessToken" {
-  description = <<EOT
-    Access Token for Email Service API
-    DEPRECATED: This will be removed in the next major version. Use the email service integrated in id-broker.
-  EOT
-  type        = string
-  default     = ""
-}
-
-variable "email_service_assertValidIp" {
-  description = <<EOT
-    Whether or not to assert IP address for Email Service API is trusted
-    DEPRECATED: This will be removed in the next major version. Use the email service integrated in id-broker.
-  EOT
-  type        = string
-  default     = "true"
-}
-
-variable "email_service_baseUrl" {
-  description = <<EOT
-    Base URL to Email Service API
-    DEPRECATED: This will be removed in the next major version. Use the email service integrated in id-broker.
-  EOT
-  type        = string
-  default     = ""
-}
-
-variable "email_service_validIpRanges" {
-  description = <<EOT
-    List of valid IP ranges to Email Service API
-    DEPRECATED: This will be removed in the next major version. Use the email service integrated in id-broker.
-  EOT
-  type        = list(string)
-  default     = []
-}
-
 variable "id_broker_access_token" {
   type = string
 }
@@ -162,26 +126,4 @@ variable "heartbeat_method" {
   description = "Optional: configure the http method of a monitoring service to call after every successful sync"
   type        = string
   default     = ""
-}
-
-variable "appconfig_app_id" {
-  description = "DEPRECATED: use SSM parameters like \"/idp-{idp_name}/MFA_API_SECRET\""
-  type        = string
-  default     = ""
-}
-
-variable "appconfig_env_id" {
-  description = "DEPRECATED: use SSM parameters like \"/idp-{idp_name}/MFA_API_SECRET\""
-  type        = string
-  default     = ""
-}
-
-variable "use_broker_email_service" {
-  description = <<EOT
-    Use the email service capability bundled in id-broker instead of the separate email-service service. Requires
-    idp-id-broker version 8.1.0 or later.
-    NOTICE: this will default to true in the next major version.
-  EOT
-  type        = string
-  default     = "false"
 }

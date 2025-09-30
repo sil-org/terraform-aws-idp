@@ -12,9 +12,6 @@ store.
  - `app_env` - Application environment
  - `cloudwatch_log_group_name` - CloudWatch log group name
  - `docker_image` - URL to Docker image
- - `email_service_accessToken` - Access token for Email Service API
- - `email_service_baseUrl` - Base URL (e.g. 'https://email.example.com') to Email Service API
- - `email_service_validIpRanges` - List of valid IP address ranges for Email Service API
  - `id_broker_access_token` - Access token for calling id-broker
  - `id_broker_adapter` - Which ID Sync adapter to use
  - `id_broker_base_url` - Base URL to id-broker API
@@ -55,10 +52,6 @@ module "idsync" {
   alb_https_listener_arn      = data.terraform_remote_state.cluster.alb_https_listener_arn
   cloudwatch_log_group_name   = var.cloudwatch_log_group_name
   docker_image                = data.terraform_remote_state.ecr.ecr_repo_idsync
-  email_service_accessToken   = data.terraform_remote_state.email.access_token_idsync
-  email_service_assertValidIp = var.email_service_assertValidIp
-  email_service_baseUrl       = "https://${data.terraform_remote_state.email.hostname}"
-  email_service_validIpRanges = data.terraform_remote_state.cluster.private_subnet_cidr_blocks
   id_broker_access_token      = data.terraform_remote_state.broker.access_token_idsync
   id_broker_adapter           = var.id_broker_adapter
   id_broker_assertValidIp     = var.id_broker_assertValidIp

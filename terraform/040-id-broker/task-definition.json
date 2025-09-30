@@ -21,20 +21,8 @@
     "dockerSecurityOptions": null,
     "environment": [
       {
-        "name": "APP_ID",
-        "value": "${appconfig_app_id}"
-      },
-      {
         "name": "AWS_REGION",
         "value": "${aws_region}"
-      },
-      {
-        "name": "ENV_ID",
-        "value": "${appconfig_env_id}"
-      },
-      {
-        "name": "CONFIG_ID",
-        "value": "${appconfig_config_id}"
       },
       {
         "name": "ABANDONED_USER_abandonedPeriod",
@@ -71,22 +59,6 @@
       {
         "name": "EMAIL_REPEAT_DELAY_DAYS",
         "value": "${email_repeat_delay_days}"
-      },
-      {
-        "name": "EMAIL_SERVICE_accessToken",
-        "value": "${email_service_accessToken}"
-      },
-      {
-        "name": "EMAIL_SERVICE_assertValidIp",
-        "value": "${email_service_assertValidIp}"
-      },
-      {
-        "name": "EMAIL_SERVICE_baseUrl",
-        "value": "${email_service_baseUrl}"
-      },
-      {
-        "name": "EMAIL_SERVICE_validIpRanges",
-        "value": "${email_service_validIpRanges}"
       },
       {
         "name": "EMAIL_SIGNATURE",
@@ -222,36 +194,8 @@
         "value": "${mfa_totp_apibaseurl}"
       },
       {
-        "name": "MFA_TOTP_apiKey",
-        "value": "${mfa_totp_apikey}"
-      },
-      {
-        "name": "MFA_TOTP_apiSecret",
-        "value": "${mfa_totp_apisecret}"
-      },
-      {
         "name": "MFA_WEBAUTHN_apiBaseUrl",
         "value": "${mfa_webauthn_apibaseurl}"
-      },
-      {
-        "name": "MFA_WEBAUTHN_apiKey",
-        "value": "${mfa_webauthn_apikey}"
-      },
-      {
-        "name": "MFA_WEBAUTHN_apiSecret",
-        "value": "${mfa_webauthn_apisecret}"
-      },
-      {
-        "name": "MFA_WEBAUTHN_appId",
-        "value": "${mfa_webauthn_appid}"
-      },
-      {
-        "name": "MFA_WEBAUTHN_rpDisplayName",
-        "value": "${mfa_webauthn_rpdisplayname}"
-      },
-      {
-        "name": "MFA_WEBAUTHN_rpId",
-        "value": "${mfa_webauthn_rpid}"
       },
       {
         "name": "RP_ORIGINS",
