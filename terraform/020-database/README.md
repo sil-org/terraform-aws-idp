@@ -1,5 +1,10 @@
 # 020-database - Create database and users needed for all services
 
+# Deprecation notice
+
+This module will be removed in the next major version. Use the aws_db_instance resource itself, along with any
+password generation you prefer.
+
 ## What this does
 
  - Create RDS instance named after `db_name`

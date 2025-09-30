@@ -31,6 +31,7 @@ variable "email_service_accessToken" {
     DEPRECATED: This will be removed in the next major version. Use the email service integrated in id-broker.
   EOT
   type        = string
+  default     = ""
 }
 
 variable "email_service_assertValidIp" {
@@ -48,6 +49,7 @@ variable "email_service_baseUrl" {
     DEPRECATED: This will be removed in the next major version. Use the email service integrated in id-broker.
   EOT
   type        = string
+  default     = ""
 }
 
 variable "email_service_validIpRanges" {
@@ -56,6 +58,7 @@ variable "email_service_validIpRanges" {
     DEPRECATED: This will be removed in the next major version. Use the email service integrated in id-broker.
   EOT
   type        = list(string)
+  default     = []
 }
 
 variable "id_broker_access_token" {
@@ -162,13 +165,13 @@ variable "heartbeat_method" {
 }
 
 variable "appconfig_app_id" {
-  description = "DEPRECATED"
+  description = "DEPRECATED: use SSM parameters like \"/idp-{idp_name}/MFA_API_SECRET\""
   type        = string
   default     = ""
 }
 
 variable "appconfig_env_id" {
-  description = "DEPRECATED"
+  description = "DEPRECATED: use SSM parameters like \"/idp-{idp_name}/MFA_API_SECRET\""
   type        = string
   default     = ""
 }

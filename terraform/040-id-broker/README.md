@@ -54,7 +54,7 @@ Note 2: `internal_alb_listener_arn` can be omitted if `alb_listener_arn` is prov
  - `abandoned_user_abandoned_period` - Time a user record can remain abandoned before HR is notified. Default: `+6 months`
  - `abandoned_user_best_practice_url` - URL for best practices, referenced in notification email. Default: (none)
  - `abandoned_user_deactivate_instructions_url` - URL for instruction on how to deactivate user accounts, referenced in notification email. Default: (none)
- - `appconfig_app_id` - AppConfig application ID created by AWS. This cannot be the application name. Use with `appconfig_env_id`.
+ - `appconfig_app_id` - DEPRECATED - AppConfig application ID created by AWS. This cannot be the application name. Use with `appconfig_env_id`.
  - `contingent_user_duration` - How long before a new user without a primary email address expires. Default: `+4 weeks`
  - `cpu` - Amount of CPU (AWS CPU units, 1000 = 1 cpu) to allocate to primary container. Default: `250`
  - `cpu_cron` - How much CPU (AWS CPU units, 1000 = 1 cpu) to allocate to cron service. Default: `128`
@@ -66,7 +66,7 @@ Note 2: `internal_alb_listener_arn` can be omitted if `alb_listener_arn` is prov
  - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
  - `email_signature` - Signature for use in emails. Default is empty string
  - `enable_email_service` - Enable the email service, replacing the separate email-service module.  Required for idp-id-broker version 8.0.0 or higher. Default: `false`
- - `appconfig_env_id` - AppConfig environment ID created by AWS. This cannot be the environment name. Use with `appconfig_app_id`.
+ - `appconfig_env_id` - DEPRECATED - AppConfig environment ID created by AWS. This cannot be the environment name. Use with `appconfig_app_id`.
  - `event_schedule` - Task run schedule. Default: `cron(0 0 * * ? *)`
  - `from_email` - Email address provided on the FROM header of email notifications. Required for idp-id-broker version 8.0.0 or higher. Default: `""`
  - `from_name` - Email address provided on the FROM header of email notifications. Default: `""`

@@ -8,7 +8,8 @@ output "public_dns_value" {
 }
 
 output "db_idbroker_user" {
-  value = var.mysql_user
+  description = "DEPRECATED: may be removed in the next major version."
+  value       = var.mysql_user
 }
 
 output "access_token_pwmanager" {

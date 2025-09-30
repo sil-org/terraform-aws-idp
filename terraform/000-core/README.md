@@ -3,12 +3,17 @@ This module is used to create an ECS cluster along with the necessary
 IAM roles to function. It can also optionally create an ACM certificate
 used by later workspaces for HTTPS with the ALB.
 
+# Deprecation notice
+
+This module will be removed in the next major version. Incorporate the necessary resources directly in the root
+module. The `github.com/silinternational/terraform-modules//aws/ecs/cluster` module can be used for the ECS cluster.
+
 ## What this does
 
  - Create ECS cluster named after `app_name` and `app_env`
  - Create IAM roles and policies for ECS services and instances
  - Optionally create and validate an ACM certificate using DNS
- - Optionally manage AppConfig application and environment
+ - DEPRECATED: Optionally manage AppConfig application and environment
 
 ## Required Inputs
 
@@ -20,7 +25,7 @@ used by later workspaces for HTTPS with the ALB.
  - `create_acm_cert` - Set to true if an ACM certificate is needed. Default: `false`
  - `create_cd_user` - Set to false if an IAM user for continuous deployment is not needed. Default: `true`
  - `app_env` - The abbreviated version of the environment used for naming resources, typically either stg or prod. Default: 'prod'
- - `appconfig_app_name` - The application name in AppConfig. If not specified, no AppConfig resources will be created."
+ - `appconfig_app_name` - DEPRECATED - The application name in AppConfig. If not specified, no AppConfig resources will be created."
 
 ## Outputs
 

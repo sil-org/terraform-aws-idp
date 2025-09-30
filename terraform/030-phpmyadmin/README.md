@@ -2,6 +2,10 @@
 This module is used to create an ECS service running phpmyadmin. It is used temporarily for db and account creation
 for individual services
 
+# Deprecation notice
+
+This service will be removed in the next major version. Use the silinternational/phpmyadmin/aws module instead.
+
 ## What this does
 
  - Create target group for ALB to route based on hostname
