@@ -38,6 +38,7 @@ ssl certificate, core application load balancer, and a CloudWatch log group
 ## Outputs
 
  - `db_subnet_group_name` - Database subnet group name
+ - `nat_gateway_ip` - IP Address of the NAT gateway
  - `private_subnet_ids` - List of private subnet ids in VPC
  - `private_subnet_cidr_blocks` - A list of private subnet CIDR blocks, ex: `["10.0.11.0/24","10.0.22.0/24"]`
  - `public_subnet_ids` - List of public subnet ids in VPC
