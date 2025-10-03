@@ -22,20 +22,8 @@
     "dockerSecurityOptions": null,
     "environment": [
       {
-        "name": "APP_ID",
-        "value": "${appconfig_app_id}"
-      },
-      {
         "name": "AWS_REGION",
         "value": "${aws_region}"
-      },
-      {
-        "name": "ENV_ID",
-        "value": "${appconfig_env_id}"
-      },
-      {
-        "name": "CONFIG_ID",
-        "value": "${appconfig_config_id}"
       },
       {
         "name": "ACCESS_TOKEN_HASH_KEY",
@@ -92,22 +80,6 @@
       {
         "name": "CODE_LENGTH",
         "value": "${code_length}"
-      },
-      {
-        "name": "EMAIL_SERVICE_baseUrl",
-        "value": "${email_service_baseUrl}"
-      },
-      {
-        "name": "EMAIL_SERVICE_accessToken",
-        "value": "${email_service_accessToken}"
-      },
-      {
-        "name": "EMAIL_SERVICE_assertValidIp",
-        "value": "${email_service_assertValidIp}"
-      },
-      {
-        "name": "EMAIL_SERVICE_validIpRanges",
-        "value": "${email_service_validIpRanges}"
       },
       {
         "name": "EMAIL_SIGNATURE",

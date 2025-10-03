@@ -104,30 +104,6 @@ variable "email_brand_logo" {
   default     = ""
 }
 
-variable "email_service_accessToken" {
-  description = "DEPRECATED: Access Token for Email Service API"
-  type        = string
-  default     = ""
-}
-
-variable "email_service_assertValidIp" {
-  description = "DEPRECATED: Whether or not to assert IP address for Email Service API is trusted"
-  type        = string
-  default     = "true"
-}
-
-variable "email_service_baseUrl" {
-  description = "DEPRECATED: Base URL to Email Service API"
-  type        = string
-  default     = ""
-}
-
-variable "email_service_validIpRanges" {
-  description = "DEPRECATED: List of valid IP ranges to Email Service API"
-  type        = list(string)
-  default     = []
-}
-
 variable "email_signature" {
   type    = string
   default = ""
@@ -338,10 +314,7 @@ variable "mfa_allow_disable" {
 }
 
 variable "mfa_api_base_url" {
-  description = <<-EOT
-    The base URL of the MFA API. Must include the scheme and a trailing slash. Replaces `mfa_totp_apibaseurl` and
-    `mfa_webauthn_apibaseurl`.
-  EOT
+  description = "The base URL of the MFA API. Must include the scheme and a trailing slash."
   type        = string
   default     = ""
 }
@@ -364,60 +337,6 @@ variable "mfa_manager_help_bcc" {
 variable "mfa_required_for_new_users" {
   type    = string
   default = "false"
-}
-
-variable "mfa_totp_apibaseurl" {
-  description = "DEPRECATED: use `mfa_api_base_url`"
-  type        = string
-  default     = ""
-}
-
-variable "mfa_totp_apikey" {
-  description = "API Key for TOTP service. DEPRECATED: use Parameter Store"
-  type        = string
-  default     = ""
-}
-
-variable "mfa_totp_apisecret" {
-  description = "API Key for TOTP service. DEPRECATED: use Parameter Store"
-  type        = string
-  default     = ""
-}
-
-variable "mfa_webauthn_apibaseurl" {
-  description = "DEPRECATED: use `mfa_api_base_url`"
-  type        = string
-  default     = ""
-}
-
-variable "mfa_webauthn_apikey" {
-  description = "API Key for Webauthn service. DEPRECATED: use Parameter Store"
-  type        = string
-  default     = ""
-}
-
-variable "mfa_webauthn_apisecret" {
-  description = "API Key for Webauthn service. DEPRECATED: use Parameter Store"
-  type        = string
-  default     = ""
-}
-
-variable "mfa_webauthn_appid" {
-  description = "App ID for legacy FIDO support. DEPRECATED: The value of `password_profile_url` + \"/app-id.json\" will be used if omitted."
-  type        = string
-  default     = ""
-}
-
-variable "mfa_webauthn_rpdisplayname" {
-  description = "Webauthn Relying Party Display Name. DEPRECATED: The value of `idp_display_name` will be used instead."
-  type        = string
-  default     = ""
-}
-
-variable "mfa_webauthn_rpid" {
-  description = "Webauthn Relying Party ID. DEPRECATED: The value of cloudflare_domain will be used instead."
-  type        = string
-  default     = ""
 }
 
 variable "rp_origins" {
@@ -672,30 +591,6 @@ variable "support_name" {
 
 variable "vpc_id" {
   type = string
-}
-
-variable "app_id" {
-  description = "DEPRECATED: use SSM parameters like \"/idp-{idp_name}/MFA_API_SECRET\""
-  type        = string
-  default     = ""
-}
-
-variable "appconfig_app_id" {
-  description = "DEPRECATED: use SSM parameters like \"/idp-{idp_name}/MFA_API_SECRET\""
-  type        = string
-  default     = ""
-}
-
-variable "env_id" {
-  description = "DEPRECATED: use SSM parameters like \"/idp-{idp_name}/MFA_API_SECRET\""
-  type        = string
-  default     = ""
-}
-
-variable "appconfig_env_id" {
-  description = "DEPRECATED: use SSM parameters like \"/idp-{idp_name}/MFA_API_SECRET\""
-  type        = string
-  default     = ""
 }
 
 variable "create_dns_record" {

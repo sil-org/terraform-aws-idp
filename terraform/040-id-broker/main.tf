@@ -1,10 +1,6 @@
 locals {
   aws_account          = data.aws_caller_identity.this.account_id
   aws_region           = data.aws_region.current.name
-  config_id_or_null    = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
-  appconfig_config_id  = local.config_id_or_null == null ? "" : local.config_id_or_null
-  appconfig_app_id     = var.appconfig_app_id == "" ? var.app_id : var.appconfig_app_id
-  appconfig_env_id     = var.appconfig_env_id == "" ? var.env_id : var.appconfig_env_id
   parameter_store_path = "/idp-${var.idp_name}/"
 }
 
@@ -110,9 +106,6 @@ locals {
 
   task_def = templatefile("${path.module}/task-definition.json", local.task_def_vars)
   task_def_vars = {
-    appconfig_app_id                           = local.appconfig_app_id
-    appconfig_env_id                           = local.appconfig_env_id
-    appconfig_config_id                        = local.appconfig_config_id
     api_access_keys                            = local.api_access_keys
     abandoned_user_abandoned_period            = var.abandoned_user_abandoned_period
     abandoned_user_best_practice_url           = var.abandoned_user_best_practice_url
@@ -130,10 +123,6 @@ locals {
     email_brand_color                          = var.email_brand_color
     email_brand_logo                           = var.email_brand_logo
     email_repeat_delay_days                    = var.email_repeat_delay_days
-    email_service_accessToken                  = var.email_service_accessToken
-    email_service_assertValidIp                = var.email_service_assertValidIp
-    email_service_baseUrl                      = var.email_service_baseUrl
-    email_service_validIpRanges                = join(",", var.email_service_validIpRanges)
     email_signature                            = var.email_signature
     from_email                                 = var.from_email
     from_name                                  = var.from_name
@@ -168,15 +157,8 @@ locals {
     mfa_manager_bcc                            = var.mfa_manager_bcc
     mfa_manager_help_bcc                       = var.mfa_manager_help_bcc
     mfa_required_for_new_users                 = var.mfa_required_for_new_users
-    mfa_totp_apibaseurl                        = coalesce(var.mfa_api_base_url, var.mfa_totp_apibaseurl)
-    mfa_totp_apikey                            = var.mfa_totp_apikey
-    mfa_totp_apisecret                         = var.mfa_totp_apisecret
-    mfa_webauthn_apibaseurl                    = coalesce(var.mfa_api_base_url, var.mfa_webauthn_apibaseurl)
-    mfa_webauthn_apikey                        = var.mfa_webauthn_apikey
-    mfa_webauthn_apisecret                     = var.mfa_webauthn_apisecret
-    mfa_webauthn_appid                         = var.mfa_webauthn_appid
-    mfa_webauthn_rpdisplayname                 = var.mfa_webauthn_rpdisplayname
-    mfa_webauthn_rpid                          = coalesce(var.mfa_webauthn_rpid, var.cloudflare_domain)
+    mfa_totp_apibaseurl                        = var.mfa_api_base_url
+    mfa_webauthn_apibaseurl                    = var.mfa_api_base_url
     rp_origins                                 = var.rp_origins
     minimum_backup_codes_before_nag            = var.minimum_backup_codes_before_nag
     mysql_host                                 = var.mysql_host
@@ -350,28 +332,6 @@ moved {
   to   = module.ecs_role
 }
 
-resource "aws_iam_role_policy" "this" {
-  count = local.appconfig_app_id == "" ? 0 : 1
-
-  name = "appconfig"
-  role = module.ecs_role.role_name
-  policy = jsonencode(
-    {
-      Version = "2012-10-17"
-      Statement = [
-        {
-          Sid    = "AppConfig"
-          Effect = "Allow"
-          Action = [
-            "appconfig:GetLatestConfiguration",
-            "appconfig:StartConfigurationSession",
-          ]
-          Resource = "arn:aws:appconfig:${local.aws_region}:${local.aws_account}:application/${local.appconfig_app_id}/environment/${local.appconfig_env_id}/configuration/${local.appconfig_config_id}"
-        }
-      ]
-  })
-}
-
 resource "aws_iam_role_policy" "parameter_store" {
   name = "parameter-store"
   role = module.ecs_role.role_name
@@ -439,17 +399,6 @@ resource "aws_iam_policy" "cd" {
       },
     ]
   })
-}
-
-/*
- * Create AppConfig configuration profile
- */
-resource "aws_appconfig_configuration_profile" "this" {
-  count = local.appconfig_app_id == "" ? 0 : 1
-
-  application_id = local.appconfig_app_id
-  name           = "${var.app_name}-${var.app_env}"
-  location_uri   = "hosted"
 }
 
 /*

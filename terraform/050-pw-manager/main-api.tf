@@ -2,8 +2,6 @@ locals {
   aws_account          = data.aws_caller_identity.this.account_id
   aws_region           = data.aws_region.current.name
   ui_hostname          = "${var.ui_subdomain}.${var.cloudflare_domain}"
-  config_id_or_null    = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
-  appconfig_config_id  = local.config_id_or_null == null ? "" : local.config_id_or_null
   parameter_store_path = "/idp-${var.idp_name}/"
 }
 
@@ -61,23 +59,8 @@ resource "random_id" "access_token_hash" {
  */
 locals {
   api_subdomain_with_region = "${var.api_subdomain}-${local.aws_region}"
-  email_service_accessToken = (
-    var.use_broker_email_service ? var.id_broker_access_token : var.email_service_accessToken
-  )
-  email_service_assertValidIp = (
-    var.use_broker_email_service ? var.id_broker_assertValidBrokerIp : var.email_service_assertValidIp
-  )
-  email_service_baseUrl = (
-    var.use_broker_email_service ? var.id_broker_base_uri : var.email_service_baseUrl
-  )
-  email_service_validIpRanges = (
-    var.use_broker_email_service ? join(",", var.id_broker_validIpRanges) : join(",", var.email_service_validIpRanges)
-  )
 
   task_def = templatefile("${path.module}/task-definition-api.json", {
-    appconfig_app_id                    = var.appconfig_app_id
-    appconfig_env_id                    = var.appconfig_env_id
-    appconfig_config_id                 = local.appconfig_config_id
     access_token_hash                   = random_id.access_token_hash.hex
     alerts_email                        = var.alerts_email
     alerts_email_enabled                = var.alerts_email_enabled
@@ -87,23 +70,19 @@ locals {
     aws_region                          = local.aws_region
     cloudwatch_log_group_name           = var.cloudwatch_log_group_name
     auth_saml_checkResponseSigning      = var.auth_saml_checkResponseSigning
-    auth_saml_entityId                  = coalesce(var.auth_saml_entityId, "${var.api_subdomain}.${var.cloudflare_domain}")
+    auth_saml_entityId                  = "${var.api_subdomain}.${var.cloudflare_domain}"
     auth_saml_idpCertificate            = var.auth_saml_idpCertificate
     auth_saml_requireEncryptedAssertion = var.auth_saml_requireEncryptedAssertion
     auth_saml_signRequest               = var.auth_saml_signRequest
-    auth_saml_sloUrl                    = coalesce(var.auth_saml_sloUrl, "${var.auth_saml_idp_url}/saml2/idp/SingleLogoutService.php")
+    auth_saml_sloUrl                    = "${var.auth_saml_idp_url}/saml2/idp/SingleLogoutService.php"
     auth_saml_spCertificate             = var.auth_saml_spCertificate
     auth_saml_spPrivateKey              = var.auth_saml_spPrivateKey
-    auth_saml_ssoUrl                    = coalesce(var.auth_saml_ssoUrl, "${var.auth_saml_idp_url}/saml2/idp/SSOService.php")
+    auth_saml_ssoUrl                    = "${var.auth_saml_idp_url}/saml2/idp/SSOService.php"
     cmd                                 = "/data/run.sh"
     code_length                         = var.code_length
     cpu                                 = var.cpu
     db_name                             = var.db_name
     docker_image                        = var.docker_image
-    email_service_accessToken           = local.email_service_accessToken
-    email_service_assertValidIp         = local.email_service_assertValidIp
-    email_service_baseUrl               = local.email_service_baseUrl
-    email_service_validIpRanges         = local.email_service_validIpRanges
     email_signature                     = var.email_signature
     extra_hosts                         = var.extra_hosts
     help_center_url                     = var.help_center_url
@@ -190,28 +169,6 @@ moved {
   to   = module.ecs_role
 }
 
-resource "aws_iam_role_policy" "this" {
-  count = var.appconfig_app_id == "" ? 0 : 1
-
-  name = "appconfig"
-  role = module.ecs_role.role_name
-  policy = jsonencode(
-    {
-      Version = "2012-10-17"
-      Statement = [
-        {
-          Sid    = "AppConfig"
-          Effect = "Allow"
-          Action = [
-            "appconfig:GetLatestConfiguration",
-            "appconfig:StartConfigurationSession",
-          ]
-          Resource = "arn:aws:appconfig:${local.aws_region}:${local.aws_account}:application/${var.appconfig_app_id}/environment/${var.appconfig_env_id}/configuration/${local.appconfig_config_id}"
-        }
-      ]
-  })
-}
-
 resource "aws_iam_role_policy" "parameter_store" {
   name = "parameter-store"
   role = module.ecs_role.role_name
@@ -260,18 +217,6 @@ resource "aws_iam_policy" "cd" {
       },
     ]
   })
-}
-
-
-/*
- * Create AppConfig configuration profile
- */
-resource "aws_appconfig_configuration_profile" "this" {
-  count = var.appconfig_app_id == "" ? 0 : 1
-
-  application_id = var.appconfig_app_id
-  name           = "${var.app_name}-${var.app_env}"
-  location_uri   = "hosted"
 }
 
 /*

@@ -1,8 +1,6 @@
 locals {
   aws_account          = data.aws_caller_identity.this.account_id
   aws_region           = data.aws_region.current.name
-  config_id_or_null    = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
-  appconfig_config_id  = local.config_id_or_null == null ? "" : local.config_id_or_null
   parameter_store_path = "/idp-${var.idp_name}/"
 
   /*
@@ -15,32 +13,12 @@ locals {
     })]
   )
 
-  email_service_accessToken = (
-    var.use_broker_email_service ? var.id_broker_access_token : var.email_service_accessToken
-  )
-  email_service_assertValidIp = (
-    var.use_broker_email_service ? var.id_broker_assertValidIp : var.email_service_assertValidIp
-  )
-  email_service_baseUrl = (
-    var.use_broker_email_service ? var.id_broker_base_url : var.email_service_baseUrl
-  )
-  email_service_validIpRanges = (
-    var.use_broker_email_service ? join(",", var.id_broker_trustedIpRanges) : join(",", var.email_service_validIpRanges)
-  )
-
   task_def = templatefile("${path.module}/task-definition.json", {
-    appconfig_app_id             = var.appconfig_app_id
-    appconfig_env_id             = var.appconfig_env_id
-    appconfig_config_id          = local.appconfig_config_id
     app_env                      = var.app_env
     app_name                     = var.app_name
     aws_region                   = local.aws_region
     cloudwatch_log_group_name    = var.cloudwatch_log_group_name
     docker_image                 = var.docker_image
-    email_service_accessToken    = local.email_service_accessToken
-    email_service_assertValidIp  = local.email_service_assertValidIp
-    email_service_baseUrl        = local.email_service_baseUrl
-    email_service_validIpRanges  = local.email_service_validIpRanges
     id_broker_access_token       = var.id_broker_access_token
     id_broker_adapter            = var.id_broker_adapter
     id_broker_assertValidIp      = var.id_broker_assertValidIp
@@ -104,28 +82,6 @@ moved {
   to   = module.ecs_role
 }
 
-resource "aws_iam_role_policy" "this" {
-  count = var.appconfig_app_id == "" ? 0 : 1
-
-  name = "appconfig"
-  role = module.ecs_role.role_name
-  policy = jsonencode(
-    {
-      Version = "2012-10-17"
-      Statement = [
-        {
-          Sid    = "AppConfig"
-          Effect = "Allow"
-          Action = [
-            "appconfig:GetLatestConfiguration",
-            "appconfig:StartConfigurationSession",
-          ]
-          Resource = "arn:aws:appconfig:${local.aws_region}:${local.aws_account}:application/${var.appconfig_app_id}/environment/${var.appconfig_env_id}/configuration/${local.appconfig_config_id}"
-        }
-      ]
-  })
-}
-
 resource "aws_iam_role_policy" "parameter_store" {
   name = "parameter-store"
   role = module.ecs_role.role_name
@@ -141,19 +97,6 @@ resource "aws_iam_role_policy" "parameter_store" {
     }]
   })
 }
-
-
-/*
- * Create AppConfig configuration profile
- */
-resource "aws_appconfig_configuration_profile" "this" {
-  count = var.appconfig_app_id == "" ? 0 : 1
-
-  application_id = var.appconfig_app_id
-  name           = "${var.app_name}-${var.app_env}"
-  location_uri   = "hosted"
-}
-
 
 /*
  * AWS data

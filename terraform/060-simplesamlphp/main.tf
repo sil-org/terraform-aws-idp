@@ -1,8 +1,6 @@
 locals {
   aws_account          = data.aws_caller_identity.this.account_id
   aws_region           = data.aws_region.current.name
-  config_id_or_null    = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
-  appconfig_config_id  = local.config_id_or_null == null ? "" : local.config_id_or_null
   parameter_store_path = "/idp-${var.idp_name}/"
 }
 
@@ -67,9 +65,6 @@ locals {
   secret_salt = var.secret_salt == "" ? random_id.secretsalt.hex : var.secret_salt
 
   task_def = templatefile("${path.module}/task-definition.json", {
-    appconfig_app_id            = var.appconfig_app_id
-    appconfig_env_id            = var.appconfig_env_id
-    appconfig_config_id         = local.appconfig_config_id
     memory                      = var.memory
     cpu                         = var.cpu
     admin_email                 = var.admin_email
@@ -166,28 +161,6 @@ moved {
   to   = module.ecs_role
 }
 
-resource "aws_iam_role_policy" "this" {
-  count = var.appconfig_app_id == "" ? 0 : 1
-
-  name = "appconfig"
-  role = module.ecs_role.role_name
-  policy = jsonencode(
-    {
-      Version = "2012-10-17"
-      Statement = [
-        {
-          Sid    = "AppConfig"
-          Effect = "Allow"
-          Action = [
-            "appconfig:GetLatestConfiguration",
-            "appconfig:StartConfigurationSession",
-          ]
-          Resource = "arn:aws:appconfig:${local.aws_region}:${local.aws_account}:application/${var.appconfig_app_id}/environment/${var.appconfig_env_id}/configuration/${local.appconfig_config_id}"
-        }
-      ]
-  })
-}
-
 resource "aws_iam_role_policy" "parameter_store" {
   name = "parameter-store"
   role = module.ecs_role.role_name
@@ -237,18 +210,6 @@ resource "aws_iam_policy" "cd" {
     ]
   })
 }
-
-/*
- * Create AppConfig configuration profile
- */
-resource "aws_appconfig_configuration_profile" "this" {
-  count = var.appconfig_app_id == "" ? 0 : 1
-
-  application_id = var.appconfig_app_id
-  name           = "${var.app_name}-${var.app_env}"
-  location_uri   = "hosted"
-}
-
 
 /*
  * AWS data

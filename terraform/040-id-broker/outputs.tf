@@ -7,11 +7,6 @@ output "public_dns_value" {
   value       = cloudflare_record.brokerdns.hostname
 }
 
-output "db_idbroker_user" {
-  description = "DEPRECATED: may be removed in the next major version."
-  value       = var.mysql_user
-}
-
 output "access_token_pwmanager" {
   value = var.output_alternate_tokens ? random_id.access_token_pwmanager_b.hex : random_id.access_token_pwmanager.hex
 }

@@ -23,7 +23,6 @@ This module is used to run mysqldump and backup files to S3
  - `app_name` - Application name
  - `backup_user_name` - Name of IAM user for S3 access. Default: `db-backup-${var.idp_name}-${var.app_env}`
  - `cpu` - CPU resources to allot to each task instance
- - `cron_schedule` - Schedule for CRON execution. DEPRECATED: use event_schedule`
  - `event_schedule` - Schedule for backup task execution. Default: `cron(0 2 * * ? *)`
  - `delete_recovery_point_after_days` - Number of days after which AWS Backup recovery points are deleted. Default: 100
  - `db_names` - List of database names to backup. Default: `["emailservice", "idbroker", "pwmanager", "ssp"]`
@@ -33,13 +32,6 @@ This module is used to run mysqldump and backup files to S3
  - `aws_backup_schedule` - Schedule for AWS Backup. Default: `"0 14 * * ? *"`
  - `aws_backup_notification_events` - List of events names to send to SNS. Default: `["BACKUP_JOB_FAILED"]`
  - `backup_sns_email` - Email address for backup event SNS subscription. Default: `""` (disabled)
-
-## Outputs
-
- - `cron_schedule` - Schedule for CRON execution. DEPRECATED
- - `event_schedule` - Schedule for CRON execution
- - `s3_bucket_name` - S3 Bucket name
- - `s3_bucket_arn` - S3 Bucket ARN
 
 ## Usage Example
 
