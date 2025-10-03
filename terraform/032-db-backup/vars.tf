@@ -31,7 +31,6 @@ variable "db_names" {
   type = list(string)
 
   default = [
-    "emailservice",
     "idbroker",
     "pwmanager",
     "ssp",
