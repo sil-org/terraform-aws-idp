@@ -5,6 +5,14 @@ output "db_subnet_group_name" {
   value = module.vpc.db_subnet_group_name
 }
 
+output "nat_gateway_ip" {
+  description = <<-EOT
+    IP Address of the NAT gateway. Used to configure the firewall of any external service that uses
+    IP-based filtering and needs to be reached by the IdP.
+  EOT
+  value       = module.vpc.nat_gateway_ip
+}
+
 output "private_subnet_ids" {
   value = module.vpc.private_subnet_ids
 }
