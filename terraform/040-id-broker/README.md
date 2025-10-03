@@ -188,8 +188,6 @@ module "broker" {
   method_lifetime                  = var.method_lifetime
   method_maxAttempts               = var.method_maxAttempts
   mfa_allow_disable                = var.mfa_allow_disable
-  mfa_apikey                       = var.mfa_totp_apikey
-  mfa_apisecret                    = var.mfa_totp_apisecret
   mfa_lifetime                     = var.mfa_lifetime
   mfa_manager_bcc                  = var.mfa_manager_bcc
   mfa_manager_help_bcc             = var.mfa_manager_help_bcc
