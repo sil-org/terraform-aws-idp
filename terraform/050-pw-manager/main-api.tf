@@ -106,7 +106,6 @@ locals {
     recaptcha_site_key                  = var.recaptcha_key
     sentry_dsn                          = var.sentry_dsn
     support_email                       = var.support_email
-    support_feedback                    = var.support_feedback
     support_name                        = var.support_name
     support_phone                       = var.support_phone
     support_url                         = var.support_url

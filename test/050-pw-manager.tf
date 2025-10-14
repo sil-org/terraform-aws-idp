@@ -43,7 +43,6 @@ module "pw" {
   recaptcha_key                       = ""
   recaptcha_secret                    = ""
   support_email                       = ""
-  support_feedback                    = ""
   support_name                        = ""
   support_phone                       = ""
   support_url                         = ""

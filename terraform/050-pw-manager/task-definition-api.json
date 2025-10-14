@@ -174,10 +174,6 @@
         "value": "${support_email}"
       },
       {
-        "name": "SUPPORT_FEEDBACK",
-        "value": "${support_feedback}"
-      },
-      {
         "name": "SUPPORT_NAME",
         "value": "${support_name}"
       },

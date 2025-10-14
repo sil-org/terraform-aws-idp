@@ -59,7 +59,6 @@ The password manager UI can be deployed using the [silinternatonal/pages/cloudfl
  - `password_rule_minlength` - Minimum password length. Default: `"10"`
  - `password_rule_minscore` - Minimum password score. Default: `"3"`
  - `sentry_dsn` - Sentry DSN for error logging and alerting. Obtain from Sentry dashboard: Settings - Projects - (project) - Client Keys
- - `support_feedback` - Email address for end user feedback, displayed on PW UI.
  - `support_phone` - Phone number for end user support, displayed on PW UI.
  - `support_url` - URL for end user support, displayed on PW UI.
 
@@ -113,7 +112,6 @@ module "pwmanager" {
   recaptcha_secret                    = var.recaptcha_secret
   source                              = "github.com/silinternational/idp-in-a-box//terraform/050-pw-manager"
   support_email                       = data.terraform_remote_state.broker.support_email
-  support_feedback                    = var.support_feedback
   support_name                        = data.terraform_remote_state.broker.support_name
   support_phone                       = var.support_phone
   support_url                         = var.support_url

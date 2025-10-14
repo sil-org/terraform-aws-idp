@@ -126,9 +126,6 @@ locals {
     email_signature                            = var.email_signature
     from_email                                 = var.from_email
     from_name                                  = var.from_name
-    ga_api_secret                              = var.ga_api_secret
-    ga_client_id                               = var.ga_client_id
-    ga_measurement_id                          = var.ga_measurement_id
     google_config                              = local.google_vars
     help_center_url                            = var.help_center_url
     hibp_check_interval                        = var.hibp_check_interval

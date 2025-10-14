@@ -155,7 +155,6 @@ services:
       SUPPORT_EMAIL: helpdesk@example.org
       SUPPORT_NAME: Help Desk
       SUPPORT_URL:
-      SUPPORT_FEEDBACK:
       ZXCVBN_API_BASEURL: http://zxcvbn:3000
       ACCESS_TOKEN_HASH_KEY: nice long random string here
       ALERTS_EMAIL: admin@domain.com
