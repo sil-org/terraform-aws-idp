@@ -163,19 +163,19 @@ variable "from_name" {
 }
 
 variable "ga_api_secret" {
-  description = "The Google Analytics API secret for the data stream (e.g. aB-abcdef7890123456789)"
+  description = "DEPRECATED: The Google Analytics API secret for the data stream (e.g. aB-abcdef7890123456789)"
   type        = string
   default     = ""
 }
 
 variable "ga_client_id" {
-  description = "Used by Google Analytics to distinguish the user."
+  description = "DEPRECATED: Used by Google Analytics to distinguish the user."
   type        = string
   default     = ""
 }
 
 variable "ga_measurement_id" {
-  description = "The Google Analytics data stream id (e.g. G-ABCDE67890)"
+  description = "DEPRECATED: The Google Analytics data stream id (e.g. G-ABCDE67890)"
   type        = string
   default     = ""
 }
