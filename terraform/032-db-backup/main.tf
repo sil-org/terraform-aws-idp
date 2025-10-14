@@ -171,7 +171,7 @@ module "s3_to_b2_sync" {
   source  = "silinternational/sync-s3-to-b2/aws"
   version = "~> 0.1.1"
 
-  app_name              = var.app_name
+  app_name              = "${var.idp_name}-${var.app_name}"
   app_env               = substr(var.app_env, 0, 4)
   s3_bucket_name        = aws_s3_bucket.backup.bucket
   s3_path               = ""
