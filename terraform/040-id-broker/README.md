@@ -58,9 +58,6 @@ Note 2: `internal_alb_listener_arn` can be omitted if `alb_listener_arn` is prov
  - `event_schedule` - Task run schedule. Default: `cron(0 0 * * ? *)`
  - `from_email` - Email address provided on the FROM header of email notifications. Required for idp-id-broker version 8.0.0 or higher. Default: `""`
  - `from_name` - Email address provided on the FROM header of email notifications. Default: `""`
- - `ga_api_secret` - The Google Analytics API secret for the data stream (e.g. aB-abcdef7890123456789)
- - `ga_client_id` - Used by Google Analytics to distinguish the user (e.g. IDP-<the idp name>-ID-BROKER)
- - `ga_measurement_id` - The Google Analytics data stream id (e.g. G-ABCDE67890)
  - `google_config` - A JSON object containing Google properties for Sheets export
  - `hibp_check_interval` - How often should HIBP be checked during login. Default `+1 week`
  - `hibp_check_on_login` - Whether to check HIBP during login. Default `true` 
@@ -161,9 +158,6 @@ module "broker" {
   ecsServiceRole_arn               = data.terraform_remote_state.core.ecsServiceRole_arn
   email_signature                  = var.email_signature
   event_schedule                   = "cron(1 0 * * ? 0)"
-  ga_api_secret                    = var.ga_api_secret
-  ga_client_id                     = var.ga_client_id
-  ga_measurement_id                = var.ga_measurement_id
   google_config                    = var.google_config
   help_center_url                  = var.help_center_url
   hibp_check_interval              = var.hibp_check_interval

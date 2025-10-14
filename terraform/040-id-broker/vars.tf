@@ -138,24 +138,6 @@ variable "from_name" {
   default     = ""
 }
 
-variable "ga_api_secret" {
-  description = "The Google Analytics API secret for the data stream (e.g. aB-abcdef7890123456789)"
-  type        = string
-  default     = ""
-}
-
-variable "ga_client_id" {
-  description = "Used by Google Analytics to distinguish the user."
-  type        = string
-  default     = ""
-}
-
-variable "ga_measurement_id" {
-  description = "The Google Analytics data stream id (e.g. G-ABCDE67890)"
-  type        = string
-  default     = ""
-}
-
 variable "google_config" {
   description = "A map of Google properties for Sheets export"
   type        = map(string)

@@ -19,9 +19,6 @@ module "broker" {
   email_repeat_delay_days                    = ""
   email_signature                            = ""
   event_schedule                             = ""
-  ga_api_secret                              = ""
-  ga_client_id                               = ""
-  ga_measurement_id                          = ""
   google_config                              = { a = "b" }
   help_center_url                            = ""
   hibp_check_interval                        = ""
