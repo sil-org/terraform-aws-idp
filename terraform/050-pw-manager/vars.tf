@@ -281,8 +281,9 @@ variable "support_email" {
 }
 
 variable "support_feedback" {
-  description = "Email address for end user feedback, displayed on PW UI"
+  description = "DEPRECATED: Email address for end user feedback, displayed on PW UI"
   type        = string
+  default     = ""
 }
 
 variable "support_name" {
