@@ -43,21 +43,21 @@ variable "contingent_user_duration" {
 }
 
 variable "cpu" {
-  type        = string
+  type        = number
   description = "Amount of CPU to allocate to container, recommend '250' for production"
-  default     = "250"
+  default     = 250
 }
 
 variable "cpu_cron" {
-  type        = string
+  type        = number
   description = "Amount of CPU to allocate to cron container, recommend '128' for production"
-  default     = "128"
+  default     = 128
 }
 
 variable "cpu_email" {
-  type        = string
+  type        = number
   description = "Amount of CPU to allocate to email container"
-  default     = "64"
+  default     = 64
 }
 
 variable "db_name" {
@@ -65,8 +65,8 @@ variable "db_name" {
 }
 
 variable "desired_count" {
-  type    = string
-  default = "1"
+  type    = number
+  default = 1
 }
 
 variable "docker_image" {
@@ -82,8 +82,8 @@ variable "ecsServiceRole_arn" {
 }
 
 variable "email_repeat_delay_days" {
-  type    = string
-  default = "31"
+  type    = number
+  default = 31
 }
 
 variable "email_brand_color" {
@@ -223,8 +223,8 @@ variable "internal_alb_listener_arn" {
 }
 
 variable "invite_email_delay_seconds" {
-  type    = string
-  default = "0"
+  type    = number
+  default = 0
 }
 
 variable "invite_grace_period" {
@@ -238,26 +238,26 @@ variable "invite_lifespan" {
 }
 
 variable "lost_security_key_email_days" {
-  type    = string
-  default = "62"
+  type    = number
+  default = 62
 }
 
 variable "memory" {
-  type        = string
+  type        = number
   description = "Amount of memory to allocate to container, recommend '200' for production"
-  default     = "200"
+  default     = 200
 }
 
 variable "memory_cron" {
-  type        = string
+  type        = number
   description = "Amount of memory to allocate to cron container, recommend '200' for more than 500 active users"
-  default     = "200"
+  default     = 200
 }
 
 variable "memory_email" {
-  type        = string
+  type        = number
   description = "Amount of memory to allocate to email container"
-  default     = "64"
+  default     = 64
 }
 
 variable "method_add_interval" {
@@ -266,8 +266,8 @@ variable "method_add_interval" {
 }
 
 variable "method_codeLength" {
-  type    = string
-  default = "6"
+  type    = number
+  default = 6
 }
 
 variable "method_gracePeriod" {
@@ -281,8 +281,8 @@ variable "method_lifetime" {
 }
 
 variable "method_maxAttempts" {
-  type    = string
-  default = "10"
+  type    = number
+  default = 10
 }
 
 variable "mfa_add_interval" {
@@ -326,8 +326,8 @@ variable "rp_origins" {
 }
 
 variable "minimum_backup_codes_before_nag" {
-  type    = string
-  default = "4"
+  type    = number
+  default = 4
 }
 
 variable "mysql_host" {
@@ -367,8 +367,8 @@ variable "password_profile_url" {
 }
 
 variable "password_reuse_limit" {
-  type    = string
-  default = "10"
+  type    = number
+  default = 10
 }
 
 variable "profile_review_interval" {

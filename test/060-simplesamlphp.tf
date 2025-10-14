@@ -10,10 +10,10 @@ module "ssp" {
   app_name                    = ""
   cloudflare_domain           = ""
   cloudwatch_log_group_name   = ""
-  cpu                         = ""
+  cpu                         = 1
   create_dns_record           = true
   db_name                     = ""
-  desired_count               = ""
+  desired_count               = 1
   docker_image                = ""
   ecsServiceRole_arn          = ""
   ecs_cluster_id              = ""
@@ -26,7 +26,7 @@ module "ssp" {
   id_broker_trusted_ip_ranges = [""]
   idp_name                    = ""
   logging_level               = ""
-  memory                      = ""
+  memory                      = 1
   mfa_learn_more_url          = ""
   mfa_setup_url               = ""
   mysql_host                  = ""

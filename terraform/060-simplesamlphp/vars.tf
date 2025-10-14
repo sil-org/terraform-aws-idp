@@ -5,13 +5,13 @@ variable "secret_salt" {
 }
 
 variable "memory" {
-  type    = string
-  default = "96"
+  type    = number
+  default = 96
 }
 
 variable "cpu" {
-  type    = string
-  default = "150"
+  type    = number
+  default = 150
 }
 
 variable "app_name" {
@@ -159,8 +159,8 @@ variable "trusted_ip_addresses" {
 }
 
 variable "desired_count" {
-  type    = string
-  default = "1"
+  type    = number
+  default = 1
 }
 
 variable "analytics_id" {

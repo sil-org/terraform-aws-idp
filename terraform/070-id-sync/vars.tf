@@ -1,11 +1,11 @@
 variable "memory" {
-  type    = string
-  default = "200"
+  type    = number
+  default = 200
 }
 
 variable "cpu" {
-  type    = string
-  default = "200"
+  type    = number
+  default = 200
 }
 
 variable "app_name" {
@@ -84,8 +84,8 @@ variable "alerts_email" {
 }
 
 variable "sync_safety_cutoff" {
-  type    = string
-  default = "0.15"
+  type    = number
+  default = 0.15
 }
 
 variable "allow_empty_email" {

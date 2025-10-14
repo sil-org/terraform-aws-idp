@@ -6,7 +6,7 @@ module "sync" {
   app_env                      = ""
   app_name                     = ""
   cloudwatch_log_group_name    = ""
-  cpu                          = ""
+  cpu                          = 1
   docker_image                 = ""
   ecs_cluster_id               = ""
   enable_new_user_notification = ""
@@ -21,7 +21,7 @@ module "sync" {
   id_store_config              = { a = "b" }
   idp_display_name             = ""
   idp_name                     = ""
-  memory                       = ""
+  memory                       = 1
   notifier_email_to            = ""
-  sync_safety_cutoff           = ""
+  sync_safety_cutoff           = 0.9
 }

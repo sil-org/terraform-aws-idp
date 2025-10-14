@@ -84,14 +84,14 @@ variable "cloudwatch_log_group_name" {
 
 variable "code_length" {
   description = "Number of digits in reset code."
-  type        = string
-  default     = "6"
+  type        = number
+  default     = 6
 }
 
 variable "cpu" {
-  type        = string
+  type        = number
   description = "Amount of CPU to allocate to container, recommend '250' for production"
-  default     = "64"
+  default     = 64
 }
 
 variable "db_name" {
@@ -99,8 +99,8 @@ variable "db_name" {
 }
 
 variable "desired_count" {
-  type    = string
-  default = "1"
+  type    = number
+  default = 1
 }
 
 variable "docker_image" {
@@ -161,8 +161,8 @@ variable "idp_name" {
 
 variable "memory" {
   description = "Amount of memory to allocate to container, recommend '128' for production"
-  type        = string
-  default     = "100"
+  type        = number
+  default     = 100
 }
 
 variable "mysql_host" {
@@ -191,20 +191,20 @@ variable "password_rule_enablehibp" {
 
 variable "password_rule_maxlength" {
   description = "maximum password length"
-  type        = string
-  default     = "255"
+  type        = number
+  default     = 255
 }
 
 variable "password_rule_minlength" {
   description = "minimum password length"
-  type        = string
-  default     = "10"
+  type        = number
+  default     = 10
 }
 
 variable "password_rule_minscore" {
   description = "minimum password score"
-  type        = string
-  default     = "3"
+  type        = number
+  default     = 3
 }
 
 variable "recaptcha_key" {

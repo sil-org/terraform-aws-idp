@@ -17,8 +17,8 @@ variable "cloudwatch_log_group_name" {
 }
 
 variable "cpu" {
-  type    = string
-  default = "32"
+  type    = number
+  default = 32
 }
 
 variable "db_names" {
@@ -50,8 +50,8 @@ variable "idp_name" {
 }
 
 variable "memory" {
-  type    = string
-  default = "32"
+  type    = number
+  default = 32
 }
 
 variable "mysql_host" {

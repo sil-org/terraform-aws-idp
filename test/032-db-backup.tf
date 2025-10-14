@@ -5,13 +5,13 @@ module "backup" {
   app_name                         = ""
   backup_user_name                 = ""
   cloudwatch_log_group_name        = ""
-  cpu                              = ""
+  cpu                              = 1
   event_schedule                   = ""
   db_names                         = [""]
   docker_image                     = ""
   ecs_cluster_id                   = ""
   idp_name                         = ""
-  memory                           = ""
+  memory                           = 1
   mysql_host                       = ""
   mysql_pass                       = ""
   mysql_user                       = ""
