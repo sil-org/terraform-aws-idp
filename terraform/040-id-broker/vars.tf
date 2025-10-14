@@ -154,8 +154,8 @@ variable "hibp_check_interval" {
 }
 
 variable "hibp_check_on_login" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "hibp_grace_period" {
@@ -164,8 +164,8 @@ variable "hibp_grace_period" {
 }
 
 variable "hibp_tracking_only" {
-  type    = string
-  default = "false"
+  type    = bool
+  default = false
 }
 
 variable "hibp_notification_bcc" {
@@ -194,8 +194,8 @@ variable "inactive_user_period" {
 }
 
 variable "inactive_user_deletion_enable" {
-  type    = string
-  default = "false"
+  type    = bool
+  default = false
 }
 
 variable "alb_dns_name" {
@@ -291,8 +291,8 @@ variable "mfa_add_interval" {
 }
 
 variable "mfa_allow_disable" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "mfa_api_base_url" {
@@ -317,8 +317,8 @@ variable "mfa_manager_help_bcc" {
 }
 
 variable "mfa_required_for_new_users" {
-  type    = string
-  default = "false"
+  type    = bool
+  default = false
 }
 
 variable "rp_origins" {
@@ -382,78 +382,78 @@ variable "run_task" {
 }
 
 variable "send_get_backup_codes_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_invite_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_lost_security_key_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_method_purged_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_method_reminder_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_mfa_disabled_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_mfa_enabled_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_mfa_option_added_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_mfa_option_removed_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_mfa_rate_limit_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_password_changed_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_password_expired_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_password_expiring_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_refresh_backup_codes_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_welcome_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "sentry_dsn" {

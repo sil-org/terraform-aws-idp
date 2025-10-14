@@ -36,8 +36,8 @@ variable "id_broker_adapter" {
 
 variable "id_broker_assertValidIp" {
   description = "Whether or not to assert IP address for ID Broker API is trusted"
-  type        = string
-  default     = "true"
+  type        = bool
+  default     = true
 }
 
 variable "id_broker_base_url" {
@@ -89,13 +89,13 @@ variable "sync_safety_cutoff" {
 }
 
 variable "allow_empty_email" {
-  type    = string
-  default = "false"
+  type    = bool
+  default = false
 }
 
 variable "enable_new_user_notification" {
-  type    = string
-  default = "false"
+  type    = bool
+  default = false
 }
 
 variable "enable_sync" {

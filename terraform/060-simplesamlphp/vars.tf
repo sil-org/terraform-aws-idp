@@ -48,8 +48,8 @@ variable "docker_image" {
 }
 
 variable "enable_debug" {
-  type    = string
-  default = "false"
+  type    = bool
+  default = false
 }
 
 variable "password_change_url" {
@@ -61,8 +61,8 @@ variable "password_forgot_url" {
 }
 
 variable "hub_mode" {
-  type    = string
-  default = "false"
+  type    = bool
+  default = false
 }
 
 variable "id_broker_access_token" {
@@ -70,8 +70,8 @@ variable "id_broker_access_token" {
 }
 
 variable "id_broker_assert_valid_ip" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "id_broker_base_uri" {
@@ -145,8 +145,8 @@ variable "idp_name" {
 }
 
 variable "show_saml_errors" {
-  type    = string
-  default = "false"
+  type    = bool
+  default = false
 }
 
 variable "theme_color_scheme" {

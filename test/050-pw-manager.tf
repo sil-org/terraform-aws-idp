@@ -7,10 +7,10 @@ module "pw" {
   api_subdomain                       = ""
   app_env                             = ""
   app_name                            = ""
-  auth_saml_checkResponseSigning      = ""
+  auth_saml_checkResponseSigning      = true
   auth_saml_idpCertificate            = ""
-  auth_saml_requireEncryptedAssertion = ""
-  auth_saml_signRequest               = ""
+  auth_saml_requireEncryptedAssertion = true
+  auth_saml_signRequest               = true
   auth_saml_spCertificate             = ""
   auth_saml_spPrivateKey              = ""
   cloudflare_domain                   = ""
@@ -27,7 +27,7 @@ module "pw" {
   extra_hosts                         = ""
   help_center_url                     = ""
   id_broker_access_token              = ""
-  id_broker_assertValidBrokerIp       = ""
+  id_broker_assertValidBrokerIp       = true
   id_broker_base_uri                  = ""
   id_broker_validIpRanges             = [""]
   idp_display_name                    = ""
@@ -36,7 +36,7 @@ module "pw" {
   mysql_host                          = ""
   mysql_pass                          = ""
   mysql_user                          = ""
-  password_rule_enablehibp            = ""
+  password_rule_enablehibp            = true
   password_rule_maxlength             = 1
   password_rule_minlength             = 1
   password_rule_minscore              = 1

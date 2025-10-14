@@ -13,9 +13,9 @@ variable "alerts_email" {
 }
 
 variable "alerts_email_enabled" {
-  description = "Set to true to disable email alerts. Must be a string for insertion into task definition."
-  type        = string
-  default     = "true"
+  description = "Set to true to disable email alerts."
+  type        = bool
+  default     = true
 }
 
 variable "api_subdomain" {
@@ -33,8 +33,8 @@ variable "app_name" {
 }
 
 variable "auth_saml_checkResponseSigning" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "auth_saml_idp_url" {
@@ -49,14 +49,14 @@ variable "auth_saml_idpCertificate" {
 }
 
 variable "auth_saml_requireEncryptedAssertion" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "auth_saml_signRequest" {
   description = "Whether or not to sign auth requests"
-  type        = string
-  default     = "true"
+  type        = bool
+  default     = true
 }
 
 variable "auth_saml_spCertificate" {
@@ -136,8 +136,8 @@ variable "id_broker_access_token" {
 
 variable "id_broker_assertValidBrokerIp" {
   description = "Whether or not to assert IP address for ID Broker API is trusted"
-  type        = string
-  default     = "true"
+  type        = bool
+  default     = true
 }
 
 variable "id_broker_base_uri" {
@@ -179,14 +179,14 @@ variable "mysql_user" {
 
 variable "password_rule_alpha_and_numeric" {
   description = "require alpha and numeric characters in password, use \"false\" or \"true\" strings"
-  type        = string
-  default     = "false"
+  type        = bool
+  default     = false
 }
 
 variable "password_rule_enablehibp" {
   description = "enable haveibeenpwned.com password check"
-  type        = string
-  default     = "true"
+  type        = bool
+  default     = true
 }
 
 variable "password_rule_maxlength" {

@@ -17,11 +17,11 @@ module "ssp" {
   docker_image                = ""
   ecsServiceRole_arn          = ""
   ecs_cluster_id              = ""
-  enable_debug                = ""
+  enable_debug                = true
   help_center_url             = ""
-  hub_mode                    = ""
+  hub_mode                    = true
   id_broker_access_token      = ""
-  id_broker_assert_valid_ip   = ""
+  id_broker_assert_valid_ip   = true
   id_broker_base_uri          = ""
   id_broker_trusted_ip_ranges = [""]
   idp_name                    = ""
@@ -39,7 +39,7 @@ module "ssp" {
   recaptcha_secret            = ""
   remember_me_secret          = ""
   secret_salt                 = ""
-  show_saml_errors            = ""
+  show_saml_errors            = true
   subdomain                   = ""
   theme_color_scheme          = ""
   trusted_ip_addresses        = [""]
