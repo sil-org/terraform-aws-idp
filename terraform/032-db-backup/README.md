@@ -1,11 +1,13 @@
-# 032-db-backup - Database backup service
-This module is used to run mysqldump and backup files to S3
+# Terraform module for a database backup service
+
+This module is used to run mysqldump and backup files to S3 and optionally synchronized to Backblaze B2.
 
 ## What this does
 
  - Create an S3 bucket to store backups
  - Create a AWS backup user for script to use
  - Create task definition and scheduled event for db-backup
+ - OPTIONAL: Synchronize the S3 backup to Backblaze B2
 
 ## Required Inputs
 

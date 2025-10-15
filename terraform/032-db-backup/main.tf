@@ -42,7 +42,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "backup" {
     id     = "delete-old-versions"
     status = "Enabled"
 
-    // empty filter includes all files
+    # empty filter applies to all objects in the bucket
     filter {}
 
     noncurrent_version_expiration {

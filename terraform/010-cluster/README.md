@@ -1,5 +1,6 @@
-# 010-cluster - Cluster setup
-This module is used to setup the cluster with VPC, security groups, auto-scaling group,
+# Terraform module for IdP Cluster
+
+This module is used to set up the cluster with VPC, security groups, auto-scaling group,
 ssl certificate, core application load balancer, and a CloudWatch log group
 
 ## What this does

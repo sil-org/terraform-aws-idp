@@ -1,37 +1,48 @@
 variable "memory" {
-  type    = number
-  default = 200
+  description = <<-EOT
+    Amount of memory, specified in MB, to allocate to container. This value is used for the "memory" and
+    "memoryReservation" container definition parameters.
+  EOT
+  type        = number
+  default     = 200
 }
 
 variable "cpu" {
-  type    = number
-  default = 200
+  description = "CPU allocation for the container. Specified in AWS CPU units: 1000 is one CPU"
+  type        = number
+  default     = 200
 }
 
 variable "app_name" {
-  type    = string
-  default = "id-sync"
+  description = "Application name"
+  type        = string
+  default     = "id-sync"
 }
 
 variable "app_env" {
-  type = string
+  description = "Application environment"
+  type        = string
 }
 
 variable "cloudwatch_log_group_name" {
-  type = string
+  description = "CloudWatch log group name"
+  type        = string
 }
 
 variable "docker_image" {
-  type = string
+  description = "URL to Docker image"
+  type        = string
 }
 
 variable "id_broker_access_token" {
-  type = string
+  description = "Access token for calling id-broker"
+  type        = string
 }
 
 variable "id_broker_adapter" {
-  type    = string
-  default = "idp"
+  description = "Which ID Sync adapter to use"
+  type        = string
+  default     = "idp"
 }
 
 variable "id_broker_assertValidIp" {
@@ -41,7 +52,8 @@ variable "id_broker_assertValidIp" {
 }
 
 variable "id_broker_base_url" {
-  type = string
+  description = "Base URL to id-broker API"
+  type        = string
 }
 
 variable "id_broker_trustedIpRanges" {
@@ -50,80 +62,93 @@ variable "id_broker_trustedIpRanges" {
 }
 
 variable "id_store_adapter" {
-  type = string
+  description = "Which ID Store adapter to use"
+  type        = string
 }
 
 variable "id_store_config" {
+  description = "A map of configuration data to pass into id-sync as env vars prefixed with `ID_STORE_CONFIG_`"
   type        = map(string)
-  description = "A map of configuration data to pass into id-sync as env vars"
 }
 
 variable "idp_name" {
-  type = string
+  description = "Short name of IdP for use in logs and email alerts"
+  type        = string
 }
 
 variable "idp_display_name" {
-  default = ""
-  type    = string
+  description = "Friendly name for IdP"
+  type        = string
+  default     = ""
 }
 
 variable "ecs_cluster_id" {
-  type = string
+  description = "ID for ECS Cluster"
+  type        = string
 }
 
 variable "notifier_email_to" {
-  default     = ""
+  description = "Email address for Human Resources (HR) notification messages"
   type        = string
-  description = "email address for Human Resources (HR) notification messages"
+  default     = ""
 }
 
 variable "alerts_email" {
-  default     = ""
+  description = "Email address for exception messages"
   type        = string
-  description = "email address for exception messages"
+  default     = ""
 }
 
 variable "sync_safety_cutoff" {
-  type    = number
-  default = 0.15
+  description = "The percentage of records allowed to be changed during a sync, provided as a float, ex: `0.2` for `20%`"
+  type        = number
+  default     = 0.15
 }
 
 variable "allow_empty_email" {
-  type    = bool
-  default = false
+  description = "Whether to allow the primary email property to be empty."
+  type        = bool
+  default     = false
 }
 
 variable "enable_new_user_notification" {
-  type    = bool
-  default = false
+  description = "Enable email notification to HR Contact upon creation of a new user, if set to 'true'."
+  type        = bool
+  default     = false
 }
 
 variable "enable_sync" {
-  description = "Set the AWS CloudWatch Event Rule is-enabled flag"
+  description = "Sets the AWS CloudWatch Event Rule state. Set to false to disable the sync process."
   type        = bool
   default     = true
 }
 
 variable "event_schedule" {
-  description = "AWS Cloudwatch schedule for the sync task"
+  description = <<-EOT
+    AWS Cloudwatch schedule for the sync task. Use cron format "cron(Minutes Hours Day-of-month Month Day-of-week Year)"
+    where either `day-of-month` or `day-of-week` must be a question mark, or rate format "rate(15 minutes)".
+  EOT
   type        = string
   default     = "cron(*/15 * * * ? *)"
 }
 
 variable "sentry_dsn" {
-  description = "Sentry DSN for error logging and alerting"
+  description = <<-EOT
+    Sentry DSN for error logging and alerting. Obtain from Sentry dashboard: Settings - Projects - (project) -
+    Client Keys
+  EOT
   type        = string
   default     = ""
 }
 
 variable "heartbeat_url" {
-  description = "Optional: configure the URL of a monitoring service to call after every successful sync"
+  description = "The URL of a monitoring service to call after every successful sync"
   type        = string
   default     = ""
 }
 
 variable "heartbeat_method" {
-  description = "Optional: configure the http method of a monitoring service to call after every successful sync"
+  description = "The http method of a monitoring service to call after every successful sync."
   type        = string
-  default     = ""
+  default     = "POST"
 }

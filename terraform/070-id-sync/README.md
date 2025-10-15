@@ -1,10 +1,11 @@
-# 070-id-sync - ECS service for id-sync
-This module is used to create an ECS service running the id-sync component which syncs identities from a personnel
+# Terraform module for IdP ID Sync ECS scheduled task
+
+This module is used to create an ECS task running the id-sync component which syncs identities from a personnel
 store.
 
 ## What this does
 
- - Create task definition and ECS service
+ - Create task definition and scheduled ECS task
 
 ## Required Inputs
 

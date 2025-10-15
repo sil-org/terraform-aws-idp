@@ -1,10 +1,11 @@
-# 060-simplesamlphp - ECS service for simpleSAMLphp IdP
-This module is used to create an ECS service running simpleSAMLphp.
+# Terraform module for IdP SimpleSAMLphp ECS service
+
+This module is used to create an ECS service running [SimpleSAMLphp](https://simplesamlphp.org).
 
 ## What this does
 
  - Create ALB target group for SSP with hostname based routing
- - Create task definition and ECS service for simpleSAMLphp
+ - Create task definition and ECS service for SimpleSAMLphp
  - Create Cloudflare DNS records for SSP
 
 ## Required Inputs

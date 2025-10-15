@@ -1,4 +1,5 @@
-# 050-pw-manager - ECS service for password manager API and S3 config for UI
+# Terraform module for Password Manager API ECS service
+
 This module is used to create an ECS service running the password manager API.
 
 The password manager UI can be deployed using the [silinternatonal/pages/cloudflare](https://registry.terraform.io/modules/silinternational/pages/cloudflare/latest) module.
