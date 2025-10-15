@@ -90,7 +90,7 @@ variable "code_length" {
 
 variable "cpu" {
   type        = number
-  description = "Amount of CPU to allocate to container, recommend '250' for production"
+  description = "Amount of CPU to allocate to container."
   default     = 64
 }
 
@@ -160,7 +160,7 @@ variable "idp_name" {
 }
 
 variable "memory" {
-  description = "Amount of memory to allocate to container, recommend '128' for production"
+  description = "Amount of memory to allocate to container."
   type        = number
   default     = 100
 }

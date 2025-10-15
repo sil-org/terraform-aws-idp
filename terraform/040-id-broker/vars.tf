@@ -44,13 +44,13 @@ variable "contingent_user_duration" {
 
 variable "cpu" {
   type        = number
-  description = "Amount of CPU to allocate to container, recommend '250' for production"
+  description = "Amount of CPU to allocate to container."
   default     = 250
 }
 
 variable "cpu_cron" {
   type        = number
-  description = "Amount of CPU to allocate to cron container, recommend '128' for production"
+  description = "Amount of CPU to allocate to cron container."
   default     = 128
 }
 
@@ -231,13 +231,13 @@ variable "lost_security_key_email_days" {
 
 variable "memory" {
   type        = number
-  description = "Amount of memory to allocate to container, recommend '200' for production"
+  description = "Amount of memory to allocate to container."
   default     = 200
 }
 
 variable "memory_cron" {
   type        = number
-  description = "Amount of memory to allocate to cron container, recommend '200' for more than 500 active users"
+  description = "Amount of memory to allocate to cron container."
   default     = 200
 }
 
