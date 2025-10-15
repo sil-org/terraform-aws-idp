@@ -93,7 +93,7 @@ resource "aws_iam_user_policy" "backup" {
  * Create ECS service
  */
 locals {
-  task_def_backup = templatefile("${path.module}/task-definition.json", {
+  task_def_backup = templatefile("${path.module}/task-definition.json.tftpl", {
     app_env                   = var.app_env
     app_name                  = var.app_name
     ssl_ca_base64             = var.ssl_ca_base64

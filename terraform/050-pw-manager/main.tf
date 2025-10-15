@@ -60,13 +60,12 @@ resource "random_id" "access_token_hash" {
 locals {
   api_subdomain_with_region = "${var.api_subdomain}-${local.aws_region}"
 
-  task_def = templatefile("${path.module}/task-definition-api.json", {
+  task_def = templatefile("${path.module}/task-definition-api.json.tftpl", {
     access_token_hash                   = random_id.access_token_hash.hex
     alerts_email                        = var.alerts_email
     alerts_email_enabled                = var.alerts_email_enabled
     app_env                             = var.app_env
     app_name                            = var.app_name
-    ssl_ca_base64                       = var.ssl_ca_base64
     aws_region                          = local.aws_region
     cloudwatch_log_group_name           = var.cloudwatch_log_group_name
     auth_saml_checkResponseSigning      = var.auth_saml_checkResponseSigning
@@ -105,6 +104,7 @@ locals {
     recaptcha_secret_key                = var.recaptcha_secret
     recaptcha_site_key                  = var.recaptcha_key
     sentry_dsn                          = var.sentry_dsn
+    ssl_ca_base64                       = var.ssl_ca_base64
     support_email                       = var.support_email
     support_name                        = var.support_name
     support_phone                       = var.support_phone
