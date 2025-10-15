@@ -5,13 +5,15 @@ variable "secret_salt" {
 }
 
 variable "memory" {
-  type    = number
-  default = 96
+  description = "Amount of memory to allocate to container."
+  type        = number
+  default     = 96
 }
 
 variable "cpu" {
-  type    = number
-  default = 150
+  description = "Amount of CPU to allocate to container."
+  type        = number
+  default     = 150
 }
 
 variable "app_name" {
