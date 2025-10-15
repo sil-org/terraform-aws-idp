@@ -43,21 +43,21 @@ variable "contingent_user_duration" {
 }
 
 variable "cpu" {
-  type        = string
-  description = "Amount of CPU to allocate to container, recommend '250' for production"
-  default     = "250"
+  type        = number
+  description = "Amount of CPU to allocate to container."
+  default     = 250
 }
 
 variable "cpu_cron" {
-  type        = string
-  description = "Amount of CPU to allocate to cron container, recommend '128' for production"
-  default     = "128"
+  type        = number
+  description = "Amount of CPU to allocate to cron container."
+  default     = 128
 }
 
 variable "cpu_email" {
-  type        = string
+  type        = number
   description = "Amount of CPU to allocate to email container"
-  default     = "64"
+  default     = 64
 }
 
 variable "db_name" {
@@ -65,8 +65,8 @@ variable "db_name" {
 }
 
 variable "desired_count" {
-  type    = string
-  default = "1"
+  type    = number
+  default = 1
 }
 
 variable "docker_image" {
@@ -82,8 +82,8 @@ variable "ecsServiceRole_arn" {
 }
 
 variable "email_repeat_delay_days" {
-  type    = string
-  default = "31"
+  type    = number
+  default = 31
 }
 
 variable "email_brand_color" {
@@ -109,27 +109,14 @@ variable "email_signature" {
   default = ""
 }
 
-variable "enable_email_service" {
-  description = <<EOT
-    Enable the email service, replacing the separate email-service module.  Required for idp-id-broker
-    version 8.0.0 or higher.
-  EOT
-  type        = bool
-  default     = false
-}
-
 variable "event_schedule" {
   type    = string
   default = "cron(0 0 * * ? *)"
 }
 
 variable "from_email" {
-  description = <<EOT
-    Email address provided on the FROM header of email notifications. Required for idp-id-broker version
-    8.0.0 or higher.
-  EOT
+  description = "Email address provided on the FROM header of email notifications."
   type        = string
-  default     = ""
 }
 
 variable "from_name" {
@@ -154,8 +141,8 @@ variable "hibp_check_interval" {
 }
 
 variable "hibp_check_on_login" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "hibp_grace_period" {
@@ -164,8 +151,8 @@ variable "hibp_grace_period" {
 }
 
 variable "hibp_tracking_only" {
-  type    = string
-  default = "false"
+  type    = bool
+  default = false
 }
 
 variable "hibp_notification_bcc" {
@@ -194,8 +181,8 @@ variable "inactive_user_period" {
 }
 
 variable "inactive_user_deletion_enable" {
-  type    = string
-  default = "false"
+  type    = bool
+  default = false
 }
 
 variable "alb_dns_name" {
@@ -223,8 +210,8 @@ variable "internal_alb_listener_arn" {
 }
 
 variable "invite_email_delay_seconds" {
-  type    = string
-  default = "0"
+  type    = number
+  default = 0
 }
 
 variable "invite_grace_period" {
@@ -238,26 +225,26 @@ variable "invite_lifespan" {
 }
 
 variable "lost_security_key_email_days" {
-  type    = string
-  default = "62"
+  type    = number
+  default = 62
 }
 
 variable "memory" {
-  type        = string
-  description = "Amount of memory to allocate to container, recommend '200' for production"
-  default     = "200"
+  type        = number
+  description = "Amount of memory to allocate to container."
+  default     = 200
 }
 
 variable "memory_cron" {
-  type        = string
-  description = "Amount of memory to allocate to cron container, recommend '200' for more than 500 active users"
-  default     = "200"
+  type        = number
+  description = "Amount of memory to allocate to cron container."
+  default     = 200
 }
 
 variable "memory_email" {
-  type        = string
+  type        = number
   description = "Amount of memory to allocate to email container"
-  default     = "64"
+  default     = 64
 }
 
 variable "method_add_interval" {
@@ -266,8 +253,8 @@ variable "method_add_interval" {
 }
 
 variable "method_codeLength" {
-  type    = string
-  default = "6"
+  type    = number
+  default = 6
 }
 
 variable "method_gracePeriod" {
@@ -281,8 +268,8 @@ variable "method_lifetime" {
 }
 
 variable "method_maxAttempts" {
-  type    = string
-  default = "10"
+  type    = number
+  default = 10
 }
 
 variable "mfa_add_interval" {
@@ -291,8 +278,8 @@ variable "mfa_add_interval" {
 }
 
 variable "mfa_allow_disable" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "mfa_api_base_url" {
@@ -317,8 +304,8 @@ variable "mfa_manager_help_bcc" {
 }
 
 variable "mfa_required_for_new_users" {
-  type    = string
-  default = "false"
+  type    = bool
+  default = false
 }
 
 variable "rp_origins" {
@@ -326,8 +313,8 @@ variable "rp_origins" {
 }
 
 variable "minimum_backup_codes_before_nag" {
-  type    = string
-  default = "4"
+  type    = number
+  default = 4
 }
 
 variable "mysql_host" {
@@ -367,8 +354,8 @@ variable "password_profile_url" {
 }
 
 variable "password_reuse_limit" {
-  type    = string
-  default = "10"
+  type    = number
+  default = 10
 }
 
 variable "profile_review_interval" {
@@ -382,78 +369,78 @@ variable "run_task" {
 }
 
 variable "send_get_backup_codes_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_invite_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_lost_security_key_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_method_purged_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_method_reminder_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_mfa_disabled_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_mfa_enabled_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_mfa_option_added_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_mfa_option_removed_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_mfa_rate_limit_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_password_changed_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_password_expired_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_password_expiring_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_refresh_backup_codes_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "send_welcome_emails" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "sentry_dsn" {

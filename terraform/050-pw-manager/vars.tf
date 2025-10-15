@@ -13,9 +13,9 @@ variable "alerts_email" {
 }
 
 variable "alerts_email_enabled" {
-  description = "Set to true to disable email alerts. Must be a string for insertion into task definition."
-  type        = string
-  default     = "true"
+  description = "Set to true to disable email alerts."
+  type        = bool
+  default     = true
 }
 
 variable "api_subdomain" {
@@ -33,8 +33,8 @@ variable "app_name" {
 }
 
 variable "auth_saml_checkResponseSigning" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "auth_saml_idp_url" {
@@ -49,14 +49,14 @@ variable "auth_saml_idpCertificate" {
 }
 
 variable "auth_saml_requireEncryptedAssertion" {
-  type    = string
-  default = "true"
+  type    = bool
+  default = true
 }
 
 variable "auth_saml_signRequest" {
   description = "Whether or not to sign auth requests"
-  type        = string
-  default     = "true"
+  type        = bool
+  default     = true
 }
 
 variable "auth_saml_spCertificate" {
@@ -84,14 +84,14 @@ variable "cloudwatch_log_group_name" {
 
 variable "code_length" {
   description = "Number of digits in reset code."
-  type        = string
-  default     = "6"
+  type        = number
+  default     = 6
 }
 
 variable "cpu" {
-  type        = string
-  description = "Amount of CPU to allocate to container, recommend '250' for production"
-  default     = "64"
+  type        = number
+  description = "Amount of CPU to allocate to container."
+  default     = 64
 }
 
 variable "db_name" {
@@ -99,8 +99,8 @@ variable "db_name" {
 }
 
 variable "desired_count" {
-  type    = string
-  default = "1"
+  type    = number
+  default = 1
 }
 
 variable "docker_image" {
@@ -136,8 +136,8 @@ variable "id_broker_access_token" {
 
 variable "id_broker_assertValidBrokerIp" {
   description = "Whether or not to assert IP address for ID Broker API is trusted"
-  type        = string
-  default     = "true"
+  type        = bool
+  default     = true
 }
 
 variable "id_broker_base_uri" {
@@ -160,9 +160,9 @@ variable "idp_name" {
 }
 
 variable "memory" {
-  description = "Amount of memory to allocate to container, recommend '128' for production"
-  type        = string
-  default     = "100"
+  description = "Amount of memory to allocate to container."
+  type        = number
+  default     = 100
 }
 
 variable "mysql_host" {
@@ -179,32 +179,32 @@ variable "mysql_user" {
 
 variable "password_rule_alpha_and_numeric" {
   description = "require alpha and numeric characters in password, use \"false\" or \"true\" strings"
-  type        = string
-  default     = "false"
+  type        = bool
+  default     = false
 }
 
 variable "password_rule_enablehibp" {
   description = "enable haveibeenpwned.com password check"
-  type        = string
-  default     = "true"
+  type        = bool
+  default     = true
 }
 
 variable "password_rule_maxlength" {
   description = "maximum password length"
-  type        = string
-  default     = "255"
+  type        = number
+  default     = 255
 }
 
 variable "password_rule_minlength" {
   description = "minimum password length"
-  type        = string
-  default     = "10"
+  type        = number
+  default     = 10
 }
 
 variable "password_rule_minscore" {
   description = "minimum password score"
-  type        = string
-  default     = "3"
+  type        = number
+  default     = 3
 }
 
 variable "recaptcha_key" {

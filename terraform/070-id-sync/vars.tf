@@ -1,11 +1,11 @@
 variable "memory" {
-  type    = string
-  default = "200"
+  type    = number
+  default = 200
 }
 
 variable "cpu" {
-  type    = string
-  default = "200"
+  type    = number
+  default = 200
 }
 
 variable "app_name" {
@@ -36,8 +36,8 @@ variable "id_broker_adapter" {
 
 variable "id_broker_assertValidIp" {
   description = "Whether or not to assert IP address for ID Broker API is trusted"
-  type        = string
-  default     = "true"
+  type        = bool
+  default     = true
 }
 
 variable "id_broker_base_url" {
@@ -84,18 +84,18 @@ variable "alerts_email" {
 }
 
 variable "sync_safety_cutoff" {
-  type    = string
-  default = "0.15"
+  type    = number
+  default = 0.15
 }
 
 variable "allow_empty_email" {
-  type    = string
-  default = "false"
+  type    = bool
+  default = false
 }
 
 variable "enable_new_user_notification" {
-  type    = string
-  default = "false"
+  type    = bool
+  default = false
 }
 
 variable "enable_sync" {
