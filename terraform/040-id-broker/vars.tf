@@ -109,27 +109,14 @@ variable "email_signature" {
   default = ""
 }
 
-variable "enable_email_service" {
-  description = <<EOT
-    Enable the email service, replacing the separate email-service module.  Required for idp-id-broker
-    version 8.0.0 or higher.
-  EOT
-  type        = bool
-  default     = false
-}
-
 variable "event_schedule" {
   type    = string
   default = "cron(0 0 * * ? *)"
 }
 
 variable "from_email" {
-  description = <<EOT
-    Email address provided on the FROM header of email notifications. Required for idp-id-broker version
-    8.0.0 or higher.
-  EOT
+  description = "Email address provided on the FROM header of email notifications."
   type        = string
-  default     = ""
 }
 
 variable "from_name" {

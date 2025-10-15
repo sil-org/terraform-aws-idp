@@ -19,6 +19,7 @@ module "broker" {
   email_repeat_delay_days                    = 1
   email_signature                            = ""
   event_schedule                             = ""
+  from_email                                 = ""
   google_config                              = { a = "b" }
   help_center_url                            = ""
   hibp_check_interval                        = ""

@@ -280,7 +280,7 @@ module "email_service" {
   service_name       = "${var.idp_name}-${var.app_name}-email"
   service_env        = var.app_env
   container_def_json = local.email_task_def
-  desired_count      = var.enable_email_service ? 1 : 0
+  desired_count      = 1
   task_role_arn      = module.ecs_role.role_arn
 }
 
