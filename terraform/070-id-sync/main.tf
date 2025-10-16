@@ -13,7 +13,7 @@ locals {
     })]
   )
 
-  task_def = templatefile("${path.module}/task-definition.json", {
+  task_def = templatefile("${path.module}/task-definition.json.tftpl", {
     app_env                      = var.app_env
     app_name                     = var.app_name
     aws_region                   = local.aws_region

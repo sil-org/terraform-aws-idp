@@ -1,29 +1,36 @@
 variable "app_env" {
-  type = string
+  description = "Application environment, ex: prod, stg, dev, etc."
+  type        = string
 }
 
 variable "app_name" {
-  type    = string
-  default = "db-backup"
+  description = "Application name"
+  type        = string
+  default     = "db-backup"
 }
 
 variable "backup_user_name" {
-  type    = string
-  default = null
+  description = <<-EOT
+    Name of IAM user for S3 access. If not specified: `db-backup-{var.idp_name}-{var.app_env}`
+  EOT
+  type        = string
+  default     = null
 }
 
 variable "cloudwatch_log_group_name" {
-  type = string
+  description = "CloudWatch log group name"
+  type        = string
 }
 
 variable "cpu" {
-  type    = number
-  default = 32
+  description = "CPU resources to allot to each task instance"
+  type        = number
+  default     = 32
 }
 
 variable "db_names" {
-  type = list(string)
-
+  description = "List of database names to back up."
+  type        = list(string)
   default = [
     "idbroker",
     "pwmanager",
@@ -32,47 +39,62 @@ variable "db_names" {
 }
 
 variable "docker_image" {
-  type = string
+  description = "The docker image to use for scheduled backup"
+  type        = string
 }
 
 variable "ecs_cluster_id" {
-  type = string
+  description = "ID of ECS Cluster to place the backup tasks"
+  type        = string
 }
 
 variable "event_schedule" {
-  description = "Schedule for backup task execution. Default: `cron(0 2 * * ? *)"
+  description = <<-EOT
+    Schedule for backup task execution. Use cron format "cron(Minutes Hours Day-of-month Month Day-of-week Year)"
+    where either `day-of-month` or `day-of-week` must be a question mark, or rate format "rate(15 minutes)".
+  EOT
   type        = string
   default     = "cron(0 2 * * ? *)"
 }
 
 variable "idp_name" {
-  type = string
+  description = "Short name of IdP for use in logs and email alerts"
+  type        = string
 }
 
 variable "memory" {
-  type    = number
-  default = 32
+  description = "Memory (RAM) resources to allot to each task instance"
+  type        = number
+  default     = 32
 }
 
 variable "mysql_host" {
-  type = string
+  description = "Address for RDS instance"
+  type        = string
 }
 
 variable "mysql_pass" {
-  type = string
+  description = "MySQL password"
+  type        = string
 }
 
 variable "mysql_user" {
-  type = string
+  description = "MySQL username"
+  type        = string
 }
 
 variable "service_mode" {
-  type    = string
-  default = "backup"
+  description = "Service mode, either `backup` or `restore`"
+  type        = string
+  default     = "backup"
 }
 
+/*
+ * AWS Backup
+ */
+
 variable "enable_aws_backup" {
-  description = "enable backup using AWS Backup service"
+  description = "Enable AWS Backup in addition to the scripted backup"
   type        = bool
   default     = false
 }
@@ -101,6 +123,10 @@ variable "delete_recovery_point_after_days" {
   default     = 100
 }
 
+/*
+ * Sentry logging and notification
+ */
+
 variable "sentry_dsn" {
   description = "Sentry DSN for backup failure notification"
   type        = string
@@ -110,6 +136,13 @@ variable "sentry_dsn" {
 /*
  * Synchronize S3 bucket to Backblaze B2
  */
+
+variable "enable_s3_to_b2_sync" {
+  description = "Whether to enable syncing S3 to B2"
+  type        = bool
+  default     = false
+}
+
 variable "b2_application_key_id" {
   description = "B2 Application Key ID for authentication"
   type        = string
@@ -157,12 +190,6 @@ variable "sync_schedule" {
   description = "CloudWatch Events schedule expression for when to sync S3 to B2"
   type        = string
   default     = "cron(0 2 * * ? *)" // Example: Run at 2:00 AM UTC every day
-}
-
-variable "enable_s3_to_b2_sync" {
-  description = "Whether to enable syncing S3 to B2"
-  type        = bool
-  default     = false
 }
 
 variable "ssl_ca_base64" {

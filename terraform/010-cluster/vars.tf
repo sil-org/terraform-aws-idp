@@ -5,23 +5,30 @@ variable "ami_name_filter" {
 }
 
 variable "app_name" {
-  type = string
+  description = "Name of application, ex: \"idp-foo\""
+  type        = string
 }
 
 variable "app_env" {
-  type = string
+  description = "Application environment, ex: prod, stg, dev, etc."
+  type        = string
 }
 
 variable "aws_instance" {
-  type = map(string)
+  description = "A map containing keys for `instance_type`, `volume_size`, `instance_count`"
+  type        = map(string)
 }
 
 variable "aws_zones" {
-  type = list(string)
+  description = <<-EOT
+    A list of availability zones to distribute instances across, example: `["us-east-1a", "us-east-1b", "us-east-1c"]`
+  EOT
+  type        = list(string)
 }
 
 variable "cert_domain_name" {
-  type = string
+  description = "Domain name for certificate, example: `*.mydomain.com`"
+  type        = string
 }
 
 variable "create_dashboard" {
@@ -55,15 +62,18 @@ variable "use_transit_gateway" {
 }
 
 variable "ecs_cluster_name" {
-  type = string
+  description = "ECS cluster name for registering instances"
+  type        = string
 }
 
 variable "ecs_instance_profile_id" {
-  type = string
+  description = "IAM profile ID for ecsInstanceProfile"
+  type        = string
 }
 
 variable "idp_name" {
-  type = string
+  description = "Name of the IDP (all lowercase, no spaces), example: `acme`"
+  type        = string
 }
 
 variable "asg_additional_user_data" {

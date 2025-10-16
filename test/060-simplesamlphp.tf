@@ -8,6 +8,7 @@ module "ssp" {
   analytics_id                = ""
   app_env                     = ""
   app_name                    = ""
+  cduser_username             = ""
   cloudflare_domain           = ""
   cloudwatch_log_group_name   = ""
   cpu                         = 1

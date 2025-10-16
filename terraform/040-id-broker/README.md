@@ -1,5 +1,6 @@
-# 040-id-broker - ECS service for id-broker
-This module is used to create an ECS service running id-broker.
+# Terraform module for IdP ID Broker ECS service
+
+This module is used to create an ECS service running idp-id-broker.
 
 ## What this does
 

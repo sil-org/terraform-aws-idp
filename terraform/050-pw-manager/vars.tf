@@ -1,13 +1,15 @@
 variable "alb_dns_name" {
-  type = string
+  description = "DNS name for application load balancer"
+  type        = string
 }
 
 variable "alb_https_listener_arn" {
-  type = string
+  description = "ARN for ALB HTTPS listener"
+  type        = string
 }
 
 variable "alerts_email" {
-  description = "Email to which to send error alerts"
+  description = "Email address to send alerts/notifications. Must be specified if `alerts_email_enabled` is true."
   type        = string
   default     = ""
 }
@@ -19,22 +21,25 @@ variable "alerts_email_enabled" {
 }
 
 variable "api_subdomain" {
-  type = string
+  description = "Subdomain for pw manager api"
+  type        = string
 }
 
 variable "app_env" {
-  type = string
+  description = "Application environment, ex: prod, stg, dev, etc."
+  type        = string
 }
 
 variable "app_name" {
+  description = "Used in ECS service names and logs, best to leave as default."
   type        = string
   default     = "pw-manager"
-  description = "Used in ECS service names and logs, best to leave as default."
 }
 
 variable "auth_saml_checkResponseSigning" {
-  type    = bool
-  default = true
+  description = "Whether to check response for signature."
+  type        = bool
+  default     = true
 }
 
 variable "auth_saml_idp_url" {
@@ -75,11 +80,13 @@ variable "cduser_username" {
 }
 
 variable "cloudflare_domain" {
-  type = string
+  description = "Top level domain name for use with Cloudflare"
+  type        = string
 }
 
 variable "cloudwatch_log_group_name" {
-  type = string
+  description = "CloudWatch log group name"
+  type        = string
 }
 
 variable "code_length" {
@@ -89,30 +96,41 @@ variable "code_length" {
 }
 
 variable "cpu" {
-  type        = number
   description = "Amount of CPU to allocate to container."
+  type        = number
   default     = 64
 }
 
+variable "create_dns_record" {
+  description = "Controls creation of a DNS CNAME record for the ECS service."
+  type        = bool
+  default     = true
+}
+
 variable "db_name" {
-  type = string
+  description = "Name of MySQL database for pw-api"
+  type        = string
 }
 
 variable "desired_count" {
-  type    = number
-  default = 1
+  description = "Number of API tasks that should be run"
+  type        = number
+  default     = 1
 }
 
 variable "docker_image" {
-  type = string
+  description = "URL to Docker image"
+  type        = string
 }
 
 variable "ecs_cluster_id" {
-  type = string
+  description = "ID for ECS Cluster"
+  type        = string
 }
 
 variable "ecsServiceRole_arn" {
-  type = string
+  description = "ARN for ECS Service Role"
+  type        = string
 }
 
 variable "email_signature" {
@@ -131,17 +149,19 @@ variable "help_center_url" {
 }
 
 variable "id_broker_access_token" {
-  type = string
+  description = "Access token for calling id-broker"
+  type        = string
 }
 
 variable "id_broker_assertValidBrokerIp" {
-  description = "Whether or not to assert IP address for ID Broker API is trusted"
+  description = "Whether to assert IP address for ID Broker API is trusted"
   type        = bool
   default     = true
 }
 
 variable "id_broker_base_uri" {
-  type = string
+  description = "Base URL to id-broker API"
+  type        = string
 }
 
 variable "id_broker_validIpRanges" {
@@ -166,15 +186,18 @@ variable "memory" {
 }
 
 variable "mysql_host" {
-  type = string
+  description = "Address for RDS instance"
+  type        = string
 }
 
 variable "mysql_pass" {
-  type = string
+  description = "MySQL password for id-broker"
+  type        = string
 }
 
 variable "mysql_user" {
-  type = string
+  description = "MySQL username for id-broker"
+  type        = string
 }
 
 variable "password_rule_alpha_and_numeric" {
@@ -208,15 +231,26 @@ variable "password_rule_minscore" {
 }
 
 variable "recaptcha_key" {
-  type = string
+  description = "Recaptcha site key"
+  type        = string
 }
 
 variable "recaptcha_secret" {
-  type = string
+  description = "Recaptcha secret"
+  type        = string
 }
 
 variable "sentry_dsn" {
-  description = "Sentry DSN for error logging and alerting"
+  description = <<-EOT
+    Sentry DSN for error logging and alerting. Obtain from Sentry dashboard: Settings - Projects - (project) -
+    Client Keys
+  EOT
+  type        = string
+  default     = ""
+}
+
+variable "ssl_ca_base64" {
+  description = "Database SSL CA PEM file, base64-encoded"
   type        = string
   default     = ""
 }
@@ -242,21 +276,11 @@ variable "support_url" {
 }
 
 variable "ui_subdomain" {
-  type = string
+  description = "Subdomain for PW UI"
+  type        = string
 }
 
 variable "vpc_id" {
-  type = string
-}
-
-variable "create_dns_record" {
-  description = "Controls creation of a DNS CNAME record for the ECS service."
-  type        = bool
-  default     = true
-}
-
-variable "ssl_ca_base64" {
-  description = "Database SSL CA PEM file, base64-encoded"
+  description = "ID for VPC"
   type        = string
-  default     = ""
 }

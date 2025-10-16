@@ -64,7 +64,7 @@ locals {
 
   secret_salt = var.secret_salt == "" ? random_id.secretsalt.hex : var.secret_salt
 
-  task_def = templatefile("${path.module}/task-definition.json", {
+  task_def = templatefile("${path.module}/task-definition.json.tftpl", {
     memory                      = var.memory
     cpu                         = var.cpu
     admin_email                 = var.admin_email
@@ -72,7 +72,6 @@ locals {
     admin_pass                  = random_id.admin_pass.hex
     app_env                     = var.app_env
     app_name                    = var.app_name
-    ssl_ca_base64               = var.ssl_ca_base64
     aws_region                  = local.aws_region
     base_url                    = "https://${var.subdomain}.${var.cloudflare_domain}/"
     cloudwatch_log_group_name   = var.cloudwatch_log_group_name
@@ -100,6 +99,7 @@ locals {
     remember_me_secret          = var.remember_me_secret
     secret_salt                 = local.secret_salt
     show_saml_errors            = var.show_saml_errors
+    ssl_ca_base64               = var.ssl_ca_base64
     theme_color_scheme          = var.theme_color_scheme
     trusted_ip_addresses        = join(",", local.trusted_ip_addresses)
     analytics_id                = var.analytics_id

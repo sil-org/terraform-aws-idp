@@ -104,7 +104,7 @@ locals {
 
   subdomain_with_region = "${var.subdomain}-${local.aws_region}"
 
-  task_def = templatefile("${path.module}/task-definition.json", local.task_def_vars)
+  task_def = templatefile("${path.module}/task-definition.json.tftpl", local.task_def_vars)
   task_def_vars = {
     api_access_keys                            = local.api_access_keys
     abandoned_user_abandoned_period            = var.abandoned_user_abandoned_period
@@ -112,7 +112,6 @@ locals {
     abandoned_user_deactivate_instructions_url = var.abandoned_user_deactivate_instructions_url
     app_env                                    = var.app_env
     app_name                                   = var.app_name
-    ssl_ca_base64                              = var.ssl_ca_base64
     aws_region                                 = local.aws_region
     cloudwatch_log_group_name                  = var.cloudwatch_log_group_name
     command                                    = "/data/run.sh"
@@ -187,6 +186,7 @@ locals {
     send_refresh_backup_codes_emails           = var.send_refresh_backup_codes_emails
     send_welcome_emails                        = var.send_welcome_emails
     sentry_dsn                                 = var.sentry_dsn
+    ssl_ca_base64                              = var.ssl_ca_base64
     subject_for_abandoned_users                = var.subject_for_abandoned_users
     subject_for_get_backup_codes               = var.subject_for_get_backup_codes
     subject_for_invite                         = var.subject_for_invite
@@ -261,7 +261,7 @@ module "cron_task" {
  */
 
 locals {
-  email_task_def = templatefile("${path.module}/task-definition.json", merge(
+  email_task_def = templatefile("${path.module}/task-definition.json.tftpl", merge(
     local.task_def_vars,
     {
       name    = "email"
