@@ -49,7 +49,10 @@ variable "ecs_cluster_id" {
 }
 
 variable "event_schedule" {
-  description = "Schedule for backup task execution."
+  description = <<-EOT
+    Schedule for backup task execution. Use cron format "cron(Minutes Hours Day-of-month Month Day-of-week Year)"
+    where either `day-of-month` or `day-of-week` must be a question mark, or rate format "rate(15 minutes)".
+  EOT
   type        = string
   default     = "cron(0 2 * * ? *)"
 }

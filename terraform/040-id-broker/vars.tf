@@ -130,7 +130,11 @@ variable "email_signature" {
 }
 
 variable "event_schedule" {
-  description = "Task run schedule."
+  description = <<-EOT
+    AWS EventBridge schedule for the task defined by the "run_task variable. Use cron format "cron(Minutes Hours
+    Day-of-month Month Day-of-week Year)" where either `day-of-month` or `day-of-week` must be a question mark, or
+    rate format "rate(15 minutes)".
+  EOT
   type        = string
   default     = "cron(0 0 * * ? *)"
 }

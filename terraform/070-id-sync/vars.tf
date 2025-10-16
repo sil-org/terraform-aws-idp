@@ -125,7 +125,7 @@ variable "enable_sync" {
 
 variable "event_schedule" {
   description = <<-EOT
-    AWS Cloudwatch schedule for the sync task. Use cron format "cron(Minutes Hours Day-of-month Month Day-of-week Year)"
+    AWS EventBridge schedule for the sync task. Use cron format "cron(Minutes Hours Day-of-month Month Day-of-week Year)"
     where either `day-of-month` or `day-of-week` must be a question mark, or rate format "rate(15 minutes)".
   EOT
   type        = string
