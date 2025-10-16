@@ -5,12 +5,12 @@ variable "ami_name_filter" {
 }
 
 variable "app_name" {
-  description = "Name of application, ex: Doorman, IdP, etc."
+  description = "Name of application, ex: \"idp-foo\""
   type        = string
 }
 
 variable "app_env" {
-  description = "Name of environment, ex: prod, test, etc."
+  description = "Application environment, ex: prod, stg, dev, etc."
   type        = string
 }
 

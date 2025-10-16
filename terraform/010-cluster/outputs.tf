@@ -52,12 +52,12 @@ output "private_subnet_cidr_blocks" {
  * External application load balancer outputs
  */
 output "alb_dns_name" {
-  description = "DNS name for ALB"
+  description = "DNS name for application load balancer"
   value       = module.alb.dns_name
 }
 
 output "alb_https_listener_arn" {
-  description = "ARN for HTTPS listener on ALB"
+  description = "ARN for HTTPS listener on application load balancer"
   value       = module.alb.https_listener_arn
 }
 
