@@ -145,7 +145,7 @@ module "aws_backup" {
   count = var.enable_aws_backup ? 1 : 0
 
   source  = "silinternational/backup/aws"
-  version = "~> 0.3"
+  version = "~> 0.3.1"
 
   app_name               = var.idp_name
   app_env                = var.app_env
@@ -169,7 +169,7 @@ module "s3_to_b2_sync" {
   count = var.enable_s3_to_b2_sync ? 1 : 0
 
   source  = "silinternational/sync-s3-to-b2/aws"
-  version = "~> 0.1.1"
+  version = "~> 0.2.0"
 
   app_name              = "${var.idp_name}-${var.app_name}"
   app_env               = substr(var.app_env, 0, 4)
