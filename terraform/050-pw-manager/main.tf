@@ -45,6 +45,10 @@ resource "aws_alb_listener_rule" "pwmanager" {
       ]
     }
   }
+
+  lifecycle {
+    replace_triggered_by = [aws_alb_target_group.pwmanager]
+  }
 }
 
 /*
