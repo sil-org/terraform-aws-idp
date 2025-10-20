@@ -10,7 +10,7 @@ locals {
  */
 resource "aws_alb_target_group" "pwmanager" {
   name                 = substr("tg-${var.idp_name}-${var.app_name}-${var.app_env}", 0, 32)
-  port                 = "80"
+  port                 = var.disable_tls ? 80 : 443
   protocol             = var.disable_tls ? "HTTP" : "HTTPS"
   vpc_id               = var.vpc_id
   deregistration_delay = "30"
