@@ -10,7 +10,7 @@ locals {
 resource "aws_alb_target_group" "broker" {
   name                 = substr("tg-${var.idp_name}-${var.app_name}-${var.app_env}", 0, 32)
   port                 = "80"
-  protocol             = "HTTP"
+  protocol             = var.disable_tls ? "HTTP" : "HTTPS"
   vpc_id               = var.vpc_id
   deregistration_delay = "30"
 
@@ -19,8 +19,9 @@ resource "aws_alb_target_group" "broker" {
   }
 
   health_check {
-    path    = "/site/status"
-    matcher = "200,204"
+    path     = "/site/status"
+    matcher  = "200,204"
+    protocol = var.disable_tls ? "HTTP" : "HTTPS"
   }
 }
 

@@ -49,6 +49,7 @@ Note 2: `internal_alb_listener_arn` can be omitted if `alb_listener_arn` is prov
  - `cpu_cron` - How much CPU (AWS CPU units, 1000 = 1 cpu) to allocate to cron service. Default: `128`
  - `cpu_email` - Amount of CPU (AWS CPU units, 1000 = 1 cpu) to allocate to email container. Default: `64`
  - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
+ - `disable_tls` - Set to "true" to use HTTP within the VPC. Default: `true`
  - `email_brand_color` - The CSS color to use for branding in emails (e.g. `rgb(0, 93, 154)`). Required for idp-id-broker version 8.0.0 or higher. Default: `"#005D99"` (blue)
  - `email_brand_logo` - The fully qualified URL to an image for use as logo in emails. Required for idp-id-broker version 8.0.0 or higher. Default: `""` (email header will show a "broken link" icon)
  - `email_repeat_delay_days` - Don't resend the same type of email to the same user for X days. Default: `31`

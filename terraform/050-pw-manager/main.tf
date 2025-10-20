@@ -11,7 +11,7 @@ locals {
 resource "aws_alb_target_group" "pwmanager" {
   name                 = substr("tg-${var.idp_name}-${var.app_name}-${var.app_env}", 0, 32)
   port                 = "80"
-  protocol             = "HTTP"
+  protocol             = var.disable_tls ? "HTTP" : "HTTPS"
   vpc_id               = var.vpc_id
   deregistration_delay = "30"
 
@@ -20,8 +20,9 @@ resource "aws_alb_target_group" "pwmanager" {
   }
 
   health_check {
-    path    = "/site/system-status"
-    matcher = "200"
+    path     = "/site/system-status"
+    matcher  = "200"
+    protocol = var.disable_tls ? "HTTP" : "HTTPS"
   }
 }
 

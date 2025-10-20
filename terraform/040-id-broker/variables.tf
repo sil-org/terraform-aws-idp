@@ -233,6 +233,12 @@ variable "alb_listener_arn" {
   default     = ""
 }
 
+variable "disable_tls" {
+  description = "Set to \"true\" to use HTTP within the VPC"
+  type        = bool
+  default     = true
+}
+
 variable "internal_alb_dns_name" {
   description = <<-EOT
     The DNS name for the IdP-in-a-Box's internal Application Load Balancer. This can be omitted if `alb_dns_name` is
