@@ -170,6 +170,7 @@ locals {
     password_mfa_lifespan_extension            = var.password_mfa_lifespan_extension
     password_profile_url                       = var.password_profile_url
     password_reuse_limit                       = var.password_reuse_limit
+    port                                       = var.disable_tls ? "80" : "443"
     profile_review_interval                    = var.profile_review_interval
     run_task                                   = ""
     send_get_backup_codes_emails               = var.send_get_backup_codes_emails
@@ -223,7 +224,7 @@ module "ecsservice" {
   desired_count      = var.desired_count
   tg_arn             = aws_alb_target_group.broker.arn
   lb_container_name  = "web"
-  lb_container_port  = "80"
+  lb_container_port  = var.disable_tls ? "80" : "443"
   task_role_arn      = module.ecs_role.role_arn
 }
 

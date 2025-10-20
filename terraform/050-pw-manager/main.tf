@@ -102,6 +102,7 @@ locals {
     password_rule_maxlength             = var.password_rule_maxlength
     password_rule_minlength             = var.password_rule_minlength
     password_rule_minscore              = var.password_rule_minscore
+    port                                = var.disable_tls ? "80" : "443"
     recaptcha_secret_key                = var.recaptcha_secret
     recaptcha_site_key                  = var.recaptcha_key
     sentry_dsn                          = var.sentry_dsn
@@ -124,7 +125,7 @@ module "ecsservice" {
   desired_count      = var.desired_count
   tg_arn             = aws_alb_target_group.pwmanager.arn
   lb_container_name  = "web"
-  lb_container_port  = "80"
+  lb_container_port  = var.disable_tls ? "80" : "443"
   ecsServiceRole_arn = var.ecsServiceRole_arn
   task_role_arn      = module.ecs_role.role_arn
 }

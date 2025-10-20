@@ -94,6 +94,7 @@ locals {
     mysql_password              = var.mysql_pass
     mysql_user                  = var.mysql_user
     parameter_store_path        = local.parameter_store_path
+    port                        = var.disable_tls ? "80" : "443"
     profile_url                 = var.profile_url
     recaptcha_key               = var.recaptcha_key
     recaptcha_secret            = var.recaptcha_secret
@@ -117,7 +118,7 @@ module "ecsservice" {
   desired_count      = var.desired_count
   tg_arn             = aws_alb_target_group.ssp.arn
   lb_container_name  = "web"
-  lb_container_port  = "80"
+  lb_container_port  = var.disable_tls ? "80" : "443"
   ecsServiceRole_arn = var.ecsServiceRole_arn
   task_role_arn      = module.ecs_role.role_arn
 }
