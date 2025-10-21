@@ -44,6 +44,10 @@ resource "aws_alb_listener_rule" "broker" {
       ]
     }
   }
+
+  lifecycle {
+    replace_triggered_by = [aws_alb_target_group.broker]
+  }
 }
 
 /*
