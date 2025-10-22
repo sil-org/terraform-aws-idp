@@ -1,5 +1,5 @@
 module "broker" {
-  source = "../terraform/040-id-broker"
+  source = "../modules/040-id-broker"
 
   abandoned_user_abandoned_period            = ""
   abandoned_user_best_practice_url           = ""

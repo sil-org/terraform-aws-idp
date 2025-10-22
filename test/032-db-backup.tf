@@ -1,5 +1,5 @@
 module "backup" {
-  source = "../terraform/032-db-backup"
+  source = "../modules/032-db-backup"
 
   app_env                          = ""
   app_name                         = ""

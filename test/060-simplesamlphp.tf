@@ -1,5 +1,5 @@
 module "ssp" {
-  source = "../terraform/060-simplesamlphp"
+  source = "../modules/060-simplesamlphp"
 
   admin_email                 = ""
   admin_name                  = ""
