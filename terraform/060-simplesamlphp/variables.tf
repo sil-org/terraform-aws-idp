@@ -250,3 +250,13 @@ variable "ssl_ca_base64" {
   type        = string
   default     = ""
 }
+
+variable "cd_principal_arn" {
+  description = "The ARN of the user or role that will push images to ECR for this service."
+  type        = string
+}
+
+variable "ecs_instance_role_arn" {
+  description = "The ARN of the role that will be passed to ECS and ECR as the instance role."
+  type        = string
+}

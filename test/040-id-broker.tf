@@ -6,6 +6,7 @@ module "broker" {
   abandoned_user_deactivate_instructions_url = ""
   app_env                                    = ""
   app_name                                   = ""
+  cd_principal_arn                           = ""
   cloudflare_domain                          = ""
   cloudwatch_log_group_name                  = ""
   contingent_user_duration                   = ""
@@ -16,6 +17,7 @@ module "broker" {
   docker_image                               = ""
   ecsServiceRole_arn                         = ""
   ecs_cluster_id                             = ""
+  ecs_instance_role_arn                      = ""
   email_repeat_delay_days                    = 1
   email_signature                            = ""
   event_schedule                             = ""

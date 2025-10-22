@@ -27,6 +27,11 @@ variable "app_name" {
   default     = "id-broker"
 }
 
+variable "cd_principal_arn" {
+  description = "The ARN of the user or role that will push images to ECR for this service."
+  type        = string
+}
+
 variable "cduser_username" {
   type    = string
   default = "IAM user name for the CD user. Used to create ECS deployment policy."
@@ -89,8 +94,14 @@ variable "docker_image" {
   type = string
 }
 
+
 variable "ecs_cluster_id" {
   description = "ID for ECS Cluster"
+  type        = string
+}
+
+variable "ecs_instance_role_arn" {
+  description = "The ARN of the role that will be passed to ECS and ECR as the instance role."
   type        = string
 }
 

@@ -403,6 +403,16 @@ resource "aws_iam_policy" "cd" {
   })
 }
 
+module "ecr" {
+  source                = "github.com/silinternational/terraform-modules//aws/ecr?ref=8.13.2"
+  repo_name             = "${var.idp_name}/id-broker"
+  ecsInstanceRole_arn   = var.ecs_instance_role_arn
+  ecsServiceRole_arn    = var.ecsServiceRole_arn
+  cd_user_arn           = var.cd_principal_arn
+  image_retention_count = 10
+  image_retention_tags  = ["latest"]
+}
+
 /*
  * AWS data
  */

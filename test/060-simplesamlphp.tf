@@ -8,7 +8,7 @@ module "ssp" {
   analytics_id                = ""
   app_env                     = ""
   app_name                    = ""
-  cduser_username             = ""
+  cd_principal_arn            = ""
   cloudflare_domain           = ""
   cloudwatch_log_group_name   = ""
   cpu                         = 1
@@ -18,6 +18,7 @@ module "ssp" {
   docker_image                = ""
   ecsServiceRole_arn          = ""
   ecs_cluster_id              = ""
+  ecs_instance_role_arn       = ""
   enable_debug                = true
   help_center_url             = ""
   hub_mode                    = true

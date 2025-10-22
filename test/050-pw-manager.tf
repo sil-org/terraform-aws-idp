@@ -13,6 +13,7 @@ module "pw" {
   auth_saml_signRequest               = true
   auth_saml_spCertificate             = ""
   auth_saml_spPrivateKey              = ""
+  cd_principal_arn                    = ""
   cloudflare_domain                   = ""
   cloudwatch_log_group_name           = ""
   code_length                         = 1
@@ -23,6 +24,7 @@ module "pw" {
   docker_image                        = ""
   ecsServiceRole_arn                  = ""
   ecs_cluster_id                      = ""
+  ecs_instance_role_arn               = ""
   email_signature                     = ""
   extra_hosts                         = ""
   help_center_url                     = ""
