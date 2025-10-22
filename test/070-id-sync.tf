@@ -1,5 +1,5 @@
 module "sync" {
-  source = "../terraform/070-id-sync"
+  source = "../modules/070-id-sync"
 
   alerts_email                 = ""
   allow_empty_email            = true

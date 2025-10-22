@@ -1,5 +1,5 @@
 module "cluster" {
-  source = "../terraform/010-cluster"
+  source = "../modules/010-cluster"
 
   app_name                       = ""
   app_env                        = ""

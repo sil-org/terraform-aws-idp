@@ -1,5 +1,5 @@
 module "pw" {
-  source = "../terraform/050-pw-manager"
+  source = "../modules/050-pw-manager"
 
   alb_dns_name                        = ""
   alb_https_listener_arn              = ""
