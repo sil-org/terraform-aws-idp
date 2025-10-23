@@ -54,6 +54,7 @@ The password manager UI can be deployed using the [silinternatonal/pages/cloudfl
  - `alerts_email_enabled` - Enable or disabled alert notification emails. Default: `true`
  - `code_length` - Number of digits in reset code. Default: `"6"`
  - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
+ - `enable_tls` - Set to "true" to use HTTPS within the VPC. Default: `false`
  - `extra_hosts` - Extra hosts for the API task definition, e.g. "\["hostname":"host.example.com","ipAddress":"192.168.1.1"\]"
  - `password_rule_enablehibp` - Enable haveibeenpwned.com password check. Default: `true`
  - `password_rule_maxlength` - Maximum password length. Default: `"255"`

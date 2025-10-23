@@ -9,14 +9,15 @@ locals {
  */
 resource "aws_alb_target_group" "ssp" {
   name                 = substr("tg-${var.idp_name}-${var.app_name}-${var.app_env}", 0, 32)
-  port                 = "80"
-  protocol             = "HTTP"
+  port                 = var.enable_tls ? 443 : 80
+  protocol             = var.enable_tls ? "HTTPS" : "HTTP"
   vpc_id               = var.vpc_id
   deregistration_delay = "30"
 
   health_check {
-    path    = "/module.php/silauth/status.php"
-    matcher = "200"
+    path     = "/module.php/silauth/status.php"
+    matcher  = "200"
+    protocol = var.enable_tls ? "HTTPS" : "HTTP"
   }
 }
 
@@ -97,6 +98,7 @@ locals {
     mysql_password              = var.mysql_pass
     mysql_user                  = var.mysql_user
     parameter_store_path        = local.parameter_store_path
+    port                        = var.enable_tls ? "443" : "80"
     profile_url                 = var.profile_url
     recaptcha_key               = var.recaptcha_key
     recaptcha_secret            = var.recaptcha_secret
@@ -120,7 +122,7 @@ module "ecsservice" {
   desired_count      = var.desired_count
   tg_arn             = aws_alb_target_group.ssp.arn
   lb_container_name  = "web"
-  lb_container_port  = "80"
+  lb_container_port  = var.enable_tls ? "443" : "80"
   ecsServiceRole_arn = var.ecsServiceRole_arn
   task_role_arn      = module.ecs_role.role_arn
 }

@@ -9,8 +9,8 @@ locals {
  */
 resource "aws_alb_target_group" "broker" {
   name                 = substr("tg-${var.idp_name}-${var.app_name}-${var.app_env}", 0, 32)
-  port                 = "80"
-  protocol             = "HTTP"
+  port                 = var.enable_tls ? 443 : 80
+  protocol             = var.enable_tls ? "HTTPS" : "HTTP"
   vpc_id               = var.vpc_id
   deregistration_delay = "30"
 
@@ -19,8 +19,9 @@ resource "aws_alb_target_group" "broker" {
   }
 
   health_check {
-    path    = "/site/status"
-    matcher = "200,204"
+    path     = "/site/status"
+    matcher  = "200,204"
+    protocol = var.enable_tls ? "HTTPS" : "HTTP"
   }
 }
 
@@ -173,6 +174,7 @@ locals {
     password_mfa_lifespan_extension            = var.password_mfa_lifespan_extension
     password_profile_url                       = var.password_profile_url
     password_reuse_limit                       = var.password_reuse_limit
+    port                                       = var.enable_tls ? "443" : "80"
     profile_review_interval                    = var.profile_review_interval
     run_task                                   = ""
     send_get_backup_codes_emails               = var.send_get_backup_codes_emails
@@ -226,7 +228,7 @@ module "ecsservice" {
   desired_count      = var.desired_count
   tg_arn             = aws_alb_target_group.broker.arn
   lb_container_name  = "web"
-  lb_container_port  = "80"
+  lb_container_port  = var.enable_tls ? "443" : "80"
   task_role_arn      = module.ecs_role.role_arn
 }
 

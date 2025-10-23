@@ -45,6 +45,7 @@ This module is used to create an ECS service running [SimpleSAMLphp](https://sim
 ## Optional Inputs
 
  - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
+ - `enable_tls` - Set to "true" to use HTTPS within the VPC. Default: `false`
  - `enable_debug` - Enable debug logs. Default: `false`
  - `logging_level` - Minimum log level to log. DO NOT use DEBUG in production. Allowed values: ERR, WARNING, NOTICE, INFO, DEBUG. Default: `NOTICE`
  - `mfa_learn_more_url` - URL to learn more about 2SV during profile review. Default: (link not displayed)

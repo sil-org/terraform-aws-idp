@@ -66,6 +66,12 @@ variable "docker_image" {
   type        = string
 }
 
+variable "enable_tls" {
+  description = "Set to \"true\" to use HTTPS within the VPC"
+  type        = bool
+  default     = false
+}
+
 variable "enable_debug" {
   description = "Enable debug logs."
   type        = bool

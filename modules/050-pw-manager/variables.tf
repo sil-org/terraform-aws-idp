@@ -118,6 +118,12 @@ variable "desired_count" {
   default     = 1
 }
 
+variable "enable_tls" {
+  description = "Set to \"true\" to use HTTPS within the VPC"
+  type        = bool
+  default     = false
+}
+
 variable "docker_image" {
   description = "URL to Docker image"
   type        = string
