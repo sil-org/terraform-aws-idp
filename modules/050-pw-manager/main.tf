@@ -10,8 +10,8 @@ locals {
  */
 resource "aws_alb_target_group" "pwmanager" {
   name                 = substr("tg-${var.idp_name}-${var.app_name}-${var.app_env}", 0, 32)
-  port                 = var.disable_tls ? 80 : 443
-  protocol             = var.disable_tls ? "HTTP" : "HTTPS"
+  port                 = var.enable_tls ? 443 : 80
+  protocol             = var.enable_tls ? "HTTPS" : "HTTP"
   vpc_id               = var.vpc_id
   deregistration_delay = "30"
 
@@ -22,7 +22,7 @@ resource "aws_alb_target_group" "pwmanager" {
   health_check {
     path     = "/site/system-status"
     matcher  = "200"
-    protocol = var.disable_tls ? "HTTP" : "HTTPS"
+    protocol = var.enable_tls ? "HTTPS" : "HTTP"
   }
 }
 
@@ -106,7 +106,7 @@ locals {
     password_rule_maxlength             = var.password_rule_maxlength
     password_rule_minlength             = var.password_rule_minlength
     password_rule_minscore              = var.password_rule_minscore
-    port                                = var.disable_tls ? "80" : "443"
+    port                                = var.enable_tls ? "443" : "80"
     recaptcha_secret_key                = var.recaptcha_secret
     recaptcha_site_key                  = var.recaptcha_key
     sentry_dsn                          = var.sentry_dsn
@@ -129,7 +129,7 @@ module "ecsservice" {
   desired_count      = var.desired_count
   tg_arn             = aws_alb_target_group.pwmanager.arn
   lb_container_name  = "web"
-  lb_container_port  = var.disable_tls ? "80" : "443"
+  lb_container_port  = var.enable_tls ? "443" : "80"
   ecsServiceRole_arn = var.ecsServiceRole_arn
   task_role_arn      = module.ecs_role.role_arn
 }
