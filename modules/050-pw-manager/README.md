@@ -2,7 +2,7 @@
 
 This module is used to create an ECS service running the password manager API.
 
-The password manager UI can be deployed using the [silinternatonal/pages/cloudflare](https://registry.terraform.io/modules/sil-org/pages/cloudflare/latest) module.
+The password manager UI can be deployed using the [sil-org/pages/cloudflare](https://registry.terraform.io/modules/sil-org/pages/cloudflare/latest) module.
 
 ## What this does
 
