@@ -115,7 +115,7 @@ locals {
 }
 
 module "backup_task" {
-  source  = "silinternational/scheduled-ecs-task/aws"
+  source  = "sil-org/scheduled-ecs-task/aws"
   version = "~> 0.1.1"
 
   name                   = "${var.idp_name}-${var.app_name}-${var.app_env}"
@@ -144,7 +144,7 @@ resource "aws_ecs_task_definition" "cron_td" {
 module "aws_backup" {
   count = var.enable_aws_backup ? 1 : 0
 
-  source  = "silinternational/backup/aws"
+  source  = "sil-org/backup/aws"
   version = "~> 0.3.1"
 
   app_name               = var.idp_name
@@ -168,7 +168,7 @@ data "aws_db_instance" "this" {
 module "s3_to_b2_sync" {
   count = var.enable_s3_to_b2_sync ? 1 : 0
 
-  source  = "silinternational/sync-s3-to-b2/aws"
+  source  = "sil-org/sync-s3-to-b2/aws"
   version = "~> 0.2.0"
 
   app_name              = "${var.idp_name}-${var.app_name}"

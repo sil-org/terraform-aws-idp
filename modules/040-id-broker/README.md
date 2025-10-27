@@ -143,7 +143,9 @@ Note 2: `internal_alb_listener_arn` can be omitted if `alb_listener_arn` is prov
 
 ```hcl
 module "broker" {
-  source                           = "github.com/silinternational/idp-in-a-box//terraform/040-id-broker"
+  source  = "sil-org/idp/aws//modules/040-id-broker"
+  version = "~> 14.0" # This version number is an example only. Use the latest available."
+
   app_env                          = var.app_env
   app_name                         = var.app_name
   cloudflare_domain                = var.cloudflare_domain

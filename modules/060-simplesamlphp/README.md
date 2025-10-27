@@ -62,11 +62,13 @@ This module is used to create an ECS service running [SimpleSAMLphp](https://sim
 
 ```hcl
 module "cf_ips" {
-  source = "github.com/silinternational/terraform-modules//cloudflare/ips?ref=8.7.0"
+  source = "github.com/sil-org/terraform-modules//cloudflare/ips?ref=8.7.0"
 }
 
 module "ssp" {
-  source                       = "github.com/silinternational/idp-in-a-box//terraform/060-simplesamlphp"
+  source  = "sil-org/idp/aws//modules/060-simplesamlphp"
+  version = "~> 14.0" # This version number is an example only. Use the latest available."
+
   memory                       = var.memory
   cpu                          = var.cpu
   desired_count                = var.desired_count

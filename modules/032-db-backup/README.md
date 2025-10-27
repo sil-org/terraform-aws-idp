@@ -39,7 +39,9 @@ This module is used to run mysqldump and backup files to S3 and optionally synch
 
 ```hcl
 module "dbbackup" {
-  source                    = "github.com/silinternational/idp-in-a-box//terraform/032-db-backup"
+  source  = "sil-org/idp/aws//modules/032-db-backup"
+  version = "~> 14.0" # This version number is an example only. Use the latest available."
+  
   app_env                   = var.app_env
   app_name                  = var.app_name
   cloudwatch_log_group_name = var.cloudwatch_log_group_name
