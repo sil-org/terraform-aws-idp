@@ -66,7 +66,9 @@ module "cf_ips" {
 }
 
 module "ssp" {
-  source                       = "github.com/sil-org/idp-in-a-box//terraform/060-simplesamlphp"
+  source  = "sil-org/idp/aws//modules/060-simplesamlphp"
+  version = "~> 14.0" # This version number is an example only. Use the latest available."
+
   memory                       = var.memory
   cpu                          = var.cpu
   desired_count                = var.desired_count

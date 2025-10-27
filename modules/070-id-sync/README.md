@@ -45,7 +45,9 @@ store.
 
 ```hcl
 module "idsync" {
-  source                      = "github.com/sil-org/idp-in-a-box//terraform/070-id-sync"
+  source  = "sil-org/idp/aws//modules/070-id-sync"
+  version = "~> 14.0" # This version number is an example only. Use the latest available."
+
   memory                      = var.memory
   cpu                         = var.cpu
   app_name                    = var.app_name

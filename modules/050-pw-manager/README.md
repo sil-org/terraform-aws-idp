@@ -72,6 +72,9 @@ The password manager UI can be deployed using the [silinternatonal/pages/cloudfl
 
 ```hcl
 module "pwmanager" {
+  source  = "sil-org/idp/aws//modules/050-pw-manager"
+  version = "~> 14.0" # This version number is an example only. Use the latest available."
+
   alb_dns_name                        = data.terraform_remote_state.cluster.alb_dns_name
   alb_https_listener_arn              = data.terraform_remote_state.cluster.alb_https_listener_arn
   alerts_email                        = var.alerts_email
@@ -112,7 +115,6 @@ module "pwmanager" {
   password_rule_minscore              = var.password_rule_minscore
   recaptcha_key                       = var.recaptcha_key
   recaptcha_secret                    = var.recaptcha_secret
-  source                              = "github.com/sil-org/idp-in-a-box//terraform/050-pw-manager"
   support_email                       = data.terraform_remote_state.broker.support_email
   support_name                        = data.terraform_remote_state.broker.support_name
   support_phone                       = var.support_phone
