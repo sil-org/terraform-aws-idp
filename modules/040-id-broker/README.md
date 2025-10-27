@@ -143,7 +143,7 @@ Note 2: `internal_alb_listener_arn` can be omitted if `alb_listener_arn` is prov
 
 ```hcl
 module "broker" {
-  source                           = "github.com/silinternational/idp-in-a-box//terraform/040-id-broker"
+  source                           = "github.com/sil-org/idp-in-a-box//terraform/040-id-broker"
   app_env                          = var.app_env
   app_name                         = var.app_name
   cloudflare_domain                = var.cloudflare_domain

@@ -54,7 +54,7 @@ ssl certificate, core application load balancer, and a CloudWatch log group
 
 ```hcl
 module "cluster" {
-  source                  = "github.com/silinternational/idp-in-a-box//terraform/010-cluster"
+  source                  = "github.com/sil-org/idp-in-a-box//terraform/010-cluster"
   app_name                = var.app_name
   app_env                 = var.app_env
   aws_instance            = var.aws_instance

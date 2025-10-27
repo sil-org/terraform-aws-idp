@@ -2,7 +2,7 @@
 
 This module is used to create an ECS service running the password manager API.
 
-The password manager UI can be deployed using the [silinternatonal/pages/cloudflare](https://registry.terraform.io/modules/silinternational/pages/cloudflare/latest) module.
+The password manager UI can be deployed using the [silinternatonal/pages/cloudflare](https://registry.terraform.io/modules/sil-org/pages/cloudflare/latest) module.
 
 ## What this does
 
@@ -112,7 +112,7 @@ module "pwmanager" {
   password_rule_minscore              = var.password_rule_minscore
   recaptcha_key                       = var.recaptcha_key
   recaptcha_secret                    = var.recaptcha_secret
-  source                              = "github.com/silinternational/idp-in-a-box//terraform/050-pw-manager"
+  source                              = "github.com/sil-org/idp-in-a-box//terraform/050-pw-manager"
   support_email                       = data.terraform_remote_state.broker.support_email
   support_name                        = data.terraform_remote_state.broker.support_name
   support_phone                       = var.support_phone

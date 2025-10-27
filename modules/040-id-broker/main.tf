@@ -219,7 +219,7 @@ locals {
 }
 
 module "ecsservice" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.13.2"
+  source             = "github.com/sil-org/terraform-modules//aws/ecs/service-only?ref=8.13.2"
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}"
   service_env        = var.app_env
@@ -233,7 +233,7 @@ module "ecsservice" {
 }
 
 module "cron_task" {
-  source  = "silinternational/scheduled-ecs-task/aws"
+  source  = "sil-org/scheduled-ecs-task/aws"
   version = "~> 0.1"
 
   name                   = "${var.idp_name}-${var.app_name}-cron-${var.app_env}-${local.aws_region}"
@@ -280,7 +280,7 @@ locals {
 }
 
 module "email_service" {
-  source  = "silinternational/ecs-service/aws"
+  source  = "sil-org/ecs-service/aws"
   version = "~> 0.3.0"
 
   cluster_id         = var.ecs_cluster_id

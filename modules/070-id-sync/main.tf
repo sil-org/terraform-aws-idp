@@ -43,7 +43,7 @@ locals {
 }
 
 module "cron_task" {
-  source  = "silinternational/scheduled-ecs-task/aws"
+  source  = "sil-org/scheduled-ecs-task/aws"
   version = "~> 0.1"
 
   name                   = "${var.idp_name}-${var.app_name}-cron-${var.app_env}-${local.aws_region}"
