@@ -2,6 +2,11 @@
 
 Terraform Configuration, Documentation, and examples for the IdP-in-a-Box service.
 
+## Local Dev
+
+To run the IdP-in-a-Box locally for development purposes, the Docker Compose environment in
+the [idp-profile-ui](https://github.com/sil-org/idp-profile-ui) repository includes much of the IdP system.
+
 ## Service image version compatibility
 
 The relevant service images are only supported at their latest major version number. At this time, the latest major 
