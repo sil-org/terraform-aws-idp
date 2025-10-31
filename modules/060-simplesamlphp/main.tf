@@ -98,7 +98,6 @@ locals {
     mysql_password              = var.mysql_pass
     mysql_user                  = var.mysql_user
     parameter_store_path        = local.parameter_store_path
-    port                        = var.enable_tls ? "443" : "80"
     profile_url                 = var.profile_url
     recaptcha_key               = var.recaptcha_key
     recaptcha_secret            = var.recaptcha_secret
