@@ -92,6 +92,15 @@ variable "rds_arn" {
   default     = ""
 }
 
+variable "s3_backup_bucket" {
+  description = <<-EOT
+    The name of the S3 bucket to use for backup storage. If not specified, a bucket will be created with the name
+    {var.idp_name}-{var.app_name}-{var.app_env}.
+  EOT
+  type        = string
+  default     = ""
+}
+
 variable "service_mode" {
   description = "Service mode, either `backup` or `restore`"
   type        = string

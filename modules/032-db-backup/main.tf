@@ -7,6 +7,7 @@ locals {
       "arn:aws:rds:${local.aws_region}:${local.aws_account}:db:idp-${var.idp_name}-${var.app_env}"
     )
   )
+  s3_backup_bucket = coalesce(var.s3_backup_bucket, "${var.idp_name}-${var.app_name}-${var.app_env}")
 }
 
 
@@ -22,7 +23,7 @@ data "aws_region" "current" {}
  * Create S3 bucket for storing backups
  */
 resource "aws_s3_bucket" "backup" {
-  bucket        = "${var.idp_name}-${var.app_name}-${var.app_env}"
+  bucket        = local.s3_backup_bucket
   force_destroy = true
 
   tags = {
