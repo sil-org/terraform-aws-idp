@@ -1,11 +1,20 @@
 locals {
-  aws_region = data.aws_region.current.name
+  aws_account = data.aws_caller_identity.this.account_id
+  aws_region  = data.aws_region.current.name
+  rds_arn = (
+    coalesce(
+      var.rds_arn,
+      "arn:aws:rds:${local.aws_region}:${local.aws_account}:db:idp-${var.idp_name}-${var.app_env}"
+    )
+  )
 }
 
 
 /*
  * AWS data
  */
+
+data "aws_caller_identity" "this" {}
 
 data "aws_region" "current" {}
 
@@ -149,7 +158,7 @@ module "aws_backup" {
 
   app_name               = var.idp_name
   app_env                = var.app_env
-  source_arns            = [data.aws_db_instance.this.db_instance_arn]
+  source_arns            = [local.rds_arn]
   backup_schedule        = var.aws_backup_schedule
   notification_events    = var.aws_backup_notification_events
   sns_topic_name         = "${var.idp_name}-backup-vault-events"
@@ -158,9 +167,6 @@ module "aws_backup" {
   delete_after           = var.delete_recovery_point_after_days
 }
 
-data "aws_db_instance" "this" {
-  db_instance_identifier = "idp-${var.idp_name}-${var.app_env}"
-}
 
 /*
  * Synchronize S3 bucket to Backblaze B2
