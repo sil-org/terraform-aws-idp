@@ -174,6 +174,7 @@ locals {
     password_mfa_lifespan_extension            = var.password_mfa_lifespan_extension
     password_profile_url                       = var.password_profile_url
     password_reuse_limit                       = var.password_reuse_limit
+    port                                       = var.enable_tls ? "443" : "80"
     profile_review_interval                    = var.profile_review_interval
     run_task                                   = ""
     send_get_backup_codes_emails               = var.send_get_backup_codes_emails

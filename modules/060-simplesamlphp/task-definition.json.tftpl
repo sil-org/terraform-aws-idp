@@ -8,11 +8,8 @@
     "dnsSearchDomains": null,
     "portMappings": [
       {
-        "containerPort": 80,
-        "protocol": "tcp"
-      },
-      {
-        "containerPort": 443,
+        "hostPort": 0,
+        "containerPort": ${port},
         "protocol": "tcp"
       }
     ],
