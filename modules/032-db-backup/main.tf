@@ -100,28 +100,67 @@ resource "aws_iam_user_policy" "backup" {
 }
 
 /*
- * Create ECS service
+ * Create ECS task
  */
 locals {
-  task_def_backup = templatefile("${path.module}/task-definition.json.tftpl", {
-    app_env                   = var.app_env
-    app_name                  = var.app_name
-    ssl_ca_base64             = var.ssl_ca_base64
-    aws_region                = local.aws_region
-    cloudwatch_log_group_name = var.cloudwatch_log_group_name
-    aws_access_key            = aws_iam_access_key.backup.id
-    aws_secret_key            = aws_iam_access_key.backup.secret
-    cpu                       = var.cpu
-    db_names                  = join(" ", var.db_names)
-    docker_image              = var.docker_image
-    mysql_host                = var.mysql_host
-    mysql_pass                = var.mysql_pass
-    mysql_user                = var.mysql_user
-    memory                    = var.memory
-    s3_bucket                 = aws_s3_bucket.backup.bucket
-    sentry_dsn                = var.sentry_dsn
-    service_mode              = var.service_mode
-  })
+  task_def_backup = jsonencode([{
+    cpu               = var.cpu
+    memoryReservation = var.memory
+    memory            = var.memory
+    essential         = true
+    name              = "cron"
+    environment = [
+      {
+        name  = "AWS_ACCESS_KEY",
+        value = aws_iam_access_key.backup.id
+      },
+      {
+        name  = "AWS_SECRET_KEY",
+        value = aws_iam_access_key.backup.secret
+      },
+      {
+        name  = "DB_NAMES",
+        value = join(" ", var.db_names)
+      },
+      {
+        name  = "MODE",
+        value = var.service_mode
+      },
+      {
+        name  = "SSL_CA_BASE64",
+        value = var.ssl_ca_base64
+      },
+      {
+        name  = "MYSQL_HOST",
+        value = var.mysql_host
+      },
+      {
+        name  = "MYSQL_PASSWORD",
+        value = var.mysql_pass
+      },
+      {
+        name  = "MYSQL_USER",
+        value = var.mysql_user
+      },
+      {
+        name  = "S3_BUCKET",
+        value = "s3://${aws_s3_bucket.backup.bucket}"
+      },
+      {
+        name  = "SENTRY_DSN",
+        value = var.sentry_dsn
+      },
+    ]
+    image = var.docker_image
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        awslogs-group         = var.cloudwatch_log_group_name
+        awslogs-region        = local.aws_region
+        awslogs-stream-prefix = "${var.app_name}-${var.app_env}"
+      }
+    }
+  }])
 }
 
 module "backup_task" {
