@@ -17,6 +17,14 @@ variable "backup_user_name" {
   default     = null
 }
 
+variable "cd_user" {
+  description = <<-EOT
+    Continuous Deployment (CD) user to be granted PassRole permission to access SSM parameters for secrets in the
+    backup container definition.
+  EOT
+  type        = string
+}
+
 variable "cloudwatch_log_group_name" {
   description = "CloudWatch log group name"
   type        = string
