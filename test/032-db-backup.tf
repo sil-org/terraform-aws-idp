@@ -4,6 +4,7 @@ module "backup" {
   app_env                          = ""
   app_name                         = ""
   backup_user_name                 = ""
+  cd_user_arn                      = ""
   cloudwatch_log_group_name        = ""
   cpu                              = 1
   event_schedule                   = ""

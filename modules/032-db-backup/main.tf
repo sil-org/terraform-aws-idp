@@ -1,6 +1,7 @@
 locals {
-  aws_account = data.aws_caller_identity.this.account_id
-  aws_region  = data.aws_region.current.name
+  aws_account          = data.aws_caller_identity.this.account_id
+  aws_region           = data.aws_region.current.name
+  parameter_store_path = "/idp-${var.idp_name}/"
   rds_arn = (
     coalesce(
       var.rds_arn,
@@ -18,6 +19,8 @@ locals {
 data "aws_caller_identity" "this" {}
 
 data "aws_region" "current" {}
+
+resource "random_id" "this" { byte_length = 2 }
 
 /*
  * Create S3 bucket for storing backups
@@ -111,14 +114,6 @@ locals {
     name              = "cron"
     environment = [
       {
-        name  = "AWS_ACCESS_KEY",
-        value = aws_iam_access_key.backup.id
-      },
-      {
-        name  = "AWS_SECRET_KEY",
-        value = aws_iam_access_key.backup.secret
-      },
-      {
         name  = "DB_NAMES",
         value = join(" ", var.db_names)
       },
@@ -135,10 +130,6 @@ locals {
         value = var.mysql_host
       },
       {
-        name  = "MYSQL_PASSWORD",
-        value = var.mysql_pass
-      },
-      {
         name  = "MYSQL_USER",
         value = var.mysql_user
       },
@@ -149,6 +140,20 @@ locals {
       {
         name  = "SENTRY_DSN",
         value = var.sentry_dsn
+      },
+    ]
+    secrets = [
+      {
+        name      = "AWS_ACCESS_KEY"
+        valueFrom = aws_ssm_parameter.access_key_id.arn
+      },
+      {
+        name      = "AWS_SECRET_KEY"
+        valueFrom = aws_ssm_parameter.secret_access_key.arn
+      },
+      {
+        name      = "MYSQL_PASSWORD"
+        valueFrom = aws_ssm_parameter.mysql_password.arn
       },
     ]
     image = var.docker_image
@@ -163,6 +168,27 @@ locals {
   }])
 }
 
+resource "aws_ssm_parameter" "access_key_id" {
+  name        = "${local.parameter_store_path}/access_key_id"
+  type        = "SecureString"
+  value       = aws_iam_access_key.backup.id
+  description = "Value set by Terraform -- do not change manually."
+}
+
+resource "aws_ssm_parameter" "secret_access_key" {
+  name        = "${local.parameter_store_path}/secret_access_key"
+  type        = "SecureString"
+  value       = aws_iam_access_key.backup.secret
+  description = "Value set by Terraform -- do not change manually."
+}
+
+resource "aws_ssm_parameter" "mysql_password" {
+  name        = "${local.parameter_store_path}/mysql_password"
+  type        = "SecureString"
+  value       = var.mysql_pass
+  description = "Value set by Terraform -- do not change manually."
+}
+
 module "backup_task" {
   source  = "sil-org/scheduled-ecs-task/aws"
   version = "~> 0.1.1"
@@ -172,10 +198,68 @@ module "backup_task" {
   event_schedule         = var.event_schedule
   ecs_cluster_arn        = var.ecs_cluster_id
   task_definition_arn    = aws_ecs_task_definition.cron_td.arn
+
   tags = {
     app_name = var.app_name
     app_env  = var.app_env
   }
+}
+
+/*
+ * ECS Task Execution Role to allow ECS to assume a role for access to SSM Parameter Store
+ */
+
+resource "aws_iam_role" "task_exec" {
+  name = "task-exec-${var.idp_name}-${random_id.this.hex}"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect    = "Allow"
+      Action    = "sts:AssumeRole"
+      Principal = { Service = "ecs-tasks.amazonaws.com" }
+    }]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "task_exec" {
+  role       = aws_iam_role.task_exec.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+resource "aws_iam_role_policy" "task_exec" {
+  name = "ssm-parameter-access"
+  role = aws_iam_role.task_exec.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect = "Allow"
+      Action = [
+        "ssm:GetParameters",
+        "ssm:PutParameters",
+        "ssm:DeleteParameters",
+      ]
+      Resource = "arn:aws:ssm:${local.aws_region}:${local.aws_account}:parameter${local.parameter_store_path}/*"
+    }]
+  })
+}
+
+resource "aws_iam_policy" "pass_role" {
+  name = "task-exec-pass-role-${var.app_name}-${var.app_env}-${local.aws_region}"
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = {
+      Effect = "Allow"
+      Action = [
+        "iam:PassRole",
+      ]
+      Resource = aws_iam_role.task_exec.arn
+    }
+  })
+}
+
+resource "aws_iam_user_policy_attachment" "pass_role" {
+  user       = var.cd_user
+  policy_arn = aws_iam_policy.pass_role
 }
 
 /*
@@ -185,6 +269,7 @@ resource "aws_ecs_task_definition" "cron_td" {
   family                = "${var.idp_name}-${var.app_name}-${var.app_env}"
   container_definitions = local.task_def_backup
   network_mode          = "bridge"
+  execution_role_arn    = aws_iam_role.task_exec.arn
 }
 
 /*
