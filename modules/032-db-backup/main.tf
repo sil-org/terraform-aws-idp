@@ -68,6 +68,15 @@ resource "aws_s3_bucket_versioning" "backup" {
   }
 }
 
+resource "aws_s3_bucket_public_access_block" "backup" {
+  bucket = aws_s3_bucket.backup.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
 /*
  * Create user for putting backup files into the bucket
  */
