@@ -24,7 +24,7 @@ data "aws_region" "current" {}
  */
 resource "aws_s3_bucket" "backup" {
   bucket        = local.s3_backup_bucket
-  force_destroy = true
+  force_destroy = var.s3_bucket_force_destroy
 
   tags = {
     idp_name = var.idp_name
