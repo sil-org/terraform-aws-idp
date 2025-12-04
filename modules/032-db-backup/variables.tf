@@ -101,6 +101,12 @@ variable "s3_backup_bucket" {
   default     = ""
 }
 
+variable "s3_bucket_force_destroy" {
+  description = "Forcibly destroy the S3 bucket even if it contains objects."
+  type        = bool
+  default     = true
+}
+
 variable "service_mode" {
   description = "Service mode, either `backup` or `restore`"
   type        = string

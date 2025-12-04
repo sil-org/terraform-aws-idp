@@ -34,6 +34,7 @@ This module is used to run mysqldump and backup files to S3 and optionally synch
  - `aws_backup_schedule` - Schedule for AWS Backup. Default: `"0 14 * * ? *"`
  - `aws_backup_notification_events` - List of events names to send to SNS. Default: `["BACKUP_JOB_FAILED"]`
  - `backup_sns_email` - Email address for backup event SNS subscription. Default: `""` (disabled)
+ - `s3_bucket_force_destroy` - Forcibly destroy the S3 bucket even if it contains objects.
 
 ## Usage Example
 
