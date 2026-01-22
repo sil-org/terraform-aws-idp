@@ -25,6 +25,9 @@ jobs:
         with:
           terraform_version: "1.7.5"
 
+      - name: Terraform Init
+        run: terraform -chdir=test init
+
       - name: Test
         run: |
           terraform -chdir=modules/010-cluster/ test -verbose
