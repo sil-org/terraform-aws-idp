@@ -44,7 +44,9 @@ data "aws_ami" "ecs_ami" {
  * Create auto-scaling group
  */
 module "asg" {
-  source                         = "github.com/sil-org/terraform-modules//aws/asg?ref=8.14.1"
+  source  = "sil-org/asg/aws"
+  version = "~> 0.1.0"
+
   app_name                       = var.app_name
   app_env                        = var.app_env
   aws_instance                   = var.aws_instance

@@ -121,17 +121,22 @@ locals {
 }
 
 module "ecsservice" {
-  source             = "github.com/sil-org/terraform-modules//aws/ecs/service-only?ref=8.13.2"
+  source  = "sil-org/ecs-service/aws"
+  version = "~> 0.3.0"
+
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}"
   service_env        = var.app_env
   container_def_json = local.task_def
   desired_count      = var.desired_count
   tg_arn             = aws_alb_target_group.pwmanager.arn
-  lb_container_name  = "web"
-  lb_container_port  = var.enable_tls ? "443" : "80"
-  ecsServiceRole_arn = var.ecsServiceRole_arn
   task_role_arn      = module.ecs_role.role_arn
+
+  load_balancer = [{
+    target_group_arn = var.ecsServiceRole_arn
+    container_name   = "web"
+    container_port   = var.enable_tls ? "443" : "80"
+  }]
 }
 
 /*
