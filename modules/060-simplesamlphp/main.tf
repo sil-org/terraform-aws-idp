@@ -65,8 +65,8 @@ data "external" "cloudflare_ips" {
 locals {
   subdomain_with_region = "${var.subdomain}-${local.aws_region}"
 
-  cloudflare_ipv4_cidrs = data.external.cloudflare_ips.result.ipv4_cidrs
-  trusted_ip_addresses  = concat(split(",", local.cloudflare_ipv4_cidrs), var.trusted_ip_addresses)
+  cloudflare_ipv4_cidrs = split(",", data.external.cloudflare_ips.result.ipv4_cidrs)
+  trusted_ip_addresses  = concat(local.cloudflare_ipv4_cidrs, var.trusted_ip_addresses)
 
   secret_salt = var.secret_salt == "" ? random_id.secretsalt.hex : var.secret_salt
 
