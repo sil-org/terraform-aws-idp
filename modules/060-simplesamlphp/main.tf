@@ -58,14 +58,15 @@ resource "random_id" "secretsalt" {
   byte_length = 32
 }
 
-module "cf_ips" {
-  source = "github.com/sil-org/terraform-modules//cloudflare/ips?ref=8.13.2"
+data "external" "cloudflare_ips" {
+  program = ["${path.module}/cloudflare-ips.sh"]
 }
 
 locals {
   subdomain_with_region = "${var.subdomain}-${local.aws_region}"
 
-  trusted_ip_addresses = concat(module.cf_ips.ipv4_cidrs, var.trusted_ip_addresses)
+  cloudflare_ipv4_cidrs = data.external.cloudflare_ips.result.ipv4_cidrs
+  trusted_ip_addresses  = concat(split(",", local.cloudflare_ipv4_cidrs), var.trusted_ip_addresses)
 
   secret_salt = var.secret_salt == "" ? random_id.secretsalt.hex : var.secret_salt
 
