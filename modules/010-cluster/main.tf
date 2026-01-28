@@ -39,6 +39,14 @@ resource "aws_security_group" "cloudflare" {
   tags = {
     Name = "${var.app_name}-${var.app_env}-cloudflare"
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  timeouts {
+    delete = "2m"
+  }
 }
 
 resource "aws_security_group_rule" "cloudflare" {
