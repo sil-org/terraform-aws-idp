@@ -19,15 +19,33 @@ module "vpc" {
   transit_gateway_default_route_table_propagation = var.transit_gateway_default_route_table_propagation
 }
 
+moved {
+  from = module.cloudflare-sg.aws_security_group.cloudflare_https
+  to   = aws_security_group.cloudflare
+}
+
+moved {
+  from = module.cloudflare-sg.aws_security_group_rule.cloudflare
+  to   = aws_security_group_rule.cloudflare
+}
+
 /*
  * Security group to limit traffic to Cloudflare IPs
  */
 resource "aws_security_group" "cloudflare" {
-  name        = "cloudflare"
+  name        = "cloudflare-https"
   description = "Allow HTTPS traffic from Cloudflare"
   vpc_id      = module.vpc.id
   tags = {
     Name = "${var.app_name}-${var.app_env}-cloudflare"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  timeouts {
+    delete = "2m"
   }
 }
 
