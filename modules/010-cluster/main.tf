@@ -33,7 +33,7 @@ moved {
  * Security group to limit traffic to Cloudflare IPs
  */
 resource "aws_security_group" "cloudflare" {
-  name        = "cloudflare"
+  name        = "cloudflare-https"
   description = "Allow HTTPS traffic from Cloudflare"
   vpc_id      = module.vpc.id
   tags = {
