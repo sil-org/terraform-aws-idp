@@ -19,6 +19,16 @@ module "vpc" {
   transit_gateway_default_route_table_propagation = var.transit_gateway_default_route_table_propagation
 }
 
+moved {
+  from = module.cloudflare-sg.aws_security_group.cloudflare_https
+  to   = aws_security_group.cloudflare
+}
+
+moved {
+  from = module.cloudflare-sg.aws_security_group_rule.cloudflare
+  to   = aws_security_group_rule.cloudflare
+}
+
 /*
  * Security group to limit traffic to Cloudflare IPs
  */
