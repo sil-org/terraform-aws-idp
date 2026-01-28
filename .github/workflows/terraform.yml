@@ -10,3 +10,24 @@ jobs:
     with:
       terraform-version: '~> 1.5'
       test-dir: test
+
+  tftest:
+    name: 'Terraform Test'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Install Terraform 1.7, which is the earliest that supports `terraform test`.
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.7.5"
+
+      - name: Test
+        run: |
+          terraform -chdir=modules/010-cluster/ init
+          terraform -chdir=modules/010-cluster/ test -verbose
+          terraform -chdir=modules/060-simplesamlphp/ init
+          terraform -chdir=modules/060-simplesamlphp/ test -verbose

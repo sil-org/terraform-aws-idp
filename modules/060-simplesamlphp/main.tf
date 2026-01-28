@@ -58,14 +58,15 @@ resource "random_id" "secretsalt" {
   byte_length = 32
 }
 
-module "cf_ips" {
-  source = "github.com/sil-org/terraform-modules//cloudflare/ips?ref=8.13.2"
+data "external" "cloudflare_ips" {
+  program = ["${path.module}/cloudflare-ips.sh"]
 }
 
 locals {
   subdomain_with_region = "${var.subdomain}-${local.aws_region}"
 
-  trusted_ip_addresses = concat(module.cf_ips.ipv4_cidrs, var.trusted_ip_addresses)
+  cloudflare_ipv4_cidrs = split(",", data.external.cloudflare_ips.result.ipv4_cidrs)
+  trusted_ip_addresses  = concat(local.cloudflare_ipv4_cidrs, var.trusted_ip_addresses)
 
   secret_salt = var.secret_salt == "" ? random_id.secretsalt.hex : var.secret_salt
 
@@ -114,17 +115,22 @@ locals {
 }
 
 module "ecsservice" {
-  source             = "github.com/sil-org/terraform-modules//aws/ecs/service-only?ref=8.13.2"
+  source  = "sil-org/ecs-service/aws"
+  version = "~> 0.3.0"
+
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}"
   service_env        = var.app_env
   container_def_json = local.task_def
   desired_count      = var.desired_count
-  tg_arn             = aws_alb_target_group.ssp.arn
-  lb_container_name  = "web"
-  lb_container_port  = var.enable_tls ? "443" : "80"
   ecsServiceRole_arn = var.ecsServiceRole_arn
   task_role_arn      = module.ecs_role.role_arn
+
+  load_balancer = [{
+    target_group_arn = aws_alb_target_group.ssp.arn
+    container_name   = "web"
+    container_port   = var.enable_tls ? "443" : "80"
+  }]
 }
 
 /*

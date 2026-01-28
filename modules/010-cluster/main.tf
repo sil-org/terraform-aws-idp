@@ -22,9 +22,27 @@ module "vpc" {
 /*
  * Security group to limit traffic to Cloudflare IPs
  */
-module "cloudflare-sg" {
-  source = "github.com/sil-org/terraform-modules//aws/cloudflare-sg?ref=8.13.2"
-  vpc_id = module.vpc.id
+resource "aws_security_group" "cloudflare" {
+  name        = "cloudflare"
+  description = "Allow HTTPS traffic from Cloudflare"
+  vpc_id      = module.vpc.id
+  tags = {
+    Name = "${var.app_name}-${var.app_env}-cloudflare"
+  }
+}
+
+resource "aws_security_group_rule" "cloudflare" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  security_group_id = aws_security_group.cloudflare.id
+  cidr_blocks       = split(",", data.external.cloudflare_ips.result.ipv4_cidrs)
+  ipv6_cidr_blocks  = split(",", data.external.cloudflare_ips.result.ipv6_cidrs)
+}
+
+data "external" "cloudflare_ips" {
+  program = ["${path.module}/cloudflare-ips.sh"]
 }
 
 /*
@@ -44,7 +62,9 @@ data "aws_ami" "ecs_ami" {
  * Create auto-scaling group
  */
 module "asg" {
-  source                         = "github.com/sil-org/terraform-modules//aws/asg?ref=8.14.1"
+  source  = "sil-org/asg/aws"
+  version = "~> 0.1.0"
+
   app_name                       = var.app_name
   app_env                        = var.app_env
   aws_instance                   = var.aws_instance
@@ -78,7 +98,7 @@ module "alb" {
   disable_public_ipv4 = var.disable_public_ipv4
   internal            = "false"
   vpc_id              = module.vpc.id
-  security_groups     = [module.vpc.vpc_default_sg_id, module.cloudflare-sg.id]
+  security_groups     = [module.vpc.vpc_default_sg_id, aws_security_group.cloudflare.id]
   subnets             = module.vpc.public_subnet_ids
   certificate_arn     = data.aws_acm_certificate.wildcard.arn
 }
