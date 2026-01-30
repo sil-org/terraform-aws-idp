@@ -185,20 +185,38 @@ module "s3_to_b2_sync" {
   count = var.enable_s3_to_b2_sync ? 1 : 0
 
   source  = "sil-org/sync-s3-to-b2/aws"
-  version = "~> 0.2.0"
+  version = "~> 0.3.4"
 
-  app_name              = "${var.idp_name}-${var.app_name}"
-  app_env               = substr(var.app_env, 0, 4)
-  s3_bucket_name        = aws_s3_bucket.backup.bucket
-  s3_path               = ""
-  b2_application_key_id = var.b2_application_key_id
-  b2_application_key    = var.b2_application_key
-  b2_bucket             = var.b2_bucket
-  b2_path               = var.b2_path
-  rclone_arguments      = var.rclone_arguments
-  log_group_name        = var.cloudwatch_log_group_name
-  ecs_cluster_id        = var.ecs_cluster_id
-  cpu                   = var.sync_cpu
-  memory                = var.sync_memory
-  schedule              = var.sync_schedule
+  app_name                  = "${var.idp_name}-${var.app_name}"
+  app_env                   = substr(var.app_env, 0, 4)
+  s3_bucket_name            = aws_s3_bucket.backup.bucket
+  s3_path                   = ""
+  b2_application_key_id_arn = one(aws_ssm_parameter.b2_application_key_id[*].arn)
+  b2_application_key_arn    = one(aws_ssm_parameter.b2_application_key[*].arn)
+  b2_bucket                 = var.b2_bucket
+  b2_path                   = var.b2_path
+  rclone_arguments          = var.rclone_arguments
+  log_group_name            = var.cloudwatch_log_group_name
+  ecs_cluster_id            = var.ecs_cluster_id
+  cpu                       = var.sync_cpu
+  memory                    = var.sync_memory
+  schedule                  = var.sync_schedule
+}
+
+resource "aws_ssm_parameter" "b2_application_key_id" {
+  count = var.enable_s3_to_b2_sync ? 1 : 0
+
+  name        = "/idp-${var.idp_name}/b2_application_key_id"
+  type        = "SecureString"
+  value       = var.b2_application_key_id
+  description = "Value set by Terraform -- do not change manually."
+}
+
+resource "aws_ssm_parameter" "b2_application_key" {
+  count = var.enable_s3_to_b2_sync ? 1 : 0
+
+  name        = "/idp-${var.idp_name}/b2_application_key"
+  type        = "SecureString"
+  value       = var.b2_application_key
+  description = "Value set by Terraform -- do not change manually."
 }
