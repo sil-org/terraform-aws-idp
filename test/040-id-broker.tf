@@ -21,6 +21,7 @@ module "broker" {
   event_schedule                             = ""
   from_email                                 = ""
   google_config                              = { a = "b" }
+  heartbeat_url                              = ""
   help_center_url                            = ""
   hibp_check_interval                        = ""
   hibp_check_on_login                        = true

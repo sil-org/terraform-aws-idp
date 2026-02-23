@@ -131,6 +131,7 @@ locals {
     from_email                                 = var.from_email
     from_name                                  = var.from_name
     google_config                              = local.google_vars
+    heartbeat_url                              = var.heartbeat_url
     help_center_url                            = var.help_center_url
     hibp_check_interval                        = var.hibp_check_interval
     hibp_check_on_login                        = var.hibp_check_on_login
