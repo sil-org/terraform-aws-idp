@@ -3,43 +3,13 @@
 This module is used to create an ECS task running the id-sync component which syncs identities from a personnel
 store.
 
+## Terraform Registry
+
+See the [Terraform Registry](https://registry.terraform.io/modules/sil-org/idp/aws/latest/submodules/070-id-sync) for usage documentation.
+
 ## What this does
 
  - Create task definition and scheduled ECS task
-
-## Required Inputs
-
- - `app_name` - Application name
- - `app_env` - Application environment
- - `cloudwatch_log_group_name` - CloudWatch log group name
- - `docker_image` - URL to Docker image
- - `id_broker_access_token` - Access token for calling id-broker
- - `id_broker_adapter` - Which ID Sync adapter to use
- - `id_broker_base_url` - Base URL to id-broker API
- - `id_broker_trustedIpRanges` - List of valid IP address ranges for ID Broker API
- - `id_store_adapter` - Which ID Store adapter to use
- - `id_store_config` - A map of configuration data to pass into id-sync as env vars
- - `idp_name` - Short name of IdP for use in logs and email alerts
- - `idp_display_name` - Friendly name for IdP
- - `ecs_cluster_id` - ID for ECS Cluster
- - `ecsServiceRole_arn` - ARN for ECS Service Role
- - `memory` - Amount of memory to allocate to container
- - `cpu` - Amount of CPU to allocate to container
-
-## Optional Inputs
-
-- `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
-- `id_broker_assertValidIp` - Whether or not to assert IP address for ID Broker API is trusted
-- `alerts_email` - Who to send alerts to about sync problems
-- `notifier_email_to` - Who to send notifications to about sync problems (e.g. users lacking email addresses)
-- `sync_safety_cutoff` - The percentage of records allowed to be changed during a sync, provided as a float, ex: `0.2` for `20%`
-- `allow_empty_email` - Whether or not to allow the primary email property to be empty. Default: `false`
-- `enable_new_user_notification` - Enable email notification to HR Contact upon creation of a new user, if set to 'true'. Default: `false`
-- `enable_sync` - Set to false to disable the sync process.
-- `sentry_dsn` - Sentry DSN for error logging and alerting. Obtain from Sentry dashboard: Settings - Projects - (project) - Client Keys
-- `event_schedule` - AWS Cloudwatch schedule for the sync task. Use cron format "cron(Minutes Hours Day-of-month Month Day-of-week Year)" where either `day-of-month` or `day-of-week` must be a question mark, or rate format "rate(15 minutes)". Default = "cron(*/15 * * * ? *)"
-- `heartbeat_url` - the URL of a monitoring service to call after every successful sync
-- `heartbeat_method` - the http method of a monitoring service to call after every successful sync. Uses POST if not specified.
 
 ## Usage Example
 

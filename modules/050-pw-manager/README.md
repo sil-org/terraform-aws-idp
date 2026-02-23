@@ -10,63 +10,9 @@ The password manager UI can be deployed using the [sil-org/pages/cloudflare](htt
  - Create task definition and ECS service for password manager API service
  - Create Cloudflare DNS record for the API service
 
-## Required Inputs
+## Terraform Registry
 
- - `alb_dns_name` - DNS name for application load balancer
- - `alb_https_listener_arn` - ARN for ALB HTTPS listener
- - `api_subdomain` - Subdomain for pw manager api
- - `app_env` - Application environment
- - `app_name` - Application name
- - `auth_saml_checkResponseSigning`  - true/false whether to check response for signature. Default: `true`
- - `auth_saml_idpCertificate` - Public cert contents for IdP 
- - `auth_saml_requireEncryptedAssertion` - true/false whether to require assertion to be encrypted. Default: `true`
- - `auth_saml_signRequest` - true/false whether to sign auth requests. Default: `true`
- - `auth_saml_spCertificate` - Public cert contents for this SP
- - `auth_saml_spPrivateKey` - Private cert contents for this SP
- - `cloudflare_domain` - Top level domain name for use with Cloudflare
- - `cloudwatch_log_group_name` - CloudWatch log group name
- - `cpu` - Amount of CPU to allocate to API container
- - `db_name` - Name of MySQL database for pw-api
- - `desired_count` - Number of API tasks that should be run
- - `docker_image` - URL to Docker image
- - `ecs_cluster_id` - ID for ECS Cluster
- - `ecsServiceRole_arn` - ARN for ECS Service Role
- - `email_signature` - Email signature line
- - `id_broker_access_token` - Access token for calling id-broker
- - `id_broker_assertValidBrokerIp` - Whether or not to assert IP address for ID Broker API is trusted. Default: `true`
- - `id_broker_base_uri` - Base URL to id-broker API
- - `id_broker_validIpRanges` - List of valid IP blocks for ID Broker
- - `idp_name` - Short name of IdP for use in logs and email alerts
- - `memory` - Amount of memory to allocate to API container
- - `mysql_host` - Address for RDS instance
- - `mysql_pass` - MySQL password for id-broker
- - `mysql_user` - MySQL username for id-broker
- - `recaptcha_key` - Recaptcha site key
- - `recaptcha_secret` - Recaptcha secret
- - `support_email` - Email address for end user support
- - `support_name` - Name for end user support
- - `ui_subdomain` - Subdomain for PW UI
- - `vpc_id` - ID for VPC
-
-## Optional Inputs
-
- - `alerts_email` - Email address to send alerts/notifications. Must be specified if `alerts_email_enabled` is `true`. Default: `""`
- - `alerts_email_enabled` - Enable or disabled alert notification emails. Default: `true`
- - `code_length` - Number of digits in reset code. Default: `"6"`
- - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
- - `enable_tls` - Set to "true" to use HTTPS within the VPC. Default: `false`
- - `extra_hosts` - Extra hosts for the API task definition, e.g. "\["hostname":"host.example.com","ipAddress":"192.168.1.1"\]"
- - `password_rule_enablehibp` - Enable haveibeenpwned.com password check. Default: `true`
- - `password_rule_maxlength` - Maximum password length. Default: `"255"`
- - `password_rule_minlength` - Minimum password length. Default: `"10"`
- - `password_rule_minscore` - Minimum password score. Default: `"3"`
- - `sentry_dsn` - Sentry DSN for error logging and alerting. Obtain from Sentry dashboard: Settings - Projects - (project) - Client Keys
- - `support_phone` - Phone number for end user support, displayed on PW UI.
- - `support_url` - URL for end user support, displayed on PW UI.
-
-## Output
-
- - `ui_hostname` - Full hostname for UI
+See the [Terraform Registry](https://registry.terraform.io/modules/sil-org/idp/aws/latest/submodules/050-pw-manager) for usage documentation.
 
 ## Usage Example
 
