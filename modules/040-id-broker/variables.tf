@@ -157,6 +157,12 @@ variable "google_config" {
   default     = { enableSheetsExport = false }
 }
 
+variable "heartbeat_url" {
+  description = "The scheduled task will submit a request to this URL at the end of each event for monitoring purpose."
+  type        = string
+  default     = ""
+}
+
 variable "help_center_url" {
   description = "URL to password manager help center"
   type        = string
