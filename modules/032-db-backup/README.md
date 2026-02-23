@@ -9,32 +9,9 @@ This module is used to run mysqldump and backup files to S3 and optionally synch
  - Create task definition and scheduled event for db-backup
  - OPTIONAL: Synchronize the S3 backup to Backblaze B2
 
-## Required Inputs
+## Terraform Registry
 
- - `app_env` - Application environment
- - `cloudwatch_log_group_name` - CloudWatch log group name
- - `docker_image` - The docker image to use for this
- - `ecs_cluster_id` - ID for ECS Cluster
- - `idp_name` - Short name of IdP for use in logs and email alerts
- - `mysql_host` - Address for RDS instance
- - `mysql_pass` - MySQL password
- - `mysql_user` - MySQL username
-
-## Optional Inputs
-
- - `app_name` - Application name
- - `backup_user_name` - Name of IAM user for S3 access. Default: `db-backup-${var.idp_name}-${var.app_env}`
- - `cpu` - CPU resources to allot to each task instance
- - `event_schedule` - Schedule for backup task execution. Default: `cron(0 2 * * ? *)`
- - `delete_recovery_point_after_days` - Number of days after which AWS Backup recovery points are deleted. Default: 100
- - `db_names` - List of database names to backup. Default: `["emailservice", "idbroker", "pwmanager", "ssp"]`
- - `memory` - Memory (RAM) resources to allot to each task instance
- - `service_mode` - Either `backup` or `restore`. Default: `backup`
- - `enable_aws_backup` - Enable AWS Backup in addition to the scripted backup
- - `aws_backup_schedule` - Schedule for AWS Backup. Default: `"0 14 * * ? *"`
- - `aws_backup_notification_events` - List of events names to send to SNS. Default: `["BACKUP_JOB_FAILED"]`
- - `backup_sns_email` - Email address for backup event SNS subscription. Default: `""` (disabled)
- - `s3_bucket_force_destroy` - Forcibly destroy the S3 bucket even if it contains objects.
+See the [Terraform Registry](https://registry.terraform.io/modules/sil-org/idp/aws/latest/submodules/032-db-backup) for usage documentation.
 
 ## Usage Example
 

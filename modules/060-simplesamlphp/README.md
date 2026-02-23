@@ -8,55 +8,9 @@ This module is used to create an ECS service running [SimpleSAMLphp](https://sim
  - Create task definition and ECS service for SimpleSAMLphp
  - Create Cloudflare DNS records for SSP
 
-## Required Inputs
+## Terraform Registry
 
- - `app_name` - Application name
- - `app_env` - Application environment
- - `vpc_id` - ID for VPC
- - `alb_https_listener_arn` - ARN for ALB HTTPS listener
- - `subdomain` - Subdomain for SSP IdP
- - `broker_subdomain` - Subdomain for id-broker
- - `cloudflare_domain` - Top level domain name for use with Cloudflare
- - `cloudwatch_log_group_name` - CloudWatch log group name
- - `docker_image` - URL to Docker image
- - `password_change_url` - URL to change password page
- - `password_forgot_url` - URL to forgot password page
- - `hub_mode` - Whether or not this IdP is in hub mode, default: false
- - `id_broker_access_token` - Access token for calling id-broker
- - `id_broker_assert_valid_ip` - Whether or not to assert valid ip for calling id-broker
- - `id_broker_trusted_ip_ranges` - List of trusted ip blocks for ID Broker
- - `id_broker_base_uri` - Base URL to id-broker API
- - `mfa_setup_url` - URL to setup MFA
- - `db_name` - Name of MySQL database for ssp
- - `mysql_host` - Address for RDS instance
- - `mysql_user` - MySQL username for id-broker
- - `mysql_pass` - MySQL password for id-broker
- - `profile_url` - URL of Password Manager profile page
- - `recaptcha_key` - Recaptcha site key
- - `recaptcha_secret` - Recaptcha secret
- - `remember_me_secret` - Secret key used in MFA remember me cookie generation
- - `ecs_cluster_id` - ID for ECS Cluster
- - `ecsServiceRole_arn` - ARN for ECS Service Role
- - `alb_dns_name` - DNS name for application load balancer
- - `idp_name` - Short name of IdP for use in logs and email alerts
- - `trusted_ip_addresses` - A list of ip addresses or ranges that should not be rate limited
- - `analytics_id` - The ID used by an analytics provider such as Google Analytics, e.g., "UA-XXXX-YY"
-
-## Optional Inputs
-
- - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
- - `enable_tls` - Set to "true" to use HTTPS within the VPC. Default: `false`
- - `enable_debug` - Enable debug logs. Default: `false`
- - `logging_level` - Minimum log level to log. DO NOT use DEBUG in production. Allowed values: ERR, WARNING, NOTICE, INFO, DEBUG. Default: `NOTICE`
- - `mfa_learn_more_url` - URL to learn more about 2SV during profile review. Default: (link not displayed)
- - `secret_salt` - This allows for porting the value over from a primary to a secondary workspace. 
-    A 64-character random string will be created automatically if not provided.
- - `show_saml_errors` - Whether or not to show saml errors. Default: `false`
- - `theme_color_scheme` - The color scheme to use for SSP. Default: `'indigo-purple'`
-
-## Output
-
- - `admin_pass` - SSP Admin password
+See the [Terraform Registry](https://registry.terraform.io/modules/sil-org/idp/aws/latest/submodules/060-simplesamlphp) for usage documentation.
 
 ## Usage Example
 
