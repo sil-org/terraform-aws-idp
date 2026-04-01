@@ -382,6 +382,13 @@ resource "aws_iam_user_policy_attachment" "cd" {
   policy_arn = aws_iam_policy.cd.arn
 }
 
+resource "aws_iam_role_policy_attachment" "cd" {
+  count = var.cd_role_name == null ? 0 : 1
+
+  role       = var.cd_role_name
+  policy_arn = aws_iam_policy.cd.arn
+}
+
 resource "aws_iam_policy" "cd" {
   name = "cd-policy-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
 

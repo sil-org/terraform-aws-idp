@@ -1,4 +1,10 @@
+
 mock_provider "aws" {
+  mock_resource "aws_ecs_task_definition" {
+    defaults = {
+      arn = "arn:aws:ecs:us-east-1:111111111111:task-definition/test-task-definition:1"
+    }
+  }
   mock_resource "aws_iam_role" {
     defaults = {
       arn = "arn:aws:iam::111111111111:role/test-role"
@@ -17,45 +23,45 @@ mock_provider "aws" {
 }
 
 mock_provider "cloudflare" {}
-
 variables {
-  admin_email               = ""
-  admin_name                = ""
+  # required variables
   alb_dns_name              = ""
   alb_https_listener_arn    = ""
-  analytics_id              = ""
+  api_subdomain             = ""
   app_env                   = "test"
-  cduser_username           = ""
-  cloudflare_domain         = ""
+  auth_saml_idpCertificate  = ""
+  auth_saml_spCertificate   = ""
+  auth_saml_spPrivateKey    = ""
+  cloudflare_domain         = "example.com"
   cloudwatch_log_group_name = ""
   db_name                   = ""
   docker_image              = ""
   ecsServiceRole_arn        = ""
   ecs_cluster_id            = ""
+  email_signature           = ""
   help_center_url           = ""
   id_broker_access_token    = ""
   id_broker_base_uri        = ""
+  id_broker_validIpRanges   = [""]
+  idp_display_name          = ""
   idp_name                  = ""
-  mfa_learn_more_url        = ""
-  mfa_setup_url             = ""
   mysql_host                = ""
   mysql_pass                = ""
   mysql_user                = ""
-  password_change_url       = ""
-  password_forgot_url       = ""
-  profile_url               = ""
   recaptcha_key             = ""
   recaptcha_secret          = ""
-  remember_me_secret        = ""
-  subdomain                 = ""
-  trusted_ip_addresses      = []
+  support_email             = ""
+  support_name              = ""
+  support_phone             = ""
+  support_url               = ""
+  ui_subdomain              = "profile"
   vpc_id                    = ""
 }
 
-run "test_ip_addresses" {
+run "test" {
   assert {
-    condition     = length(local.trusted_ip_addresses) > 0
-    error_message = "trusted_ip_addresses is not correct"
+    condition     = output.ui_hostname == "${var.ui_subdomain}.${var.cloudflare_domain}"
+    error_message = "ui_hostname must be of the form <ui_subdomain>.<cloudflare_domain>"
   }
 }
 
