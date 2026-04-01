@@ -79,6 +79,12 @@ variable "cduser_username" {
   default = "IAM user name for the CD user. Used to create ECS deployment policy."
 }
 
+variable "cd_role_name" {
+  description = "Name of the CD role to assume for deployments."
+  type        = string
+  default     = null
+}
+
 variable "cloudflare_domain" {
   description = "Top level domain name for use with Cloudflare"
   type        = string

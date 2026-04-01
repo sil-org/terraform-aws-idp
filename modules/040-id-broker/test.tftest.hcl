@@ -1,4 +1,10 @@
+
 mock_provider "aws" {
+  mock_resource "aws_ecs_task_definition" {
+    defaults = {
+      arn = "arn:aws:ecs:us-east-1:111111111111:task-definition/test-task-definition:1"
+    }
+  }
   mock_resource "aws_iam_role" {
     defaults = {
       arn = "arn:aws:iam::111111111111:role/test-role"
@@ -17,45 +23,36 @@ mock_provider "aws" {
 }
 
 mock_provider "cloudflare" {}
-
 variables {
-  admin_email               = ""
-  admin_name                = ""
-  alb_dns_name              = ""
-  alb_https_listener_arn    = ""
-  analytics_id              = ""
+  # required variables
   app_env                   = "test"
-  cduser_username           = ""
-  cloudflare_domain         = ""
+  cloudflare_domain         = "example.com"
   cloudwatch_log_group_name = ""
   db_name                   = ""
   docker_image              = ""
   ecsServiceRole_arn        = ""
   ecs_cluster_id            = ""
   help_center_url           = ""
-  id_broker_access_token    = ""
-  id_broker_base_uri        = ""
   idp_name                  = ""
-  mfa_learn_more_url        = ""
-  mfa_setup_url             = ""
   mysql_host                = ""
   mysql_pass                = ""
   mysql_user                = ""
-  password_change_url       = ""
-  password_forgot_url       = ""
-  profile_url               = ""
-  recaptcha_key             = ""
-  recaptcha_secret          = ""
-  remember_me_secret        = ""
-  subdomain                 = ""
-  trusted_ip_addresses      = []
+  notification_email        = ""
+  password_profile_url      = ""
+  rp_origins                = ""
+  subdomain                 = "broker"
+  support_email             = ""
   vpc_id                    = ""
+
+  # either an internal or an external alb dns name and listener arn must be specified
+  internal_alb_dns_name     = "internal-alb-idp-example-test-int-3333333333.us-east-1.elb.amazonaws.com"
+  internal_alb_listener_arn = "arn:aws:elasticloadbalancing:us-east-1:111111111111:listener/app/alb-idp-example-test-int/00000000aaaaaaaa/11111111bbbbbbbb"
 }
 
-run "test_ip_addresses" {
+run "test" {
   assert {
-    condition     = length(local.trusted_ip_addresses) > 0
-    error_message = "trusted_ip_addresses is not correct"
+    condition     = can(regex("^${var.subdomain}-[0-9a-z]+\\.${var.cloudflare_domain}$", output.hostname))
+    error_message = "hostname must be of the form <subdomain>-<region>.<cloudflare_domain>"
   }
 }
 

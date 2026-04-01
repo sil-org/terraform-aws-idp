@@ -251,6 +251,12 @@ variable "cduser_username" {
   type        = string
 }
 
+variable "cd_role_name" {
+  description = "Name of the CD role to assume for deployments."
+  type        = string
+  default     = null
+}
+
 variable "ssl_ca_base64" {
   description = "Database SSL CA PEM file, base64-encoded"
   type        = string
