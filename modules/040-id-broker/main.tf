@@ -378,6 +378,8 @@ resource "aws_iam_role_policy" "ses" {
 }
 
 resource "aws_iam_user_policy_attachment" "cd" {
+  count = var.cd_role_name == null ? 1 : 0
+
   user       = var.cduser_username
   policy_arn = aws_iam_policy.cd.arn
 }
