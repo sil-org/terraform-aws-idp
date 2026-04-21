@@ -53,7 +53,6 @@ module "pwmanager" {
   idp_name                            = var.idp_name
   memory                              = var.memory
   mysql_host                          = data.terraform_remote_state.database.rds_address
-  mysql_pass                          = data.terraform_remote_state.database.db_pwmanager_pass
   mysql_user                          = var.mysql_user
   password_rule_enablehibp            = var.password_rule_enablehibp
   password_rule_maxlength             = var.password_rule_maxlength

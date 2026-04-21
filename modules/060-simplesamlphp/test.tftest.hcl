@@ -39,7 +39,6 @@ variables {
   mfa_learn_more_url        = ""
   mfa_setup_url             = ""
   mysql_host                = ""
-  mysql_pass                = ""
   mysql_user                = ""
   password_change_url       = ""
   password_forgot_url       = ""

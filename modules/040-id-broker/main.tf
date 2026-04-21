@@ -165,7 +165,6 @@ locals {
     minimum_backup_codes_before_nag            = var.minimum_backup_codes_before_nag
     mfa_webauthn_rpid                          = var.cloudflare_domain
     mysql_host                                 = var.mysql_host
-    mysql_pass                                 = var.mysql_pass
     mysql_user                                 = var.mysql_user
     name                                       = "web"
     notification_email                         = var.notification_email

@@ -73,11 +73,6 @@ variable "mysql_host" {
   type        = string
 }
 
-variable "mysql_pass" {
-  description = "MySQL password"
-  type        = string
-}
-
 variable "mysql_user" {
   description = "MySQL username"
   type        = string

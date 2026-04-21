@@ -98,7 +98,6 @@ locals {
     idp_name                            = var.idp_name
     memory                              = var.memory
     mysql_host                          = var.mysql_host
-    mysql_password                      = var.mysql_pass
     mysql_user                          = var.mysql_user
     parameter_store_path                = local.parameter_store_path
     password_rule_alpha_and_numeric     = var.password_rule_alpha_and_numeric

@@ -122,10 +122,6 @@
         "value": "${mysql_host}"
       },
       {
-        "name": "MYSQL_PASSWORD",
-        "value": "${mysql_password}"
-      },
-      {
         "name": "MYSQL_USER",
         "value": "${mysql_user}"
       },
@@ -197,6 +193,12 @@
         "name": "ZXCVBN_API_BASEURL",
         "value": "http://zxcvbn:3000"
       }
+    ],
+    "secrets": [
+        {
+          "name": "MYSQL_PASSWORD",
+          "valueFrom": "${parameter_store_path}MYSQL_PASSWORD"
+        }
     ],
     "links": [
       "zxcvbn"

@@ -55,7 +55,6 @@ module "broker" {
   mfa_api_base_url                           = ""
   minimum_backup_codes_before_nag            = 1
   mysql_host                                 = ""
-  mysql_pass                                 = ""
   mysql_user                                 = ""
   notification_email                         = ""
   password_expiration_grace_period           = ""

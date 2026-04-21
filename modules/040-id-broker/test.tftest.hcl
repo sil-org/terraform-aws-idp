@@ -35,7 +35,6 @@ variables {
   help_center_url           = ""
   idp_name                  = ""
   mysql_host                = ""
-  mysql_pass                = ""
   mysql_user                = ""
   notification_email        = ""
   password_profile_url      = ""

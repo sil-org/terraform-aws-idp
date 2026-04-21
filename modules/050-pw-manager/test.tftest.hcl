@@ -46,7 +46,6 @@ variables {
   idp_display_name          = ""
   idp_name                  = ""
   mysql_host                = ""
-  mysql_pass                = ""
   mysql_user                = ""
   recaptcha_key             = ""
   recaptcha_secret          = ""

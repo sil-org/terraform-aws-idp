@@ -18,7 +18,6 @@ variables {
   ecs_cluster_id            = ""
   idp_name                  = ""
   mysql_host                = ""
-  mysql_pass                = ""
   mysql_user                = ""
 }
 

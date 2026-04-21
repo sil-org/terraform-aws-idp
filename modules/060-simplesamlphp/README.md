@@ -42,7 +42,6 @@ module "ssp" {
   db_name                      = var.db_ssp_name
   mysql_host                   = data.terraform_remote_state.database.rds_address
   mysql_user                   = var.db_ssp_user
-  mysql_pass                   = data.terraform_remote_state.database.db_ssp_pass
   profile_url                  = var.profile_url
   recaptcha_key                = var.recaptcha_key
   recaptcha_secret             = var.recaptcha_secret

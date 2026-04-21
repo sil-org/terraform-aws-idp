@@ -399,11 +399,6 @@ variable "mysql_host" {
   type        = string
 }
 
-variable "mysql_pass" {
-  description = "MySQL password for id-broker"
-  type        = string
-}
-
 variable "mysql_user" {
   description = "MySQL username for id-broker"
   type        = string

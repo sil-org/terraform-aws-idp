@@ -31,7 +31,6 @@ module "dbbackup" {
   idp_name                  = var.idp_name
   memory                    = var.memory
   mysql_host                = data.terraform_remote_state.database.rds_address
-  mysql_pass                = data.terraform_remote_state.database.mysql_pass
   mysql_user                = data.terraform_remote_state.database.mysql_user
   service_mode              = var.service_mode
 }

@@ -114,10 +114,6 @@
         "value": "${mysql_user}"
       },
       {
-        "name": "MYSQL_PASSWORD",
-        "value": "${mysql_password}"
-      },
-      {
         "name": "PARAMETER_STORE_PATH",
         "value": "${parameter_store_path}"
       },
@@ -157,6 +153,12 @@
         "name": "HELP_CENTER_URL",
         "value": "${help_center_url}"
       }
+    ],
+    "secrets": [
+        {
+          "name": "MYSQL_PASSWORD",
+          "valueFrom": "${parameter_store_path}MYSQL_PASSWORD"
+        }
     ],
     "links": null,
     "workingDirectory": null,

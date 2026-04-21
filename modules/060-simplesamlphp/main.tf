@@ -96,7 +96,6 @@ locals {
     logging_level               = var.logging_level
     mysql_database              = var.db_name
     mysql_host                  = var.mysql_host
-    mysql_password              = var.mysql_pass
     mysql_user                  = var.mysql_user
     parameter_store_path        = local.parameter_store_path
     port                        = var.enable_tls ? "443" : "80"

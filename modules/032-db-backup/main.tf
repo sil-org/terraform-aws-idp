@@ -1,6 +1,7 @@
 locals {
-  aws_account = data.aws_caller_identity.this.account_id
-  aws_region  = data.aws_region.current.name
+  aws_account    = data.aws_caller_identity.this.account_id
+  aws_region     = data.aws_region.current.name
+  parameter_path = "/idp-${var.idp_name}/"
   rds_arn = (
     coalesce(
       var.rds_arn,
@@ -124,12 +125,12 @@ locals {
     db_names                  = join(" ", var.db_names)
     docker_image              = var.docker_image
     mysql_host                = var.mysql_host
-    mysql_pass                = var.mysql_pass
     mysql_user                = var.mysql_user
     memory                    = var.memory
     s3_bucket                 = aws_s3_bucket.backup.bucket
     sentry_dsn                = var.sentry_dsn
     service_mode              = var.service_mode
+    parameter_store_path      = local.parameter_path
   })
 }
 
@@ -206,7 +207,7 @@ module "s3_to_b2_sync" {
 resource "aws_ssm_parameter" "b2_application_key_id" {
   count = var.enable_s3_to_b2_sync ? 1 : 0
 
-  name        = "/idp-${var.idp_name}/b2_application_key_id"
+  name        = "${local.parameter_path}b2_application_key_id"
   type        = "SecureString"
   value       = var.b2_application_key_id
   description = "Value set by Terraform -- do not change manually."
@@ -215,7 +216,7 @@ resource "aws_ssm_parameter" "b2_application_key_id" {
 resource "aws_ssm_parameter" "b2_application_key" {
   count = var.enable_s3_to_b2_sync ? 1 : 0
 
-  name        = "/idp-${var.idp_name}/b2_application_key"
+  name        = "${local.parameter_path}b2_application_key"
   type        = "SecureString"
   value       = var.b2_application_key
   description = "Value set by Terraform -- do not change manually."

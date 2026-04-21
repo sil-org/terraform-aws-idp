@@ -149,11 +149,6 @@ variable "mysql_user" {
   type        = string
 }
 
-variable "mysql_pass" {
-  description = "MySQL password for id-broker"
-  type        = string
-}
-
 variable "profile_url" {
   description = "URL of Password Manager profile page"
   type        = string

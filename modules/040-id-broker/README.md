@@ -67,7 +67,6 @@ module "broker" {
   rp_origins                       = var.rp_origins
   minimum_backup_codes_before_nag  = var.minimum_backup_codes_before_nag
   mysql_host                       = data.terraform_remote_state.database.rds_address
-  mysql_pass                       = data.terraform_remote_state.database.db_idbroker_pass
   mysql_user                       = var.mysql_user
   notification_email               = var.notification_email
   password_expiration_grace_period = var.password_expiration_grace_period

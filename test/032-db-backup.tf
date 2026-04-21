@@ -13,7 +13,6 @@ module "backup" {
   idp_name                         = ""
   memory                           = 1
   mysql_host                       = ""
-  mysql_pass                       = ""
   mysql_user                       = ""
   service_mode                     = ""
   enable_aws_backup                = true

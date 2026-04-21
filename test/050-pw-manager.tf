@@ -34,7 +34,6 @@ module "pw" {
   idp_name                            = ""
   memory                              = 1
   mysql_host                          = ""
-  mysql_pass                          = ""
   mysql_user                          = ""
   password_rule_enablehibp            = true
   password_rule_maxlength             = 1
