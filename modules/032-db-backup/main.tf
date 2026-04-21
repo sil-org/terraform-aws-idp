@@ -79,34 +79,37 @@ resource "aws_s3_bucket_public_access_block" "backup" {
 }
 
 /*
- * Create user for putting backup files into the bucket
+ * Create role for putting backup files into the bucket
  */
-resource "aws_iam_user" "backup" {
+resource "aws_iam_role" "backup" {
   name = var.backup_user_name == null ? "db-backup-${var.idp_name}-${var.app_env}" : var.backup_user_name
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid       = "ECSAssumeRole"
+      Effect    = "Allow"
+      Principal = { Service = ["ecs-tasks.amazonaws.com"] }
+      Action    = "sts:AssumeRole"
+      Condition = {
+        ArnLike      = { "aws:SourceArn" = "arn:aws:ecs:${local.aws_region}:${local.aws_account}:*" }
+        StringEquals = { "aws:SourceAccount" = local.aws_account }
+      }
+    }]
+  })
 }
 
-resource "aws_iam_access_key" "backup" {
-  user = aws_iam_user.backup.name
-}
-
-resource "aws_iam_user_policy" "backup" {
+resource "aws_iam_role_policy" "backup" {
   name = "S3-DB-Backup"
-  user = aws_iam_user.backup.name
+  role = aws_iam_role.backup.name
 
-  policy = jsonencode(
-    {
-      Version = "2012-10-17"
-      Statement = [
-        {
-          Effect = "Allow"
-          Action = [
-            "s3:PutObject",
-          ]
-          Resource = "${aws_s3_bucket.backup.arn}*"
-        },
-      ]
-    }
-  )
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = ["s3:PutObject"]
+      Resource = "${aws_s3_bucket.backup.arn}*"
+    }]
+  })
 }
 
 /*
@@ -119,8 +122,6 @@ locals {
     ssl_ca_base64             = var.ssl_ca_base64
     aws_region                = local.aws_region
     cloudwatch_log_group_name = var.cloudwatch_log_group_name
-    aws_access_key            = aws_iam_access_key.backup.id
-    aws_secret_key            = aws_iam_access_key.backup.secret
     cpu                       = var.cpu
     db_names                  = join(" ", var.db_names)
     docker_image              = var.docker_image
@@ -156,6 +157,8 @@ resource "aws_ecs_task_definition" "cron_td" {
   family                = "${var.idp_name}-${var.app_name}-${var.app_env}"
   container_definitions = local.task_def_backup
   network_mode          = "bridge"
+  execution_role_arn    = aws_iam_role.ecs_task_execution_role.arn
+  task_role_arn         = aws_iam_role.backup.arn
 }
 
 /*
@@ -220,4 +223,42 @@ resource "aws_ssm_parameter" "b2_application_key" {
   type        = "SecureString"
   value       = var.b2_application_key
   description = "Value set by Terraform -- do not change manually."
+}
+
+/*
+ * ECS Task Execution Role to allow ECS to assume a role for access to SSM Parameter Store
+ */
+
+resource "aws_iam_role" "ecs_task_execution_role" {
+  name = "ecs-task-execution-${var.app_name}-${var.app_env}-${local.aws_region}"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect    = "Allow"
+      Principal = { Service = "ecs-tasks.amazonaws.com" }
+      Action    = "sts:AssumeRole"
+    }]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+resource "aws_iam_role_policy" "ecs_task_execution_ssm_policy" {
+  name = "ssm-parameter-access"
+  role = aws_iam_role.ecs_task_execution_role.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = ["ssm:GetParameters"]
+        Resource = [
+          "arn:aws:ssm:${local.aws_region}:${local.aws_account}:parameter${local.parameter_path}*"
+        ]
+      }
+    ]
+  })
 }
