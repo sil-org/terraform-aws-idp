@@ -42,6 +42,7 @@ module "pwmanager" {
   docker_image                        = data.terraform_remote_state.ecr.ecr_repo_pwapi
   ecs_cluster_id                      = data.terraform_remote_state.core.ecs_cluster_id
   ecsServiceRole_arn                  = data.terraform_remote_state.core.ecsServiceRole_arn
+  task_execution_role_arn             = data.terraform_remote_state.core.task_execution_role_arn
   email_signature                     = data.terraform_remote_state.broker.email_signature
   extra_hosts                         = var.extra_hosts
   help_center_url                     = data.terraform_remote_state.broker.help_center_url

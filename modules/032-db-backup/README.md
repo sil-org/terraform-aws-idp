@@ -28,6 +28,7 @@ module "dbbackup" {
   db_names                  = var.db_names
   docker_image              = data.terraform_remote_state.ecr.ecr_repo_dbbackup
   ecs_cluster_id            = data.terraform_remote_state.core.ecs_cluster_id
+  task_execution_role_arn   = data.terraform_remote_state.core.task_execution_role_arn
   idp_name                  = var.idp_name
   memory                    = var.memory
   mysql_host                = data.terraform_remote_state.database.rds_address

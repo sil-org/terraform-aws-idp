@@ -32,6 +32,7 @@ module "broker" {
   email_repeat_delay_days          = var.email_repeat_delay_days
   ecs_cluster_id                   = data.terraform_remote_state.core.ecs_cluster_id
   ecsServiceRole_arn               = data.terraform_remote_state.core.ecsServiceRole_arn
+  task_execution_role_arn          = data.terraform_remote_state.core.task_execution_role_arn
   email_signature                  = var.email_signature
   event_schedule                   = "cron(1 0 * * ? 0)"
   google_config                    = var.google_config
