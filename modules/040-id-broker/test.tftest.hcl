@@ -23,6 +23,7 @@ mock_provider "aws" {
 }
 
 mock_provider "cloudflare" {}
+
 variables {
   # required variables
   app_env                   = "test"
@@ -41,6 +42,7 @@ variables {
   rp_origins                = ""
   subdomain                 = "broker"
   support_email             = ""
+  task_execution_role_arn   = ""
   vpc_id                    = ""
 
   # either an internal or an external alb dns name and listener arn must be specified

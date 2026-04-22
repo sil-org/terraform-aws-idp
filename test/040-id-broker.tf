@@ -102,5 +102,6 @@ module "broker" {
   subject_for_welcome                        = ""
   support_email                              = ""
   support_name                               = ""
+  task_execution_role_arn                    = ""
   vpc_id                                     = ""
 }

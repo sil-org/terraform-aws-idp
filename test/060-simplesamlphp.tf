@@ -41,6 +41,7 @@ module "ssp" {
   secret_salt                 = ""
   show_saml_errors            = true
   subdomain                   = ""
+  task_execution_role_arn     = ""
   theme_color_scheme          = ""
   trusted_ip_addresses        = [""]
   vpc_id                      = ""

@@ -282,6 +282,14 @@ variable "support_url" {
   type        = string
 }
 
+variable "task_execution_role_arn" {
+  description = <<-EOT
+    ARN of the IAM role that ECS will use to execute the backup task. It must have permission to read parameters from
+    SSM Parameter Store.
+  EOT
+  type        = string
+}
+
 variable "ui_subdomain" {
   description = "Subdomain for PW UI"
   type        = string

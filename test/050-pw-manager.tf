@@ -45,6 +45,7 @@ module "pw" {
   support_name                        = ""
   support_phone                       = ""
   support_url                         = ""
+  task_execution_role_arn             = ""
   ui_subdomain                        = ""
   vpc_id                              = ""
 }

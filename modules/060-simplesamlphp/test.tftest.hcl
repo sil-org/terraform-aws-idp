@@ -47,6 +47,7 @@ variables {
   recaptcha_secret          = ""
   remember_me_secret        = ""
   subdomain                 = ""
+  task_execution_role_arn   = ""
   trusted_ip_addresses      = []
   vpc_id                    = ""
 }

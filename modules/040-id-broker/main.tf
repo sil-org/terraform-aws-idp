@@ -229,6 +229,7 @@ module "ecsservice" {
   container_def_json = local.task_def
   desired_count      = var.desired_count
   task_role_arn      = module.ecs_role.role_arn
+  execution_role_arn = var.task_execution_role_arn
 
   load_balancer = [{
     target_group_arn = aws_alb_target_group.broker.arn
