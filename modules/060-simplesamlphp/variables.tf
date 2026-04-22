@@ -260,7 +260,7 @@ variable "ssl_ca_base64" {
 
 variable "task_execution_role_arn" {
   description = <<-EOT
-    ARN of the IAM role that ECS will use to execute the backup task. It must have permission to read parameters from
+    ARN of the IAM role that ECS will use to execute service tasks. It must have permission to read parameters from
     SSM Parameter Store.
   EOT
   type        = string
