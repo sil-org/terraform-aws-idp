@@ -1,7 +1,7 @@
 locals {
-  aws_account    = data.aws_caller_identity.this.account_id
-  aws_region     = data.aws_region.current.name
-  parameter_path = "/idp-${var.idp_name}/"
+  aws_account          = data.aws_caller_identity.this.account_id
+  aws_region           = data.aws_region.current.name
+  parameter_store_path = "/idp-${var.idp_name}/"
   rds_arn = (
     coalesce(
       var.rds_arn,
@@ -131,7 +131,7 @@ locals {
     s3_bucket                 = aws_s3_bucket.backup.bucket
     sentry_dsn                = var.sentry_dsn
     service_mode              = var.service_mode
-    parameter_store_path      = local.parameter_path
+    parameter_store_path      = local.parameter_store_path
   })
 }
 
@@ -157,7 +157,7 @@ resource "aws_ecs_task_definition" "cron_td" {
   family                = "${var.idp_name}-${var.app_name}-${var.app_env}"
   container_definitions = local.task_def_backup
   network_mode          = "bridge"
-  execution_role_arn    = aws_iam_role.ecs_task_execution_role.arn
+  execution_role_arn    = var.task_execution_role_arn
   task_role_arn         = aws_iam_role.backup.arn
 }
 
@@ -210,7 +210,7 @@ module "s3_to_b2_sync" {
 resource "aws_ssm_parameter" "b2_application_key_id" {
   count = var.enable_s3_to_b2_sync ? 1 : 0
 
-  name        = "${local.parameter_path}b2_application_key_id"
+  name        = "${local.parameter_store_path}b2_application_key_id"
   type        = "SecureString"
   value       = var.b2_application_key_id
   description = "Value set by Terraform -- do not change manually."
@@ -219,46 +219,8 @@ resource "aws_ssm_parameter" "b2_application_key_id" {
 resource "aws_ssm_parameter" "b2_application_key" {
   count = var.enable_s3_to_b2_sync ? 1 : 0
 
-  name        = "${local.parameter_path}b2_application_key"
+  name        = "${local.parameter_store_path}b2_application_key"
   type        = "SecureString"
   value       = var.b2_application_key
   description = "Value set by Terraform -- do not change manually."
-}
-
-/*
- * ECS Task Execution Role to allow ECS to assume a role for access to SSM Parameter Store
- */
-
-resource "aws_iam_role" "ecs_task_execution_role" {
-  name = "ecs-task-execution-${var.app_name}-${var.app_env}-${local.aws_region}"
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Effect    = "Allow"
-      Principal = { Service = "ecs-tasks.amazonaws.com" }
-      Action    = "sts:AssumeRole"
-    }]
-  })
-}
-
-resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
-  role       = aws_iam_role.ecs_task_execution_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
-}
-
-resource "aws_iam_role_policy" "ecs_task_execution_ssm_policy" {
-  name = "ssm-parameter-access"
-  role = aws_iam_role.ecs_task_execution_role.id
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = ["ssm:GetParameters"]
-        Resource = [
-          "arn:aws:ssm:${local.aws_region}:${local.aws_account}:parameter${local.parameter_path}*"
-        ]
-      }
-    ]
-  })
 }

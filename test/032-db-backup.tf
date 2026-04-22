@@ -27,4 +27,5 @@ module "backup" {
   rclone_arguments                 = "--transfers 4 --checkers 8"
   b2_path                          = ""
   sync_schedule                    = null
+  task_execution_role_arn          = ""
 }
