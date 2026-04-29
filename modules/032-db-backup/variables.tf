@@ -9,9 +9,10 @@ variable "app_name" {
   default     = "db-backup"
 }
 
-variable "backup_user_name" {
+variable "backup_role_name" {
   description = <<-EOT
-    Name of IAM user for S3 access. If not specified: `db-backup-{var.idp_name}-{var.app_env}`
+    Name of IAM role for S3 access. Typically used in a secondary region to avoid conflict with the role created
+    in the primary region. If not specified, the name will be `$${var.app_name}-$${var.idp_name}-$${var.app_env}.`
   EOT
   type        = string
   default     = null
