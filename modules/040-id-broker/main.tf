@@ -295,6 +295,7 @@ module "email_service" {
   container_def_json = local.email_task_def
   desired_count      = 1
   task_role_arn      = module.ecs_role.role_arn
+  execution_role_arn = var.task_execution_role_arn
 }
 
 

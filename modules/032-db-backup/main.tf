@@ -82,7 +82,7 @@ resource "aws_s3_bucket_public_access_block" "backup" {
  * Create role for putting backup files into the bucket
  */
 resource "aws_iam_role" "backup" {
-  name = var.backup_user_name == null ? "db-backup-${var.idp_name}-${var.app_env}" : var.backup_user_name
+  name = var.backup_role_name == null ? "${var.app_name}-${var.idp_name}-${var.app_env}" : var.backup_role_name
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
