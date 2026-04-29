@@ -23,6 +23,7 @@ mock_provider "aws" {
 }
 
 mock_provider "cloudflare" {}
+
 variables {
   # required variables
   app_env                   = "test"
@@ -35,13 +36,13 @@ variables {
   help_center_url           = ""
   idp_name                  = ""
   mysql_host                = ""
-  mysql_pass                = ""
   mysql_user                = ""
   notification_email        = ""
   password_profile_url      = ""
   rp_origins                = ""
   subdomain                 = "broker"
   support_email             = ""
+  task_execution_role_arn   = ""
   vpc_id                    = ""
 
   # either an internal or an external alb dns name and listener arn must be specified

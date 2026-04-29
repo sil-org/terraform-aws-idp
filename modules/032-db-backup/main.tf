@@ -1,6 +1,7 @@
 locals {
-  aws_account = data.aws_caller_identity.this.account_id
-  aws_region  = data.aws_region.current.name
+  aws_account          = data.aws_caller_identity.this.account_id
+  aws_region           = data.aws_region.current.name
+  parameter_store_path = "/idp-${var.idp_name}/"
   rds_arn = (
     coalesce(
       var.rds_arn,
@@ -78,34 +79,37 @@ resource "aws_s3_bucket_public_access_block" "backup" {
 }
 
 /*
- * Create user for putting backup files into the bucket
+ * Create role for putting backup files into the bucket
  */
-resource "aws_iam_user" "backup" {
+resource "aws_iam_role" "backup" {
   name = var.backup_user_name == null ? "db-backup-${var.idp_name}-${var.app_env}" : var.backup_user_name
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid       = "ECSAssumeRole"
+      Effect    = "Allow"
+      Principal = { Service = ["ecs-tasks.amazonaws.com"] }
+      Action    = "sts:AssumeRole"
+      Condition = {
+        ArnLike      = { "aws:SourceArn" = "arn:aws:ecs:${local.aws_region}:${local.aws_account}:*" }
+        StringEquals = { "aws:SourceAccount" = local.aws_account }
+      }
+    }]
+  })
 }
 
-resource "aws_iam_access_key" "backup" {
-  user = aws_iam_user.backup.name
-}
-
-resource "aws_iam_user_policy" "backup" {
+resource "aws_iam_role_policy" "backup" {
   name = "S3-DB-Backup"
-  user = aws_iam_user.backup.name
+  role = aws_iam_role.backup.name
 
-  policy = jsonencode(
-    {
-      Version = "2012-10-17"
-      Statement = [
-        {
-          Effect = "Allow"
-          Action = [
-            "s3:PutObject",
-          ]
-          Resource = "${aws_s3_bucket.backup.arn}*"
-        },
-      ]
-    }
-  )
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = ["s3:PutObject"]
+      Resource = "${aws_s3_bucket.backup.arn}*"
+    }]
+  })
 }
 
 /*
@@ -118,18 +122,16 @@ locals {
     ssl_ca_base64             = var.ssl_ca_base64
     aws_region                = local.aws_region
     cloudwatch_log_group_name = var.cloudwatch_log_group_name
-    aws_access_key            = aws_iam_access_key.backup.id
-    aws_secret_key            = aws_iam_access_key.backup.secret
     cpu                       = var.cpu
     db_names                  = join(" ", var.db_names)
     docker_image              = var.docker_image
     mysql_host                = var.mysql_host
-    mysql_pass                = var.mysql_pass
     mysql_user                = var.mysql_user
     memory                    = var.memory
     s3_bucket                 = aws_s3_bucket.backup.bucket
     sentry_dsn                = var.sentry_dsn
     service_mode              = var.service_mode
+    parameter_store_path      = local.parameter_store_path
   })
 }
 
@@ -155,6 +157,8 @@ resource "aws_ecs_task_definition" "cron_td" {
   family                = "${var.idp_name}-${var.app_name}-${var.app_env}"
   container_definitions = local.task_def_backup
   network_mode          = "bridge"
+  execution_role_arn    = var.task_execution_role_arn
+  task_role_arn         = aws_iam_role.backup.arn
 }
 
 /*
@@ -206,7 +210,7 @@ module "s3_to_b2_sync" {
 resource "aws_ssm_parameter" "b2_application_key_id" {
   count = var.enable_s3_to_b2_sync ? 1 : 0
 
-  name        = "/idp-${var.idp_name}/b2_application_key_id"
+  name        = "${local.parameter_store_path}b2_application_key_id"
   type        = "SecureString"
   value       = var.b2_application_key_id
   description = "Value set by Terraform -- do not change manually."
@@ -215,7 +219,7 @@ resource "aws_ssm_parameter" "b2_application_key_id" {
 resource "aws_ssm_parameter" "b2_application_key" {
   count = var.enable_s3_to_b2_sync ? 1 : 0
 
-  name        = "/idp-${var.idp_name}/b2_application_key"
+  name        = "${local.parameter_store_path}b2_application_key"
   type        = "SecureString"
   value       = var.b2_application_key
   description = "Value set by Terraform -- do not change manually."

@@ -23,6 +23,7 @@ mock_provider "aws" {
 }
 
 mock_provider "cloudflare" {}
+
 variables {
   # required variables
   alb_dns_name              = ""
@@ -46,7 +47,6 @@ variables {
   idp_display_name          = ""
   idp_name                  = ""
   mysql_host                = ""
-  mysql_pass                = ""
   mysql_user                = ""
   recaptcha_key             = ""
   recaptcha_secret          = ""
@@ -54,6 +54,7 @@ variables {
   support_name              = ""
   support_phone             = ""
   support_url               = ""
+  task_execution_role_arn   = ""
   ui_subdomain              = "profile"
   vpc_id                    = ""
 }

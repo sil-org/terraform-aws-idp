@@ -96,7 +96,6 @@ locals {
     logging_level               = var.logging_level
     mysql_database              = var.db_name
     mysql_host                  = var.mysql_host
-    mysql_password              = var.mysql_pass
     mysql_user                  = var.mysql_user
     parameter_store_path        = local.parameter_store_path
     port                        = var.enable_tls ? "443" : "80"
@@ -125,6 +124,7 @@ module "ecsservice" {
   desired_count      = var.desired_count
   ecsServiceRole_arn = var.ecsServiceRole_arn
   task_role_arn      = module.ecs_role.role_arn
+  execution_role_arn = var.task_execution_role_arn
 
   load_balancer = [{
     target_group_arn = aws_alb_target_group.ssp.arn

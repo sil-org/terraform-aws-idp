@@ -73,11 +73,6 @@ variable "mysql_host" {
   type        = string
 }
 
-variable "mysql_pass" {
-  description = "MySQL password"
-  type        = string
-}
-
 variable "mysql_user" {
   description = "MySQL username"
   type        = string
@@ -111,6 +106,14 @@ variable "service_mode" {
   description = "Service mode, either `backup` or `restore`"
   type        = string
   default     = "backup"
+}
+
+variable "task_execution_role_arn" {
+  description = <<-EOT
+    ARN of the IAM role that ECS will use to execute the backup task. It must have permission to read parameters from
+    SSM Parameter Store.
+  EOT
+  type        = string
 }
 
 /*

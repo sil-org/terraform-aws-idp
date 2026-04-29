@@ -210,10 +210,6 @@
         "value": "${mysql_host}"
       },
       {
-        "name": "MYSQL_PASSWORD",
-        "value": "${mysql_pass}"
-      },
-      {
         "name": "MYSQL_USER",
         "value": "${mysql_user}"
       },
@@ -405,6 +401,12 @@
         "name": "SUPPORT_NAME",
         "value": "${support_name}"
       }
+    ],
+    "secrets": [
+        {
+          "name": "MYSQL_PASSWORD",
+          "valueFrom": "${parameter_store_path}MYSQL_PASSWORD"
+        }
     ],
     "links": null,
     "workingDirectory": null,

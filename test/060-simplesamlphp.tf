@@ -31,7 +31,6 @@ module "ssp" {
   mfa_learn_more_url          = ""
   mfa_setup_url               = ""
   mysql_host                  = ""
-  mysql_pass                  = ""
   mysql_user                  = ""
   password_change_url         = ""
   password_forgot_url         = ""
@@ -42,6 +41,7 @@ module "ssp" {
   secret_salt                 = ""
   show_saml_errors            = true
   subdomain                   = ""
+  task_execution_role_arn     = ""
   theme_color_scheme          = ""
   trusted_ip_addresses        = [""]
   vpc_id                      = ""

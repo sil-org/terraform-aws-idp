@@ -149,11 +149,6 @@ variable "mysql_user" {
   type        = string
 }
 
-variable "mysql_pass" {
-  description = "MySQL password for id-broker"
-  type        = string
-}
-
 variable "profile_url" {
   description = "URL of Password Manager profile page"
   type        = string
@@ -261,4 +256,12 @@ variable "ssl_ca_base64" {
   description = "Database SSL CA PEM file, base64-encoded"
   type        = string
   default     = ""
+}
+
+variable "task_execution_role_arn" {
+  description = <<-EOT
+    ARN of the IAM role that ECS will use to execute service tasks. It must have permission to read parameters from
+    SSM Parameter Store.
+  EOT
+  type        = string
 }

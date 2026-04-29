@@ -16,14 +16,6 @@
     "dockerSecurityOptions": null,
     "environment": [
       {
-        "name": "AWS_ACCESS_KEY",
-        "value": "${aws_access_key}"
-      },
-      {
-        "name": "AWS_SECRET_KEY",
-        "value": "${aws_secret_key}"
-      },
-      {
         "name": "DB_NAMES",
         "value": "${db_names}"
       },
@@ -40,10 +32,6 @@
         "value": "${mysql_host}"
       },
       {
-        "name": "MYSQL_PASSWORD",
-        "value": "${mysql_pass}"
-      },
-      {
         "name": "MYSQL_USER",
         "value": "${mysql_user}"
       },
@@ -55,6 +43,12 @@
         "name": "SENTRY_DSN",
         "value": "${sentry_dsn}"
       }
+    ],
+    "secrets": [
+        {
+          "name": "MYSQL_PASSWORD",
+          "valueFrom": "${parameter_store_path}MYSQL_PASSWORD"
+        }
     ],
     "links": null,
     "workingDirectory": null,

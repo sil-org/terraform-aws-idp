@@ -39,7 +39,6 @@ variables {
   mfa_learn_more_url        = ""
   mfa_setup_url             = ""
   mysql_host                = ""
-  mysql_pass                = ""
   mysql_user                = ""
   password_change_url       = ""
   password_forgot_url       = ""
@@ -48,6 +47,7 @@ variables {
   recaptcha_secret          = ""
   remember_me_secret        = ""
   subdomain                 = ""
+  task_execution_role_arn   = ""
   trusted_ip_addresses      = []
   vpc_id                    = ""
 }

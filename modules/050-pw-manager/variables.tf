@@ -202,11 +202,6 @@ variable "mysql_host" {
   type        = string
 }
 
-variable "mysql_pass" {
-  description = "MySQL password for id-broker"
-  type        = string
-}
-
 variable "mysql_user" {
   description = "MySQL username for id-broker"
   type        = string
@@ -284,6 +279,14 @@ variable "support_phone" {
 
 variable "support_url" {
   description = "URL for end user support, displayed on PW UI"
+  type        = string
+}
+
+variable "task_execution_role_arn" {
+  description = <<-EOT
+    ARN of the IAM role that ECS will use to execute service tasks. It must have permission to read parameters from
+    SSM Parameter Store.
+  EOT
   type        = string
 }
 

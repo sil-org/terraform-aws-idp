@@ -13,12 +13,12 @@ mock_provider "aws" {
 
 variables {
   app_env                   = "test"
+  task_execution_role_arn   = ""
   cloudwatch_log_group_name = ""
   docker_image              = ""
   ecs_cluster_id            = ""
   idp_name                  = ""
   mysql_host                = ""
-  mysql_pass                = ""
   mysql_user                = ""
 }
 
