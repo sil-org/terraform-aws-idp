@@ -75,7 +75,7 @@ locals {
     cpu                         = var.cpu
     admin_email                 = var.admin_email
     admin_name                  = var.admin_name
-    admin_pass                  = random_id.admin_pass.hex
+    admin_pass_arn              = aws_ssm_parameter.admin_pass.arn
     app_env                     = var.app_env
     app_name                    = var.app_name
     aws_region                  = local.aws_region
@@ -230,6 +230,13 @@ resource "aws_iam_policy" "cd" {
       },
     ]
   })
+}
+
+resource "aws_ssm_parameter" "admin_pass" {
+  name        = "${local.parameter_store_path}ADMIN_PASS"
+  type        = "SecureString"
+  value       = random_id.admin_pass.hex
+  description = "Value set by Terraform -- do not change manually."
 }
 
 /*

@@ -34,10 +34,6 @@
         "value": "${admin_name}"
       },
       {
-        "name": "ADMIN_PASS",
-        "value": "${admin_pass}"
-      },
-      {
         "name": "BASE_URL_PATH",
         "value": "${base_url}"
       },
@@ -155,6 +151,10 @@
       }
     ],
     "secrets": [
+        {
+          "name": "ADMIN_PASS",
+          "valueFrom": "${admin_pass_arn}"
+        },
         {
           "name": "MYSQL_PASSWORD",
           "valueFrom": "${parameter_store_path}MYSQL_PASSWORD"
