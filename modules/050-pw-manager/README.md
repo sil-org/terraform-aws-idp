@@ -58,8 +58,6 @@ module "pwmanager" {
   password_rule_maxlength             = var.password_rule_maxlength
   password_rule_minlength             = var.password_rule_minlength
   password_rule_minscore              = var.password_rule_minscore
-  recaptcha_key                       = var.recaptcha_key
-  recaptcha_secret                    = var.recaptcha_secret
   support_email                       = data.terraform_remote_state.broker.support_email
   support_name                        = data.terraform_remote_state.broker.support_name
   support_phone                       = var.support_phone

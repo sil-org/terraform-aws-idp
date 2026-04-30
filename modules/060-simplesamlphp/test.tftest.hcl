@@ -43,8 +43,6 @@ variables {
   password_change_url       = ""
   password_forgot_url       = ""
   profile_url               = ""
-  recaptcha_key             = ""
-  recaptcha_secret          = ""
   remember_me_secret        = ""
   subdomain                 = ""
   task_execution_role_arn   = ""

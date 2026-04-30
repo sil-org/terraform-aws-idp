@@ -100,8 +100,6 @@ locals {
     parameter_store_path        = local.parameter_store_path
     port                        = var.enable_tls ? "443" : "80"
     profile_url                 = var.profile_url
-    recaptcha_key               = var.recaptcha_key
-    recaptcha_secret            = var.recaptcha_secret
     remember_me_secret          = var.remember_me_secret
     secret_salt                 = local.secret_salt
     show_saml_errors            = var.show_saml_errors
