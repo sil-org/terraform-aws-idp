@@ -50,8 +50,9 @@ resource "aws_alb_listener_rule" "ssp" {
 /*
  * Create ECS service
  */
-resource "random_id" "admin_pass" {
-  byte_length = 32
+
+resource "random_password" "admin_pass" {
+  length = 96
 }
 
 resource "random_id" "secretsalt" {
@@ -232,7 +233,7 @@ resource "aws_iam_policy" "cd" {
 resource "aws_ssm_parameter" "admin_pass" {
   name        = "${local.parameter_store_path}ADMIN_PASS"
   type        = "SecureString"
-  value       = random_id.admin_pass.hex
+  value       = random_password.admin_pass.result
   description = "Value set by Terraform -- do not change manually."
 }
 
