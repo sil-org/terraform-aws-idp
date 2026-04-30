@@ -66,7 +66,7 @@ locals {
   api_subdomain_with_region = "${var.api_subdomain}-${local.aws_region}"
 
   task_def = templatefile("${path.module}/task-definition-api.json.tftpl", {
-    access_token_hash                   = random_id.access_token_hash.hex
+    access_token_hash_key_arn           = aws_ssm_parameter.access_token_hash_key.arn
     alerts_email                        = var.alerts_email
     alerts_email_enabled                = var.alerts_email_enabled
     app_env                             = var.app_env
@@ -236,6 +236,13 @@ resource "aws_iam_policy" "cd" {
       },
     ]
   })
+}
+
+resource "aws_ssm_parameter" "access_token_hash_key" {
+  name        = "${local.parameter_store_path}ACCESS_TOKEN_HASH_KEY"
+  type        = "SecureString"
+  value       = random_id.access_token_hash.hex
+  description = "Value set by Terraform -- do not change manually."
 }
 
 # Store SAML SP private key in Parameter Store as a SecureString but only if a value is given. Otherwise, the
