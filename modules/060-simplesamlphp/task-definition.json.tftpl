@@ -42,10 +42,6 @@
         "value": "${enable_debug}"
       },
       {
-        "name": "SECRET_SALT",
-        "value": "${secret_salt}"
-      },
-      {
         "name": "SESSION_STORE_TYPE",
         "value": "sql"
       },
@@ -146,6 +142,10 @@
         {
           "name": "MYSQL_PASSWORD",
           "valueFrom": "${parameter_store_path}MYSQL_PASSWORD"
+        },
+        {
+          "name": "SECRET_SALT",
+          "valueFrom": "${secret_salt_arn}"
         }
     ],
     "links": null,

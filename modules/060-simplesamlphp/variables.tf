@@ -8,6 +8,7 @@ variable "secret_salt" {
   EOT
   type        = string
   default     = ""
+  sensitive   = true
 }
 
 variable "memory" {

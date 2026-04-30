@@ -100,7 +100,7 @@ locals {
     parameter_store_path        = local.parameter_store_path
     port                        = var.enable_tls ? "443" : "80"
     profile_url                 = var.profile_url
-    secret_salt                 = local.secret_salt
+    secret_salt_arn             = aws_ssm_parameter.secret_salt.arn
     show_saml_errors            = var.show_saml_errors
     ssl_ca_base64               = var.ssl_ca_base64
     theme_color_scheme          = var.theme_color_scheme
@@ -233,6 +233,13 @@ resource "aws_ssm_parameter" "admin_pass" {
   name        = "${local.parameter_store_path}ADMIN_PASS"
   type        = "SecureString"
   value       = random_id.admin_pass.hex
+  description = "Value set by Terraform -- do not change manually."
+}
+
+resource "aws_ssm_parameter" "secret_salt" {
+  name        = "${local.parameter_store_path}SECRET_SALT"
+  type        = "SecureString"
+  value       = local.secret_salt
   description = "Value set by Terraform -- do not change manually."
 }
 
