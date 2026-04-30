@@ -154,21 +154,6 @@ variable "profile_url" {
   type        = string
 }
 
-variable "recaptcha_key" {
-  description = "Recaptcha site key"
-  type        = string
-}
-
-variable "recaptcha_secret" {
-  description = "Recaptcha secret"
-  type        = string
-}
-
-variable "remember_me_secret" {
-  description = "Secret key used in MFA remember me cookie generation"
-  type        = string
-}
-
 variable "ecs_cluster_id" {
   description = "ID for ECS Cluster"
   type        = string

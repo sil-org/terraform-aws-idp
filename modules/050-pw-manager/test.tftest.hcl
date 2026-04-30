@@ -47,8 +47,6 @@ variables {
   idp_name                  = ""
   mysql_host                = ""
   mysql_user                = ""
-  recaptcha_key             = ""
-  recaptcha_secret          = ""
   support_email             = ""
   support_name              = ""
   support_phone             = ""

@@ -75,7 +75,7 @@ locals {
     cpu                         = var.cpu
     admin_email                 = var.admin_email
     admin_name                  = var.admin_name
-    admin_pass                  = random_id.admin_pass.hex
+    admin_pass_arn              = aws_ssm_parameter.admin_pass.arn
     app_env                     = var.app_env
     app_name                    = var.app_name
     aws_region                  = local.aws_region
@@ -100,9 +100,6 @@ locals {
     parameter_store_path        = local.parameter_store_path
     port                        = var.enable_tls ? "443" : "80"
     profile_url                 = var.profile_url
-    recaptcha_key               = var.recaptcha_key
-    recaptcha_secret            = var.recaptcha_secret
-    remember_me_secret          = var.remember_me_secret
     secret_salt                 = local.secret_salt
     show_saml_errors            = var.show_saml_errors
     ssl_ca_base64               = var.ssl_ca_base64
@@ -230,6 +227,13 @@ resource "aws_iam_policy" "cd" {
       },
     ]
   })
+}
+
+resource "aws_ssm_parameter" "admin_pass" {
+  name        = "${local.parameter_store_path}ADMIN_PASS"
+  type        = "SecureString"
+  value       = random_id.admin_pass.hex
+  description = "Value set by Terraform -- do not change manually."
 }
 
 /*

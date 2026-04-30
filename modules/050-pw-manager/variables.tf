@@ -242,16 +242,6 @@ variable "password_rule_minscore" {
   default     = 3
 }
 
-variable "recaptcha_key" {
-  description = "Recaptcha site key"
-  type        = string
-}
-
-variable "recaptcha_secret" {
-  description = "Recaptcha secret"
-  type        = string
-}
-
 variable "sentry_dsn" {
   description = <<-EOT
     Sentry DSN for error logging and alerting. Obtain from Sentry dashboard: Settings - Projects - (project) -
