@@ -43,7 +43,6 @@ module "ssp" {
   mysql_host                   = data.terraform_remote_state.database.rds_address
   mysql_user                   = var.db_ssp_user
   profile_url                  = var.profile_url
-  remember_me_secret           = var.remember_me_secret
   ecs_cluster_id               = data.terraform_remote_state.core.ecs_cluster_id
   ecsServiceRole_arn           = data.terraform_remote_state.core.ecsServiceRole_arn
   task_execution_role_arn      = data.terraform_remote_state.core.task_execution_role_arn

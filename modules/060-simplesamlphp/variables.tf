@@ -154,11 +154,6 @@ variable "profile_url" {
   type        = string
 }
 
-variable "remember_me_secret" {
-  description = "Secret key used in MFA remember me cookie generation"
-  type        = string
-}
-
 variable "ecs_cluster_id" {
   description = "ID for ECS Cluster"
   type        = string

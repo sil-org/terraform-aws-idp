@@ -100,7 +100,6 @@ locals {
     parameter_store_path        = local.parameter_store_path
     port                        = var.enable_tls ? "443" : "80"
     profile_url                 = var.profile_url
-    remember_me_secret          = var.remember_me_secret
     secret_salt                 = local.secret_salt
     show_saml_errors            = var.show_saml_errors
     ssl_ca_base64               = var.ssl_ca_base64

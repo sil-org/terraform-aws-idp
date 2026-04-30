@@ -35,7 +35,6 @@ module "ssp" {
   password_change_url         = ""
   password_forgot_url         = ""
   profile_url                 = ""
-  remember_me_secret          = ""
   secret_salt                 = ""
   show_saml_errors            = true
   subdomain                   = ""

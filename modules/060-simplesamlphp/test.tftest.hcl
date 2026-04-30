@@ -43,7 +43,6 @@ variables {
   password_change_url       = ""
   password_forgot_url       = ""
   profile_url               = ""
-  remember_me_secret        = ""
   subdomain                 = ""
   task_execution_role_arn   = ""
   trusted_ip_addresses      = []
