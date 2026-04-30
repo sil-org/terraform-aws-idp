@@ -32,7 +32,6 @@ variables {
   app_env                   = "test"
   auth_saml_idpCertificate  = ""
   auth_saml_spCertificate   = ""
-  auth_saml_spPrivateKey    = ""
   cloudflare_domain         = "example.com"
   cloudwatch_log_group_name = ""
   db_name                   = ""

@@ -238,6 +238,17 @@ resource "aws_iam_policy" "cd" {
   })
 }
 
+# Store SAML SP private key in Parameter Store as a SecureString but only if a value is given. Otherwise, the
+# SSM parameter should be created and managed manually.
+resource "aws_ssm_parameter" "auth_saml_sp_private_key" {
+  count = var.auth_saml_spPrivateKey != null && var.auth_saml_spPrivateKey != "" ? 1 : 0
+
+  name        = "${local.parameter_store_path}AUTH_SAML_spPrivateKey"
+  type        = "SecureString"
+  value       = var.auth_saml_spPrivateKey
+  description = "Value set by Terraform -- do not change manually."
+}
+
 /*
  * AWS data
  */
