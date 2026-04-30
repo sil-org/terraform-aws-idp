@@ -62,10 +62,6 @@
         "value": "${auth_saml_spCertificate}"
       },
       {
-        "name": "AUTH_SAML_spPrivateKey",
-        "value": "${auth_saml_spPrivateKey}"
-      },
-      {
         "name": "AUTH_SAML_entityId",
         "value": "${auth_saml_entityId}"
       },
@@ -195,6 +191,10 @@
       }
     ],
     "secrets": [
+        {
+          "name": "AUTH_SAML_spPrivateKey",
+          "valueFrom": "${parameter_store_path}AUTH_SAML_spPrivateKey"
+        },
         {
           "name": "MYSQL_PASSWORD",
           "valueFrom": "${parameter_store_path}MYSQL_PASSWORD"

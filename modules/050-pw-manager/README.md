@@ -32,7 +32,6 @@ module "pwmanager" {
   auth_saml_requireEncryptedAssertion = var.auth_saml_requireEncryptedAssertion
   auth_saml_signRequest               = var.auth_saml_signRequest
   auth_saml_spCertificate             = var.auth_saml_spCertificate
-  auth_saml_spPrivateKey              = var.auth_saml_spPrivateKey
   cloudflare_domain                   = var.cloudflare_domain
   cloudwatch_log_group_name           = var.cloudwatch_log_group_name
   code_length                         = var.code_length

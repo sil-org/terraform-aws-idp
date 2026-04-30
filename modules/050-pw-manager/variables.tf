@@ -70,8 +70,13 @@ variable "auth_saml_spCertificate" {
 }
 
 variable "auth_saml_spPrivateKey" {
-  description = "Private cert data for this SP"
+  description = <<-EOT
+     Private cert data for this SP. If provided, it will be stored in SSM Parameter Store as a SecureString given.
+     Otherwise, the SSM parameter /idp-$${var.idp_name}/AUTH_SAML_spPrivateKey should be created and managed manually.
+  EOT
   type        = string
+  default     = null
+  sensitive   = true
 }
 
 variable "cduser_username" {
