@@ -12,7 +12,6 @@ module "sync" {
   enable_new_user_notification = true
   enable_sync                  = true
   event_schedule               = ""
-  id_broker_access_token       = ""
   id_broker_adapter            = ""
   id_broker_assertValidIp      = true
   id_broker_base_url           = ""

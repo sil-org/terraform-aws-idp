@@ -21,7 +21,6 @@ module "ssp" {
   enable_debug                = true
   help_center_url             = ""
   hub_mode                    = true
-  id_broker_access_token      = ""
   id_broker_assert_valid_ip   = true
   id_broker_base_uri          = ""
   id_broker_trusted_ip_ranges = [""]

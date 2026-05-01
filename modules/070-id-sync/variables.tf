@@ -34,11 +34,6 @@ variable "docker_image" {
   type        = string
 }
 
-variable "id_broker_access_token" {
-  description = "Access token for calling id-broker"
-  type        = string
-}
-
 variable "id_broker_adapter" {
   description = "Which ID Sync adapter to use"
   type        = string

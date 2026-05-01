@@ -37,10 +37,6 @@
         "value": "${abandoned_user_deactivate_instructions_url}"
       },
       {
-        "name": "API_ACCESS_KEYS",
-        "value": "${api_access_keys}"
-      },
-      {
         "name": "APP_ENV",
         "value": "${app_env}"
       },
@@ -403,6 +399,10 @@
       }
     ],
     "secrets": [
+        {
+          "name": "API_ACCESS_KEYS",
+          "valueFrom": "${parameter_store_path}API_ACCESS_KEYS"
+        },
         {
           "name": "MYSQL_PASSWORD",
           "valueFrom": "${parameter_store_path}MYSQL_PASSWORD"

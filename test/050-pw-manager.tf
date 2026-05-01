@@ -25,7 +25,6 @@ module "pw" {
   email_signature                     = ""
   extra_hosts                         = ""
   help_center_url                     = ""
-  id_broker_access_token              = ""
   id_broker_assertValidBrokerIp       = true
   id_broker_base_uri                  = ""
   id_broker_validIpRanges             = [""]

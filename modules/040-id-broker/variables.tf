@@ -409,12 +409,6 @@ variable "notification_email" {
   type        = string
 }
 
-variable "output_alternate_tokens" {
-  description = "Output alternate tokens for client services. Used for token rotation."
-  type        = bool
-  default     = false
-}
-
 variable "password_expiration_grace_period" {
   description = "Grace period after `password_lifespan` after which the account will be locked."
   type        = string

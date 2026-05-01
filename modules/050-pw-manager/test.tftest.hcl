@@ -40,7 +40,6 @@ variables {
   ecs_cluster_id            = ""
   email_signature           = ""
   help_center_url           = ""
-  id_broker_access_token    = ""
   id_broker_base_uri        = ""
   id_broker_validIpRanges   = [""]
   idp_display_name          = ""

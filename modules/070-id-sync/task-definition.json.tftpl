@@ -23,10 +23,6 @@
         "value": "${app_env}"
       },
       {
-        "name": "ID_BROKER_CONFIG_accessToken",
-        "value": "${id_broker_access_token}"
-      },
-      {
         "name": "ID_BROKER_ADAPTER",
         "value": "${id_broker_adapter}"
       },
@@ -95,6 +91,12 @@
         "value": "${heartbeat_method}"
       }
       ${id_store_config}
+    ],
+    "secrets": [
+        {
+          "name": "ID_BROKER_CONFIG_accessToken",
+          "value": "${parameter_store_path}ID_BROKER_ACCESS_TOKEN"
+        }
     ],
     "links": null,
     "workingDirectory": null,

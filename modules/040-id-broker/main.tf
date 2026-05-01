@@ -51,39 +51,8 @@ resource "aws_alb_listener_rule" "broker" {
   }
 }
 
-/*
- * Generate access tokens for consuming apps
- */
-resource "random_id" "access_token_pwmanager" {
-  byte_length = 16
-}
-
-resource "random_id" "access_token_search" {
-  byte_length = 16
-}
-
-resource "random_id" "access_token_ssp" {
-  byte_length = 16
-}
-
-resource "random_id" "access_token_idsync" {
-  byte_length = 16
-}
-
-resource "random_id" "access_token_pwmanager_b" {
-  byte_length = 32
-}
-
-resource "random_id" "access_token_search_b" {
-  byte_length = 32
-}
-
-resource "random_id" "access_token_ssp_b" {
-  byte_length = 32
-}
-
-resource "random_id" "access_token_idsync_b" {
-  byte_length = 32
+data "aws_ssm_parameter" "access_key" {
+  name = "${local.parameter_store_path}ID_BROKER_ACCESS_TOKEN"
 }
 
 /*
@@ -96,22 +65,11 @@ locals {
       value = v
     })]
   )
-  api_access_keys = join(",", [
-    random_id.access_token_pwmanager.hex,
-    random_id.access_token_search.hex,
-    random_id.access_token_ssp.hex,
-    random_id.access_token_idsync.hex,
-    random_id.access_token_pwmanager_b.hex,
-    random_id.access_token_search_b.hex,
-    random_id.access_token_ssp_b.hex,
-    random_id.access_token_idsync_b.hex,
-  ])
 
   subdomain_with_region = "${var.subdomain}-${local.aws_region}"
 
   task_def = templatefile("${path.module}/task-definition.json.tftpl", local.task_def_vars)
   task_def_vars = {
-    api_access_keys                            = local.api_access_keys
     abandoned_user_abandoned_period            = var.abandoned_user_abandoned_period
     abandoned_user_best_practice_url           = var.abandoned_user_best_practice_url
     abandoned_user_deactivate_instructions_url = var.abandoned_user_deactivate_instructions_url

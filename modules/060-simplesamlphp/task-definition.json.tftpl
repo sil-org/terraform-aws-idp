@@ -66,10 +66,6 @@
         "value": "${hub_mode}"
       },
       {
-        "name": "ID_BROKER_ACCESS_TOKEN",
-        "value": "${id_broker_access_token}"
-      },
-      {
         "name": "ID_BROKER_ASSERT_VALID_IP",
         "value": "${id_broker_assert_valid_ip}"
       },
@@ -138,6 +134,10 @@
         {
           "name": "ADMIN_PASS",
           "valueFrom": "${admin_pass_arn}"
+        },
+        {
+          "name": "ID_BROKER_ACCESS_TOKEN",
+          "value": "${parameter_store_path}ID_BROKER_ACCESS_TOKEN"
         },
         {
           "name": "MYSQL_PASSWORD",

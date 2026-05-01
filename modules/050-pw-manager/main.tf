@@ -90,7 +90,6 @@ locals {
     email_signature                     = var.email_signature
     extra_hosts                         = var.extra_hosts
     help_center_url                     = var.help_center_url
-    id_broker_access_token              = var.id_broker_access_token
     id_broker_assertValidBrokerIp       = var.id_broker_assertValidBrokerIp
     id_broker_base_uri                  = var.id_broker_base_uri
     id_broker_validIpRanges             = join(",", var.id_broker_validIpRanges)

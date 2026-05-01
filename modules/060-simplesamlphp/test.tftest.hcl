@@ -33,7 +33,6 @@ variables {
   ecsServiceRole_arn        = ""
   ecs_cluster_id            = ""
   help_center_url           = ""
-  id_broker_access_token    = ""
   id_broker_base_uri        = ""
   idp_name                  = ""
   mfa_learn_more_url        = ""
