@@ -23,4 +23,5 @@ module "sync" {
   memory                       = 1
   notifier_email_to            = ""
   sync_safety_cutoff           = 0.9
+  task_execution_role_arn      = ""
 }
