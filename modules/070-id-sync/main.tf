@@ -19,7 +19,6 @@ locals {
     aws_region                   = local.aws_region
     cloudwatch_log_group_name    = var.cloudwatch_log_group_name
     docker_image                 = var.docker_image
-    id_broker_access_token       = var.id_broker_access_token
     id_broker_adapter            = var.id_broker_adapter
     id_broker_assertValidIp      = var.id_broker_assertValidIp
     id_broker_base_url           = var.id_broker_base_url

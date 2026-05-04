@@ -165,11 +165,6 @@ variable "help_center_url" {
   type = string
 }
 
-variable "id_broker_access_token" {
-  description = "Access token for calling id-broker"
-  type        = string
-}
-
 variable "id_broker_assertValidBrokerIp" {
   description = "Whether to assert IP address for ID Broker API is trusted"
   type        = bool

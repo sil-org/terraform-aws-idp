@@ -95,11 +95,6 @@ variable "hub_mode" {
   default     = false
 }
 
-variable "id_broker_access_token" {
-  description = "Access token for calling id-broker"
-  type        = string
-}
-
 variable "id_broker_assert_valid_ip" {
   description = "Whether to assert valid ip for calling id-broker"
   type        = bool

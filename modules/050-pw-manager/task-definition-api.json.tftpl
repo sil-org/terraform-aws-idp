@@ -82,10 +82,6 @@
         "value": "${help_center_url}"
       },
       {
-        "name": "ID_BROKER_accessToken",
-        "value": "${id_broker_access_token}"
-      },
-      {
         "name": "ID_BROKER_baseUrl",
         "value": "${id_broker_base_uri}"
       },
@@ -186,6 +182,10 @@
         {
           "name": "AUTH_SAML_spPrivateKey",
           "valueFrom": "${parameter_store_path}AUTH_SAML_spPrivateKey"
+        },
+        {
+          "name": "ID_BROKER_accessToken",
+          "valueFrom": "${parameter_store_path}ID_BROKER_ACCESS_TOKEN"
         },
         {
           "name": "MYSQL_PASSWORD",

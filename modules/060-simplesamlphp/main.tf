@@ -87,7 +87,6 @@ locals {
     password_change_url         = var.password_change_url
     password_forgot_url         = var.password_forgot_url
     hub_mode                    = var.hub_mode
-    id_broker_access_token      = var.id_broker_access_token
     id_broker_assert_valid_ip   = var.id_broker_assert_valid_ip
     id_broker_base_uri          = var.id_broker_base_uri
     id_broker_trusted_ip_ranges = join(",", var.id_broker_trusted_ip_ranges)

@@ -8,24 +8,10 @@ output "public_dns_value" {
   value       = cloudflare_record.brokerdns.hostname
 }
 
-output "access_token_pwmanager" {
-  description = "Access token for PW Manager to use in API calls to id-broker"
-  value       = var.output_alternate_tokens ? random_id.access_token_pwmanager_b.hex : random_id.access_token_pwmanager.hex
-}
-
 output "access_token_search" {
-  description = "Access token for search lambda to use in API calls to id-broker"
-  value       = var.output_alternate_tokens ? random_id.access_token_search_b.hex : random_id.access_token_search.hex
-}
-
-output "access_token_ssp" {
-  description = "Access token for simpleSAMLphp to use in API calls to id-broker"
-  value       = var.output_alternate_tokens ? random_id.access_token_ssp_b.hex : random_id.access_token_ssp.hex
-}
-
-output "access_token_idsync" {
-  description = "Access token for id-sync to use in API calls to id-broker"
-  value       = var.output_alternate_tokens ? random_id.access_token_idsync_b.hex : random_id.access_token_idsync.hex
+  description = "Access token for search lambda to use in API calls to id-broker. DEPRECATED: broker search is archived."
+  value       = data.aws_ssm_parameter.access_key.value
+  sensitive   = true
 }
 
 output "help_center_url" {
