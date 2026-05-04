@@ -9,7 +9,7 @@ output "public_dns_value" {
 }
 
 output "access_token_search" {
-  description = "Access token for search lambda to use in API calls to id-broker"
+  description = "Access token for search lambda to use in API calls to id-broker. DEPRECATED: broker search is archived."
   value       = data.aws_ssm_parameter.access_key.value
   sensitive   = true
 }
