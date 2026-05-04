@@ -34,6 +34,7 @@ variables {
   auth_saml_spCertificate   = ""
   cloudflare_domain         = "example.com"
   cloudwatch_log_group_name = ""
+  cd_role_name              = ""
   db_name                   = ""
   docker_image              = ""
   ecsServiceRole_arn        = ""
@@ -62,20 +63,13 @@ run "test" {
   }
 }
 
-run "test_no_cd_role" {
-  assert {
-    condition     = length(aws_iam_role_policy_attachment.cd) == 0
-    error_message = "cd role policy attachment is not attached to the correct role"
-  }
-}
-
 run "cd_role_attachment" {
   variables {
     cd_role_name = "cd-test"
   }
 
   assert {
-    condition     = aws_iam_role_policy_attachment.cd[0].role == var.cd_role_name
+    condition     = aws_iam_role_policy_attachment.cd.role == var.cd_role_name
     error_message = "cd role policy attachment is not attached to the correct role"
   }
 }

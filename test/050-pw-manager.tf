@@ -12,6 +12,7 @@ module "pw" {
   auth_saml_requireEncryptedAssertion = true
   auth_saml_signRequest               = true
   auth_saml_spCertificate             = ""
+  cd_role_name                        = ""
   cloudflare_domain                   = ""
   cloudwatch_log_group_name           = ""
   code_length                         = 1

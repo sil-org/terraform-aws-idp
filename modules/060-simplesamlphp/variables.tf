@@ -222,15 +222,9 @@ variable "create_dns_record" {
   default     = true
 }
 
-variable "cduser_username" {
-  description = "Username of the Continuous Deployment (CD) IAM user."
-  type        = string
-}
-
 variable "cd_role_name" {
   description = "Name of the CD role to assume for deployments."
   type        = string
-  default     = null
 }
 
 variable "ssl_ca_base64" {

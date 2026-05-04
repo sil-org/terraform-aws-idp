@@ -27,15 +27,9 @@ variable "app_name" {
   default     = "id-broker"
 }
 
-variable "cduser_username" {
-  type    = string
-  default = "IAM user name for the CD user. Used to create ECS deployment policy."
-}
-
 variable "cd_role_name" {
   description = "Name of the CD role to assume for deployments."
   type        = string
-  default     = null
 }
 
 variable "cloudflare_domain" {
