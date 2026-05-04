@@ -65,6 +65,7 @@ resource "aws_ecs_task_definition" "cron_td" {
   container_definitions = local.task_def
   network_mode          = "bridge"
   task_role_arn         = module.ecs_role.role_arn
+  execution_role_arn    = var.task_execution_role_arn
 }
 
 /*

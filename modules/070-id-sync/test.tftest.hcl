@@ -21,6 +21,7 @@ variables {
   id_store_config           = {}
   idp_name                  = ""
   ecs_cluster_id            = ""
+  task_execution_role_arn   = ""
 }
 
 run "test" {}
