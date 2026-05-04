@@ -26,10 +26,6 @@
         "value": "${aws_region}"
       },
       {
-        "name": "ACCESS_TOKEN_HASH_KEY",
-        "value": "${access_token_hash}"
-      },
-      {
         "name": "ALERTS_EMAIL",
         "value": "${alerts_email}"
       },
@@ -191,6 +187,10 @@
       }
     ],
     "secrets": [
+        {
+          "name": "ACCESS_TOKEN_HASH_KEY",
+          "valueFrom": "${access_token_hash_key_arn}"
+        },
         {
           "name": "AUTH_SAML_spPrivateKey",
           "valueFrom": "${parameter_store_path}AUTH_SAML_spPrivateKey"
