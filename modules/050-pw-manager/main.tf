@@ -80,7 +80,6 @@ locals {
     auth_saml_signRequest               = var.auth_saml_signRequest
     auth_saml_sloUrl                    = "${var.auth_saml_idp_url}/saml2/idp/SingleLogoutService.php"
     auth_saml_spCertificate             = var.auth_saml_spCertificate
-    auth_saml_spPrivateKey              = var.auth_saml_spPrivateKey
     auth_saml_ssoUrl                    = "${var.auth_saml_idp_url}/saml2/idp/SSOService.php"
     cmd                                 = "/data/run.sh"
     code_length                         = var.code_length
@@ -230,17 +229,6 @@ resource "aws_ssm_parameter" "access_token_hash_key" {
   name        = "${local.parameter_store_path}ACCESS_TOKEN_HASH_KEY"
   type        = "SecureString"
   value       = random_id.access_token_hash.hex
-  description = "Value set by Terraform -- do not change manually."
-}
-
-# Store SAML SP private key in Parameter Store as a SecureString but only if a value is given. Otherwise, the
-# SSM parameter should be created and managed manually.
-resource "aws_ssm_parameter" "auth_saml_sp_private_key" {
-  count = var.auth_saml_spPrivateKey != null && var.auth_saml_spPrivateKey != "" ? 1 : 0
-
-  name        = "${local.parameter_store_path}AUTH_SAML_spPrivateKey"
-  type        = "SecureString"
-  value       = var.auth_saml_spPrivateKey
   description = "Value set by Terraform -- do not change manually."
 }
 
