@@ -1,6 +1,6 @@
 output "admin_pass" {
   description = "SSP Admin password"
-  value       = random_id.admin_pass.hex
+  value       = random_password.admin_pass.result
   sensitive   = true
 }
 

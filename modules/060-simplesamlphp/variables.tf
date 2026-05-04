@@ -8,6 +8,7 @@ variable "secret_salt" {
   EOT
   type        = string
   default     = ""
+  sensitive   = true
 }
 
 variable "memory" {
@@ -151,21 +152,6 @@ variable "mysql_user" {
 
 variable "profile_url" {
   description = "URL of Password Manager profile page"
-  type        = string
-}
-
-variable "recaptcha_key" {
-  description = "Recaptcha site key"
-  type        = string
-}
-
-variable "recaptcha_secret" {
-  description = "Recaptcha secret"
-  type        = string
-}
-
-variable "remember_me_secret" {
-  description = "Secret key used in MFA remember me cookie generation"
   type        = string
 }
 

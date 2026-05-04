@@ -38,8 +38,6 @@ module "pw" {
   password_rule_maxlength             = 1
   password_rule_minlength             = 1
   password_rule_minscore              = 1
-  recaptcha_key                       = ""
-  recaptcha_secret                    = ""
   support_email                       = ""
   support_name                        = ""
   support_phone                       = ""

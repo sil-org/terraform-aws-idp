@@ -50,8 +50,9 @@ resource "aws_alb_listener_rule" "ssp" {
 /*
  * Create ECS service
  */
-resource "random_id" "admin_pass" {
-  byte_length = 32
+
+resource "random_password" "admin_pass" {
+  length = 96
 }
 
 resource "random_id" "secretsalt" {
@@ -75,7 +76,7 @@ locals {
     cpu                         = var.cpu
     admin_email                 = var.admin_email
     admin_name                  = var.admin_name
-    admin_pass                  = random_id.admin_pass.hex
+    admin_pass_arn              = aws_ssm_parameter.admin_pass.arn
     app_env                     = var.app_env
     app_name                    = var.app_name
     aws_region                  = local.aws_region
@@ -100,10 +101,7 @@ locals {
     parameter_store_path        = local.parameter_store_path
     port                        = var.enable_tls ? "443" : "80"
     profile_url                 = var.profile_url
-    recaptcha_key               = var.recaptcha_key
-    recaptcha_secret            = var.recaptcha_secret
-    remember_me_secret          = var.remember_me_secret
-    secret_salt                 = local.secret_salt
+    secret_salt_arn             = aws_ssm_parameter.secret_salt.arn
     show_saml_errors            = var.show_saml_errors
     ssl_ca_base64               = var.ssl_ca_base64
     theme_color_scheme          = var.theme_color_scheme
@@ -230,6 +228,20 @@ resource "aws_iam_policy" "cd" {
       },
     ]
   })
+}
+
+resource "aws_ssm_parameter" "admin_pass" {
+  name        = "${local.parameter_store_path}ADMIN_PASS"
+  type        = "SecureString"
+  value       = random_password.admin_pass.result
+  description = "Value set by Terraform -- do not change manually."
+}
+
+resource "aws_ssm_parameter" "secret_salt" {
+  name        = "${local.parameter_store_path}SECRET_SALT"
+  type        = "SecureString"
+  value       = local.secret_salt
+  description = "Value set by Terraform -- do not change manually."
 }
 
 /*

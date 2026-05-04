@@ -34,20 +34,12 @@
         "value": "${admin_name}"
       },
       {
-        "name": "ADMIN_PASS",
-        "value": "${admin_pass}"
-      },
-      {
         "name": "BASE_URL_PATH",
         "value": "${base_url}"
       },
       {
         "name": "ENABLE_DEBUG",
         "value": "${enable_debug}"
-      },
-      {
-        "name": "SECRET_SALT",
-        "value": "${secret_salt}"
       },
       {
         "name": "SESSION_STORE_TYPE",
@@ -122,18 +114,6 @@
         "value":  "${profile_url}"
       },
       {
-        "name": "RECAPTCHA_SITE_KEY",
-        "value": "${recaptcha_key}"
-      },
-      {
-        "name": "RECAPTCHA_SECRET",
-        "value": "${recaptcha_secret}"
-      },
-      {
-        "name": "REMEMBER_ME_SECRET",
-        "value": "${remember_me_secret}"
-      },
-      {
         "name": "SSL_CA_BASE64",
         "value": "${ssl_ca_base64}"
       },
@@ -156,8 +136,16 @@
     ],
     "secrets": [
         {
+          "name": "ADMIN_PASS",
+          "valueFrom": "${admin_pass_arn}"
+        },
+        {
           "name": "MYSQL_PASSWORD",
           "valueFrom": "${parameter_store_path}MYSQL_PASSWORD"
+        },
+        {
+          "name": "SECRET_SALT",
+          "valueFrom": "${secret_salt_arn}"
         }
     ],
     "links": null,
