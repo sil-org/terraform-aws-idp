@@ -133,8 +133,6 @@ locals {
     service_mode              = var.service_mode
     parameter_store_path      = local.parameter_store_path
     b2_bucket                 = var.b2_bucket
-    b2_application_key_id     = var.b2_application_key_id
-    b2_application_key        = var.b2_application_key
   })
 }
 
@@ -184,4 +182,19 @@ module "aws_backup" {
   delete_after           = var.delete_recovery_point_after_days
 }
 
+/*
+ * Backblaze B2 credentials in Parameter Store
+ */
+resource "aws_ssm_parameter" "b2_application_key_id" {
+  name        = "${local.parameter_store_path}B2_APPLICATION_KEY_ID"
+  type        = "SecureString"
+  value       = var.b2_application_key_id
+  description = "Value set by Terraform -- do not change manually."
+}
 
+resource "aws_ssm_parameter" "b2_application_key" {
+  name        = "${local.parameter_store_path}B2_APPLICATION_KEY"
+  type        = "SecureString"
+  value       = var.b2_application_key
+  description = "Value set by Terraform -- do not change manually."
+}

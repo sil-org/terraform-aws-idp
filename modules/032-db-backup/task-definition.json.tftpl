@@ -46,20 +46,20 @@
       {
         "name": "B2_BUCKET",
         "value": "${b2_bucket}"
-      },
-      {
-        "name": "B2_APPLICATION_KEY_ID",
-        "value": "${b2_application_key_id}"
-      },
-      {
-        "name": "B2_APPLICATION_KEY",
-        "value": "${b2_application_key}"
       }
     ],
     "secrets": [
         {
           "name": "MYSQL_PASSWORD",
           "valueFrom": "${parameter_store_path}MYSQL_PASSWORD"
+        },
+        {
+          "name": "B2_APPLICATION_KEY_ID",
+          "valueFrom": "${parameter_store_path}B2_APPLICATION_KEY_ID"
+        },
+        {
+          "name": "B2_APPLICATION_KEY",
+          "valueFrom": "${parameter_store_path}B2_APPLICATION_KEY"
         }
     ],
     "links": null,
