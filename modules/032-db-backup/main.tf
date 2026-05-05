@@ -190,6 +190,12 @@ resource "aws_ssm_parameter" "b2_application_key_id" {
   type        = "SecureString"
   value       = var.b2_application_key_id
   description = "Value set by Terraform -- do not change manually."
+
+  tags = {
+    idp_name = var.idp_name
+    app_name = var.app_name
+    app_env  = var.app_env
+  }
 }
 
 resource "aws_ssm_parameter" "b2_application_key" {
@@ -197,4 +203,10 @@ resource "aws_ssm_parameter" "b2_application_key" {
   type        = "SecureString"
   value       = var.b2_application_key
   description = "Value set by Terraform -- do not change manually."
+
+  tags = {
+    idp_name = var.idp_name
+    app_name = var.app_name
+    app_env  = var.app_env
+  }
 }
