@@ -69,16 +69,6 @@ variable "auth_saml_spCertificate" {
   type        = string
 }
 
-variable "auth_saml_spPrivateKey" {
-  description = <<-EOT
-     Private cert data for this SP. If provided, it will be stored in SSM Parameter Store as a SecureString given.
-     Otherwise, the SSM parameter /idp-$${var.idp_name}/AUTH_SAML_spPrivateKey should be created and managed manually.
-  EOT
-  type        = string
-  default     = null
-  sensitive   = true
-}
-
 variable "cd_role_name" {
   description = "Name of the CD role to assume for deployments."
   type        = string
