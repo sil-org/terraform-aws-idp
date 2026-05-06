@@ -33,7 +33,6 @@ module "ssp" {
   password_change_url          = "https://${data.terraform_remote_state.pwmanager.ui_hostname}/#/password/create"
   password_forgot_url          = "https://${data.terraform_remote_state.pwmanager.ui_hostname}/#/password/forgot"
   hub_mode                     = var.hub_mode
-  id_broker_access_token       = data.terraform_remote_state.broker.access_token_ssp
   id_broker_assert_valid_ip    = var.id_broker_assert_valid_ip
   id_broker_base_uri           = "https://${data.terraform_remote_state.broker.hostname}"
   id_broker_trusted_ip_ranges  = data.terraform_remote_state.cluster.private_subnet_cidr_blocks
@@ -43,6 +42,7 @@ module "ssp" {
   mysql_host                   = data.terraform_remote_state.database.rds_address
   mysql_user                   = var.db_ssp_user
   profile_url                  = var.profile_url
+  cd_role_name                 = data.terraform_remote_state.core.cd_role_name
   ecs_cluster_id               = data.terraform_remote_state.core.ecs_cluster_id
   ecsServiceRole_arn           = data.terraform_remote_state.core.ecsServiceRole_arn
   task_execution_role_arn      = data.terraform_remote_state.core.task_execution_role_arn

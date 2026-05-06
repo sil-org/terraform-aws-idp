@@ -32,6 +32,7 @@ module "pwmanager" {
   auth_saml_requireEncryptedAssertion = var.auth_saml_requireEncryptedAssertion
   auth_saml_signRequest               = var.auth_saml_signRequest
   auth_saml_spCertificate             = var.auth_saml_spCertificate
+  cd_role_name                        = data.terraform_remote_state.core.cd_role_name
   cloudflare_domain                   = var.cloudflare_domain
   cloudwatch_log_group_name           = var.cloudwatch_log_group_name
   code_length                         = var.code_length
@@ -45,7 +46,6 @@ module "pwmanager" {
   email_signature                     = data.terraform_remote_state.broker.email_signature
   extra_hosts                         = var.extra_hosts
   help_center_url                     = data.terraform_remote_state.broker.help_center_url
-  id_broker_access_token              = data.terraform_remote_state.broker.access_token_pwmanager
   id_broker_assertValidBrokerIp       = var.id_broker_assertValidBrokerIp
   id_broker_base_uri                  = "https://${data.terraform_remote_state.broker.hostname}"
   id_broker_validIpRanges             = data.terraform_remote_state.cluster.private_subnet_cidr_blocks

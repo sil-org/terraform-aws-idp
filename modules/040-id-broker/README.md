@@ -21,6 +21,7 @@ module "broker" {
 
   app_env                          = var.app_env
   app_name                         = var.app_name
+  cd_role_name                     = data.terraform_remote_state.core.cd_role_name
   cloudflare_domain                = var.cloudflare_domain
   cloudwatch_log_group_name        = var.cloudwatch_log_group_name
   contingent_user_duration         = var.contingent_user_duration
@@ -32,7 +33,6 @@ module "broker" {
   email_repeat_delay_days          = var.email_repeat_delay_days
   ecs_cluster_id                   = data.terraform_remote_state.core.ecs_cluster_id
   ecsServiceRole_arn               = data.terraform_remote_state.core.ecsServiceRole_arn
-  task_execution_role_arn          = data.terraform_remote_state.core.task_execution_role_arn
   email_signature                  = var.email_signature
   event_schedule                   = "cron(1 0 * * ? 0)"
   google_config                    = var.google_config
@@ -113,6 +113,7 @@ module "broker" {
   subject_for_welcome              = var.subject_for_welcome
   support_email                    = var.support_email
   support_name                     = var.support_name
+  task_execution_role_arn          = data.terraform_remote_state.core.task_execution_role_arn
   vpc_id                           = data.terraform_remote_state.cluster.vpc_id
 }
 ```

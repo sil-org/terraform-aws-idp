@@ -25,7 +25,6 @@ module "idsync" {
   alb_https_listener_arn      = data.terraform_remote_state.cluster.alb_https_listener_arn
   cloudwatch_log_group_name   = var.cloudwatch_log_group_name
   docker_image                = data.terraform_remote_state.ecr.ecr_repo_idsync
-  id_broker_access_token      = data.terraform_remote_state.broker.access_token_idsync
   id_broker_adapter           = var.id_broker_adapter
   id_broker_assertValidIp     = var.id_broker_assertValidIp
   id_broker_base_url          = "https://${data.terraform_remote_state.broker.hostname}"
