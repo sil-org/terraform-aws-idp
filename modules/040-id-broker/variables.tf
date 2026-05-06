@@ -68,6 +68,12 @@ variable "cpu_email" {
   default     = 64
 }
 
+variable "create_access_key" {
+  description = "Set this flag to create and manage the access key used for the ID Broker API."
+  type        = bool
+  default     = false
+}
+
 variable "create_dns_record" {
   description = "Controls creation of a DNS CNAME record for the ECS service."
   type        = bool
