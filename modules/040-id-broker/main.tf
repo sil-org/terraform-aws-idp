@@ -51,7 +51,9 @@ resource "aws_alb_listener_rule" "broker" {
   }
 }
 
-data "aws_ssm_parameter" "access_key" {
+data "aws_ssm_parameter" "id_broker_access_token" {
+  count = var.create_access_key ? 0 : 1
+
   name = "${local.parameter_store_path}ID_BROKER_ACCESS_TOKEN"
 }
 
