@@ -51,8 +51,36 @@ resource "aws_alb_listener_rule" "broker" {
   }
 }
 
-data "aws_ssm_parameter" "access_key" {
+data "aws_ssm_parameter" "id_broker_access_token" {
+  count = var.create_access_key ? 0 : 1
+
   name = "${local.parameter_store_path}ID_BROKER_ACCESS_TOKEN"
+}
+
+resource "random_password" "access_key" {
+  count = var.create_access_key ? 1 : 0
+
+  length = 96
+}
+
+# define the parameter that other services use to access ID Broker
+resource "aws_ssm_parameter" "id_broker_access_token" {
+  count = var.create_access_key ? 1 : 0
+
+  name        = "${local.parameter_store_path}ID_BROKER_ACCESS_TOKEN"
+  type        = "SecureString"
+  value       = one(random_password.access_key[*].result)
+  description = "Value set by Terraform -- do not change manually."
+}
+
+# define the parameter that ID Broker uses to authenticate access keys used by other services
+resource "aws_ssm_parameter" "api_access_keys" {
+  count = var.create_access_key ? 1 : 0
+
+  name        = "${local.parameter_store_path}API_ACCESS_KEYS"
+  type        = "SecureString"
+  value       = one(random_password.access_key[*].result)
+  description = "Value set by Terraform -- do not change manually."
 }
 
 /*

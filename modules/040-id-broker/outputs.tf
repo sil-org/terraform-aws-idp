@@ -10,8 +10,12 @@ output "public_dns_value" {
 
 output "access_token_search" {
   description = "Access token for search lambda to use in API calls to id-broker. DEPRECATED: broker search is archived."
-  value       = data.aws_ssm_parameter.access_key.value
-  sensitive   = true
+  value = (
+    var.create_access_key
+    ? aws_ssm_parameter.id_broker_access_token[0].value
+    : data.aws_ssm_parameter.id_broker_access_token[0].value
+  )
+  sensitive = true
 }
 
 output "help_center_url" {

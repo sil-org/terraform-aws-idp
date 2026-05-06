@@ -68,3 +68,19 @@ run "cd_role_attachment" {
     error_message = "cd role policy attachment is not attached to the correct role"
   }
 }
+
+run "create_access_key" {
+  variables {
+    create_access_key = true
+  }
+
+  assert {
+    condition     = length(aws_ssm_parameter.id_broker_access_token) > 0
+    error_message = "id_broker_access_token parameter should exist"
+  }
+
+  assert {
+    condition     = length(aws_ssm_parameter.api_access_keys) > 0
+    error_message = "api_access_keys parameter should exist"
+  }
+}
