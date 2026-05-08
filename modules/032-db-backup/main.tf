@@ -132,6 +132,8 @@ locals {
     sentry_dsn                = var.sentry_dsn
     service_mode              = var.service_mode
     parameter_store_path      = local.parameter_store_path
+    b2_application_key_id_arn = aws_ssm_parameter.b2_application_key_id.arn
+    b2_application_key_arn    = aws_ssm_parameter.b2_application_key.arn
     b2_bucket                 = var.b2_bucket
   })
 }
