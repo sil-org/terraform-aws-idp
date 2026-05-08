@@ -132,6 +132,9 @@ locals {
     sentry_dsn                = var.sentry_dsn
     service_mode              = var.service_mode
     parameter_store_path      = local.parameter_store_path
+    b2_application_key_id_arn = aws_ssm_parameter.b2_application_key_id.arn
+    b2_application_key_arn    = aws_ssm_parameter.b2_application_key.arn
+    b2_bucket                 = var.b2_bucket
   })
 }
 
@@ -181,46 +184,31 @@ module "aws_backup" {
   delete_after           = var.delete_recovery_point_after_days
 }
 
-
 /*
- * Synchronize S3 bucket to Backblaze B2
+ * Backblaze B2 credentials in Parameter Store
  */
-module "s3_to_b2_sync" {
-  count = var.enable_s3_to_b2_sync ? 1 : 0
-
-  source  = "sil-org/sync-s3-to-b2/aws"
-  version = "~> 0.3.4"
-
-  app_name                  = "${var.idp_name}-${var.app_name}"
-  app_env                   = substr(var.app_env, 0, 4)
-  s3_bucket_name            = aws_s3_bucket.backup.bucket
-  s3_path                   = ""
-  b2_application_key_id_arn = one(aws_ssm_parameter.b2_application_key_id[*].arn)
-  b2_application_key_arn    = one(aws_ssm_parameter.b2_application_key[*].arn)
-  b2_bucket                 = var.b2_bucket
-  b2_path                   = var.b2_path
-  rclone_arguments          = var.rclone_arguments
-  log_group_name            = var.cloudwatch_log_group_name
-  ecs_cluster_id            = var.ecs_cluster_id
-  cpu                       = var.sync_cpu
-  memory                    = var.sync_memory
-  schedule                  = var.sync_schedule
-}
-
 resource "aws_ssm_parameter" "b2_application_key_id" {
-  count = var.enable_s3_to_b2_sync ? 1 : 0
-
-  name        = "${local.parameter_store_path}b2_application_key_id"
+  name        = "${local.parameter_store_path}B2_APPLICATION_KEY_ID"
   type        = "SecureString"
   value       = var.b2_application_key_id
   description = "Value set by Terraform -- do not change manually."
+
+  tags = {
+    idp_name = var.idp_name
+    app_name = var.app_name
+    app_env  = var.app_env
+  }
 }
 
 resource "aws_ssm_parameter" "b2_application_key" {
-  count = var.enable_s3_to_b2_sync ? 1 : 0
-
-  name        = "${local.parameter_store_path}b2_application_key"
+  name        = "${local.parameter_store_path}B2_APPLICATION_KEY"
   type        = "SecureString"
   value       = var.b2_application_key
   description = "Value set by Terraform -- do not change manually."
+
+  tags = {
+    idp_name = var.idp_name
+    app_name = var.app_name
+    app_env  = var.app_env
+  }
 }

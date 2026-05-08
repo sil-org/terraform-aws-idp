@@ -162,14 +162,8 @@ variable "sentry_dsn" {
 }
 
 /*
- * Synchronize S3 bucket to Backblaze B2
+ * Backblaze B2 backup
  */
-
-variable "enable_s3_to_b2_sync" {
-  description = "Whether to enable syncing S3 to B2"
-  type        = bool
-  default     = false
-}
 
 variable "b2_application_key_id" {
   description = "B2 Application Key ID for authentication"
@@ -188,36 +182,6 @@ variable "b2_bucket" {
   description = "Name of the B2 bucket for syncing data"
   type        = string
   default     = ""
-}
-
-variable "b2_path" {
-  description = "Path within the B2 bucket to sync data to"
-  type        = string
-  default     = ""
-}
-
-variable "rclone_arguments" {
-  description = "Additional arguments to pass to rclone"
-  type        = string
-  default     = "--transfers 4 --checkers 8"
-}
-
-variable "sync_cpu" {
-  description = "CPU units to allocate for the sync task"
-  type        = number
-  default     = 32
-}
-
-variable "sync_memory" {
-  description = "Memory to allocate for the sync task"
-  type        = number
-  default     = 32
-}
-
-variable "sync_schedule" {
-  description = "CloudWatch Events schedule expression for when to sync S3 to B2"
-  type        = string
-  default     = "cron(0 2 * * ? *)" // Example: Run at 2:00 AM UTC every day
 }
 
 variable "ssl_ca_base64" {

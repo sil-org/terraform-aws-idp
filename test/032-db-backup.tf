@@ -20,12 +20,8 @@ module "backup" {
   aws_backup_notification_events   = [""]
   backup_sns_email                 = ""
   delete_recovery_point_after_days = 7
-  enable_s3_to_b2_sync             = false
   b2_application_key_id            = ""
   b2_application_key               = ""
   b2_bucket                        = ""
-  rclone_arguments                 = "--transfers 4 --checkers 8"
-  b2_path                          = ""
-  sync_schedule                    = null
   task_execution_role_arn          = ""
 }
