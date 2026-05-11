@@ -132,8 +132,9 @@ locals {
     sentry_dsn                = var.sentry_dsn
     service_mode              = var.service_mode
     parameter_store_path      = local.parameter_store_path
-    b2_application_key_id_arn = aws_ssm_parameter.b2_application_key_id.arn
-    b2_application_key_arn    = aws_ssm_parameter.b2_application_key.arn
+    enable_b2                 = var.enable_b2
+    b2_application_key_id_arn = one(aws_ssm_parameter.b2_application_key_id[*].arn)
+    b2_application_key_arn    = one(aws_ssm_parameter.b2_application_key[*].arn)
     b2_bucket                 = var.b2_bucket
   })
 }
@@ -188,6 +189,7 @@ module "aws_backup" {
  * Backblaze B2 credentials in Parameter Store
  */
 resource "aws_ssm_parameter" "b2_application_key_id" {
+  count       = var.enable_b2 ? 1 : 0
   name        = "${local.parameter_store_path}B2_APPLICATION_KEY_ID"
   type        = "SecureString"
   value       = var.b2_application_key_id
@@ -201,6 +203,7 @@ resource "aws_ssm_parameter" "b2_application_key_id" {
 }
 
 resource "aws_ssm_parameter" "b2_application_key" {
+  count       = var.enable_b2 ? 1 : 0
   name        = "${local.parameter_store_path}B2_APPLICATION_KEY"
   type        = "SecureString"
   value       = var.b2_application_key
