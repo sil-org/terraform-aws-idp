@@ -9,6 +9,13 @@ locals {
     )
   )
   s3_backup_bucket = coalesce(var.s3_backup_bucket, "${var.idp_name}-${var.app_name}-${var.app_env}")
+  task_secrets = jsonencode(concat(
+    [{ name = "MYSQL_PASSWORD", valueFrom = "${local.parameter_store_path}MYSQL_PASSWORD" }],
+    var.enable_b2 ? [
+      { name = "B2_APPLICATION_KEY_ID", valueFrom = one(aws_ssm_parameter.b2_application_key_id[*].arn) },
+      { name = "B2_APPLICATION_KEY", valueFrom = one(aws_ssm_parameter.b2_application_key[*].arn) },
+    ] : []
+  ))
 }
 
 
@@ -131,10 +138,7 @@ locals {
     s3_bucket                 = aws_s3_bucket.backup.bucket
     sentry_dsn                = var.sentry_dsn
     service_mode              = var.service_mode
-    parameter_store_path      = local.parameter_store_path
-    enable_b2                 = var.enable_b2
-    b2_application_key_id_arn = one(aws_ssm_parameter.b2_application_key_id[*].arn)
-    b2_application_key_arn    = one(aws_ssm_parameter.b2_application_key[*].arn)
+    secrets                   = local.task_secrets
     b2_bucket                 = var.b2_bucket
   })
 }
