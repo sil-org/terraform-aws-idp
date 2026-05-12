@@ -184,6 +184,12 @@ variable "b2_bucket" {
   default     = ""
 }
 
+variable "enable_b2" {
+  description = "Whether to enable Backblaze B2 backup"
+  type        = bool
+  default     = false
+}
+
 variable "ssl_ca_base64" {
   description = "Database SSL CA PEM file, base64-encoded"
   type        = string

@@ -48,20 +48,7 @@
         "value": "${b2_bucket}"
       }
     ],
-    "secrets": [
-        {
-          "name": "MYSQL_PASSWORD",
-          "valueFrom": "${parameter_store_path}MYSQL_PASSWORD"
-        },
-        {
-          "name": "B2_APPLICATION_KEY_ID",
-          "valueFrom": "${b2_application_key_id_arn}"
-        },
-        {
-          "name": "B2_APPLICATION_KEY",
-          "valueFrom": "${b2_application_key_arn}"
-        }
-    ],
+    "secrets": ${secrets},
     "links": null,
     "workingDirectory": null,
     "readonlyRootFilesystem": null,
