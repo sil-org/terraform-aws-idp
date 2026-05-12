@@ -190,6 +190,12 @@ variable "enable_b2" {
   default     = false
 }
 
+variable "b2_host" {
+  description = "B2 S3-compatible API endpoint URL (e.g. https://s3.us-west-004.backblazeb2.com)"
+  type        = string
+  default     = ""
+}
+
 variable "ssl_ca_base64" {
   description = "Database SSL CA PEM file, base64-encoded"
   type        = string
