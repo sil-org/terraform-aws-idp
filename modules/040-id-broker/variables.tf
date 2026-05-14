@@ -287,6 +287,15 @@ variable "invite_lifespan" {
   default     = "+1 month"
 }
 
+variable "kms_key_id" {
+  description = <<-EOT
+    Optional KMS key ID for SSM SecureString parameters. If used, it must have kms:Decrypt permission for all
+    parameters required for this application.
+  EOT
+  type        = string
+  default     = null
+}
+
 variable "lost_security_key_email_days" {
   description = "The number of days of not using a security key after which we email the user."
   type        = number

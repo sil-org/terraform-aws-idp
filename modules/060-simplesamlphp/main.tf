@@ -225,6 +225,7 @@ resource "aws_ssm_parameter" "admin_pass" {
   type        = "SecureString"
   value       = random_password.admin_pass.result
   description = "Value set by Terraform -- do not change manually."
+  key_id      = var.kms_key_id
 }
 
 resource "aws_ssm_parameter" "secret_salt" {
@@ -232,6 +233,7 @@ resource "aws_ssm_parameter" "secret_salt" {
   type        = "SecureString"
   value       = local.secret_salt
   description = "Value set by Terraform -- do not change manually."
+  key_id      = var.kms_key_id
 }
 
 /*
