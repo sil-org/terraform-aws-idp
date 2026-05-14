@@ -155,12 +155,3 @@ variable "task_execution_role_arn" {
   EOT
   type        = string
 }
-
-variable "kms_key_id" {
-  description = <<-EOT
-    Optional KMS key ID for SSM SecureString parameters. If used, it must have kms:Decrypt permission for all
-    parameters required for this application.
-  EOT
-  type        = string
-  default     = null
-}

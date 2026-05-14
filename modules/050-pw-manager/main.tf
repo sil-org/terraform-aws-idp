@@ -230,7 +230,7 @@ resource "aws_ssm_parameter" "access_token_hash_key" {
   type        = "SecureString"
   value       = random_id.access_token_hash.hex
   description = "Value set by Terraform -- do not change manually."
-  key_id      = ""
+  key_id      = var.kms_key_id
 }
 
 /*
