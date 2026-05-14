@@ -140,6 +140,7 @@ locals {
     service_mode              = var.service_mode
     secrets                   = local.task_secrets
     b2_bucket                 = var.b2_bucket
+    b2_host                   = var.b2_host
   })
 }
 
