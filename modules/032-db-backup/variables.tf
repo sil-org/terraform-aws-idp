@@ -184,16 +184,16 @@ variable "b2_bucket" {
   default     = ""
 }
 
-variable "enable_b2" {
-  description = "Whether to enable Backblaze B2 backup"
-  type        = bool
-  default     = false
-}
-
 variable "b2_host" {
   description = "B2 S3-compatible API endpoint URL (e.g. https://s3.us-west-004.backblazeb2.com)"
   type        = string
   default     = ""
+}
+
+variable "enable_b2" {
+  description = "Whether to enable Backblaze B2 backup"
+  type        = bool
+  default     = false
 }
 
 variable "ssl_ca_base64" {
