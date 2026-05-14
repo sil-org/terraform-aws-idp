@@ -112,6 +112,15 @@ variable "id_broker_trusted_ip_ranges" {
   default     = []
 }
 
+variable "kms_key_id" {
+  description = <<-EOT
+    Optional KMS key ID for SSM SecureString parameters. If used, it must have kms:Decrypt permission for all
+    parameters required for this application.
+  EOT
+  type        = string
+  default     = null
+}
+
 variable "logging_level" {
   description = <<-EOT
     Minimum log level to output. Allowed values: ERR, WARNING, NOTICE, INFO, DEBUG. Do **not** use DEBUG in production.

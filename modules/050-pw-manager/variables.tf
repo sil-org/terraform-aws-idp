@@ -175,6 +175,15 @@ variable "idp_name" {
   type        = string
 }
 
+variable "kms_key_id" {
+  description = <<-EOT
+    Optional KMS key ID for SSM SecureString parameters. If used, it must have kms:Decrypt permission for all
+    parameters required for this application.
+  EOT
+  type        = string
+  default     = null
+}
+
 variable "memory" {
   description = "Amount of memory to allocate to container."
   type        = number

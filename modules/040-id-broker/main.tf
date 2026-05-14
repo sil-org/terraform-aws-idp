@@ -71,6 +71,7 @@ resource "aws_ssm_parameter" "id_broker_access_token" {
   type        = "SecureString"
   value       = one(random_password.access_key[*].result)
   description = "Value set by Terraform -- do not change manually."
+  key_id      = var.kms_key_id
 }
 
 # define the parameter that ID Broker uses to authenticate access keys used by other services
@@ -81,6 +82,7 @@ resource "aws_ssm_parameter" "api_access_keys" {
   type        = "SecureString"
   value       = one(random_password.access_key[*].result)
   description = "Value set by Terraform -- do not change manually."
+  key_id      = var.kms_key_id
 }
 
 /*
