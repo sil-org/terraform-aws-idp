@@ -208,7 +208,7 @@ locals {
 
 module "ecsservice" {
   source  = "sil-org/ecs-service/aws"
-  version = "~> 0.3.0"
+  version = "~> 0.3.1"
 
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}"
@@ -218,6 +218,8 @@ module "ecsservice" {
   desired_count      = var.desired_count
   task_role_arn      = module.ecs_role.role_arn
   execution_role_arn = var.task_execution_role_arn
+  memory             = var.task_memory
+  cpu                = var.task_cpu
 
   load_balancer = [{
     target_group_arn = aws_alb_target_group.broker.arn
@@ -275,7 +277,7 @@ locals {
 
 module "email_service" {
   source  = "sil-org/ecs-service/aws"
-  version = "~> 0.3.0"
+  version = "~> 0.3.1"
 
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}-email"
@@ -284,6 +286,8 @@ module "email_service" {
   desired_count      = 1
   task_role_arn      = module.ecs_role.role_arn
   execution_role_arn = var.task_execution_role_arn
+  memory             = var.memory_email
+  cpu                = var.cpu_email
 }
 
 

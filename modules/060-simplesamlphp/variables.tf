@@ -20,6 +20,18 @@ variable "memory" {
   default     = 96
 }
 
+variable "task_memory" {
+  description = "Task-level memory limit in MB. Required for cgroup v2 (AL2023)."
+  type        = number
+  default     = null
+}
+
+variable "task_cpu" {
+  description = "Task-level CPU reservation in CPU units. Optional for EC2; required for Fargate."
+  type        = number
+  default     = null
+}
+
 variable "cpu" {
   description = "CPU allocation for the container. Specified in AWS CPU units: 1000 is one CPU"
   type        = number

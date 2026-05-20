@@ -175,6 +175,18 @@ variable "idp_name" {
   type        = string
 }
 
+variable "task_memory" {
+  description = "Task-level memory limit in MB. Required for cgroup v2 (AL2023)."
+  type        = number
+  default     = null
+}
+
+variable "task_cpu" {
+  description = "Task-level CPU reservation in CPU units. Optional for EC2; required for Fargate."
+  type        = number
+  default     = null
+}
+
 variable "kms_key_id" {
   description = <<-EOT
     Optional KMS key ID for SSM SecureString parameters. If used, it must have kms:Decrypt permission for all
