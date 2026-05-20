@@ -303,7 +303,7 @@ variable "lost_security_key_email_days" {
 }
 
 variable "task_memory" {
-  description = "Task-level memory limit in MB for the web service. Required for cgroup v2 (AL2023)."
+  description = "Task-level memory limit in MiB for the web service. Required for cgroup v2 (AL2023)."
   type        = number
   default     = null
 }
