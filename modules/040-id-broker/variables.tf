@@ -302,6 +302,18 @@ variable "lost_security_key_email_days" {
   default     = 62
 }
 
+variable "task_memory" {
+  description = "Task-level memory limit in MiB for the web service. Required for cgroup v2 (AL2023)."
+  type        = number
+  default     = null
+}
+
+variable "task_cpu" {
+  description = "Task-level CPU reservation in CPU units for the web service. Optional for EC2."
+  type        = number
+  default     = null
+}
+
 variable "memory" {
   description = "Amount of memory to allocate to primary container."
   type        = number

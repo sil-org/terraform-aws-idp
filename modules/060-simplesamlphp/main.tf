@@ -122,6 +122,8 @@ module "ecsservice" {
   ecsServiceRole_arn = var.ecsServiceRole_arn
   task_role_arn      = module.ecs_role.role_arn
   execution_role_arn = var.task_execution_role_arn
+  memory             = var.task_memory
+  cpu                = var.task_cpu
 
   load_balancer = [{
     target_group_arn = aws_alb_target_group.ssp.arn
