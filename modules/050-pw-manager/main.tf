@@ -117,7 +117,7 @@ locals {
 
 module "ecsservice" {
   source  = "sil-org/ecs-service/aws"
-  version = "~> 0.3.1"
+  version = "~> 0.3.0"
 
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}"

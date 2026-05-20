@@ -177,7 +177,7 @@ module "aws_backup" {
   count = var.enable_aws_backup ? 1 : 0
 
   source  = "sil-org/backup/aws"
-  version = "~> 0.3.1"
+  version = "~> 0.3.0"
 
   app_name               = var.idp_name
   app_env                = var.app_env
