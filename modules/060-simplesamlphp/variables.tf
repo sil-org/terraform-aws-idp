@@ -21,7 +21,7 @@ variable "memory" {
 }
 
 variable "task_memory" {
-  description = "Task-level memory limit in MB. Required for cgroup v2 (AL2023)."
+  description = "Task-level memory limit in MiB. Required for cgroup v2 (AL2023)."
   type        = number
   default     = null
 }
