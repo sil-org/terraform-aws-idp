@@ -182,7 +182,7 @@ variable "task_memory" {
 }
 
 variable "task_cpu" {
-  description = "Task-level CPU reservation in CPU units. Optional for EC2; required for Fargate."
+  description = "Task-level CPU reservation in CPU units. Optional for EC2."
   type        = number
   default     = null
 }
