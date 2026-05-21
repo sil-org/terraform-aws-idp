@@ -315,7 +315,7 @@ variable "task_cpu" {
 }
 
 variable "email_task_memory" {
-  description = "Task-level memory limit in MiB for the email service. Optional for EC2."
+  description = "Task-level memory limit in MiB for the email service. Required for cgroup v2 (AL2023)."
   type        = number
   default     = null
 }
