@@ -287,7 +287,6 @@ module "email_service" {
   task_role_arn      = module.ecs_role.role_arn
   execution_role_arn = var.task_execution_role_arn
   memory             = var.memory_email
-  cpu                = var.cpu_email
 }
 
 
