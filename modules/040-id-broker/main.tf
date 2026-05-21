@@ -286,7 +286,7 @@ module "email_service" {
   desired_count      = 1
   task_role_arn      = module.ecs_role.role_arn
   execution_role_arn = var.task_execution_role_arn
-  memory             = var.memory_email
+  memory             = var.email_task_memory
 }
 
 
