@@ -314,6 +314,12 @@ variable "task_cpu" {
   default     = null
 }
 
+variable "email_task_memory" {
+  description = "Task-level memory limit in MiB for the email service. Required for cgroup v2 (AL2023)."
+  type        = number
+  default     = null
+}
+
 variable "memory" {
   description = "Amount of memory to allocate to primary container."
   type        = number
