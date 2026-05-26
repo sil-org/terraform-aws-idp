@@ -168,6 +168,8 @@ resource "aws_ecs_task_definition" "cron_td" {
   network_mode          = "bridge"
   execution_role_arn    = var.task_execution_role_arn
   task_role_arn         = aws_iam_role.backup.arn
+  memory                = var.task_memory
+  cpu                   = var.task_cpu
 }
 
 /*

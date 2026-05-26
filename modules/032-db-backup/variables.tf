@@ -118,12 +118,24 @@ variable "service_mode" {
   default     = "backup"
 }
 
+variable "task_cpu" {
+  description = "Task-level CPU reservation in CPU units. Optional for EC2."
+  type        = number
+  default     = null
+}
+
 variable "task_execution_role_arn" {
   description = <<-EOT
     ARN of the IAM role that ECS will use to execute the backup task. It must have permission to read parameters from
     SSM Parameter Store.
   EOT
   type        = string
+}
+
+variable "task_memory" {
+  description = "Task-level memory limit in MiB. Required for cgroup v2 (AL2023) to properly scope memory per task."
+  type        = number
+  default     = null
 }
 
 /*
