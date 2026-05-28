@@ -410,6 +410,19 @@ variable "mfa_required_for_new_users" {
   default     = false
 }
 
+variable "mfa_webauthn_rp_id" {
+  description = <<-EOT
+    The Relying Party ID (RP ID) for WebAuthn. This should generally be the base domain of the IdP URL,
+    e.g. `example.com` if your IdP is at `https://login.example.com`. If it is different, a .well-known/webauthn file
+    should be served at the RP ID domain (Refer to https://passkeys.dev/docs/advanced/related-origins/.) The content of
+    the `origins` list in this file should include the base URL of the profile manager (`var.password_profile_url`)
+    and the base URL of the SimpleSAMLphp server (`"https://$${var.subdomain}.$${var.cloudflare_domain}"` as defined
+    in the 060-simplesamlphp module). If `mfa_webauthn_rp_id` is not set, the RP ID will be the value of
+    `cloudflare_domain`.
+  EOT
+  default     = null
+}
+
 variable "rp_origins" {
   description = "CSV list of allowed Webauthn Relying Party Origins"
   type        = string
