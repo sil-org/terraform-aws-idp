@@ -420,6 +420,7 @@ variable "mfa_webauthn_rp_id" {
     in the 060-simplesamlphp module). If `mfa_webauthn_rp_id` is not set, the RP ID will be the value of
     `cloudflare_domain`.
   EOT
+  type        = string
   default     = null
 }
 
