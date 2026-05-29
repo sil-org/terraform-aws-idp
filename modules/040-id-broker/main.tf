@@ -151,7 +151,7 @@ locals {
     mfa_webauthn_apibaseurl                    = var.mfa_api_base_url
     rp_origins                                 = var.rp_origins
     minimum_backup_codes_before_nag            = var.minimum_backup_codes_before_nag
-    mfa_webauthn_rpid                          = var.cloudflare_domain
+    mfa_webauthn_rp_id                         = coalesce(var.mfa_webauthn_rp_id, var.cloudflare_domain)
     mysql_host                                 = var.mysql_host
     mysql_user                                 = var.mysql_user
     name                                       = "web"
