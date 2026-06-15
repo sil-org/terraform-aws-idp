@@ -1,7 +1,7 @@
 variable "ami_name_filter" {
   description = "Filter to identify the EC2 AMI to be used in the autoscaling group. The most recent match is used."
   type        = list(string)
-  default     = ["amzn2-ami-ecs-hvm-*-x86_64-ebs"]
+  default     = ["al2023-ami-ecs-hvm-*-x86_64"]
 }
 
 variable "app_name" {
