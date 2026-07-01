@@ -20,6 +20,11 @@ mock_provider "aws" {
       arn = "arn:aws:elasticloadbalancing:us-east-1:111111111111:targetgroup/test-tg"
     }
   }
+  mock_data "aws_iam_policy_document" {
+    defaults = {
+      json = "{}"
+    }
+  }
 }
 
 mock_provider "cloudflare" {}
