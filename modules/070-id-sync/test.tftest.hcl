@@ -9,6 +9,11 @@ mock_provider "aws" {
       arn = "arn:aws:ecs:us-east-1:111111111111:task-definition/test-task-definition:1"
     }
   }
+  mock_data "aws_iam_policy_document" {
+    defaults = {
+      json = "{}"
+    }
+  }
 }
 
 variables {
