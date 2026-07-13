@@ -81,7 +81,7 @@ data "aws_ami" "ecs_ami" {
  */
 module "asg" {
   source  = "sil-org/asg/aws"
-  version = "~> 0.1.0"
+  version = "~> 1.2"
 
   app_name                       = var.app_name
   app_env                        = var.app_env
