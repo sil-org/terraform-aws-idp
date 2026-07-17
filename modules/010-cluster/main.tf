@@ -108,7 +108,7 @@ data "aws_acm_certificate" "wildcard" {
  */
 module "alb" {
   source  = "sil-org/alb/aws"
-  version = "~> 1.1"
+  version = "~> 2.0"
 
   app_name            = var.app_name
   app_env             = var.app_env
@@ -126,7 +126,7 @@ module "alb" {
  */
 module "internal_alb" {
   source  = "sil-org/alb/aws"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   alb_name        = "alb-${var.app_name}-${var.app_env}-int"
   app_name        = var.app_name
@@ -159,10 +159,10 @@ module "ecs-service-cloudwatch-dashboard" {
   count = var.create_dashboard ? 1 : 0
 
   source  = "sil-org/ecs-service-cloudwatch-dashboard/aws"
-  version = "~> 3.1"
+  version = "~> 4.0"
 
   cluster_name   = var.ecs_cluster_name
-  dashboard_name = "${var.app_name}-${var.app_env}-${data.aws_region.current.name}"
+  dashboard_name = "${var.app_name}-${var.app_env}-${data.aws_region.current.region}"
 
   service_names = [
     "${var.idp_name}-id-broker",
