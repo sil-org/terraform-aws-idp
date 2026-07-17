@@ -16,5 +16,5 @@ output "secret_salt" {
 
 output "public_dns_value" {
   description = "The value to use for the 'public' DNS record, if creating it outside of this module."
-  value       = "${cloudflare_dns_record.sspdns.name}.${var.cloudflare_domain}"
+  value       = "${cloudflare_dns_record.sspdns_intermediate.name}.${var.cloudflare_domain}"
 }
