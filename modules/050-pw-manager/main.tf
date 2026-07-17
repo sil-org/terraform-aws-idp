@@ -1,6 +1,6 @@
 locals {
   aws_account          = data.aws_caller_identity.this.account_id
-  aws_region           = data.aws_region.current.name
+  aws_region           = data.aws_region.current.region
   ui_hostname          = "${var.ui_subdomain}.${var.cloudflare_domain}"
   parameter_store_path = "/idp-${var.idp_name}/"
 }
@@ -13,7 +13,7 @@ resource "aws_alb_target_group" "pwmanager" {
   port                 = var.enable_tls ? 443 : 80
   protocol             = var.enable_tls ? "HTTPS" : "HTTP"
   vpc_id               = var.vpc_id
-  deregistration_delay = "30"
+  deregistration_delay = 30
 
   stickiness {
     type = "lb_cookie"
@@ -31,7 +31,7 @@ resource "aws_alb_target_group" "pwmanager" {
  */
 resource "aws_alb_listener_rule" "pwmanager" {
   listener_arn = var.alb_https_listener_arn
-  priority     = "50"
+  priority     = 50
 
   action {
     type             = "forward"
@@ -117,7 +117,7 @@ locals {
 
 module "ecsservice" {
   source  = "sil-org/ecs-service/aws"
-  version = "~> 0.3.0"
+  version = "~> 1.0"
 
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}"
@@ -133,33 +133,48 @@ module "ecsservice" {
   load_balancer = [{
     target_group_arn = aws_alb_target_group.pwmanager.arn
     container_name   = "web"
-    container_port   = var.enable_tls ? "443" : "80"
+    container_port   = var.enable_tls ? 443 : 80
   }]
 }
 
 /*
  * Create Cloudflare DNS record(s)
  */
-resource "cloudflare_record" "apidns" {
+resource "cloudflare_dns_record" "apidns" {
   count = var.create_dns_record ? 1 : 0
 
   zone_id = data.cloudflare_zone.domain.id
   name    = var.api_subdomain
-  value   = cloudflare_record.apidns_intermediate.hostname
+  content = cloudflare_dns_record.apidns_intermediate.name
   type    = "CNAME"
   proxied = true
+  ttl     = 1
 }
 
-resource "cloudflare_record" "apidns_intermediate" {
+moved {
+  from = cloudflare_record.apidns
+  to   = cloudflare_dns_record.apidns
+}
+
+resource "cloudflare_dns_record" "apidns_intermediate" {
   zone_id = data.cloudflare_zone.domain.id
   name    = local.api_subdomain_with_region
-  value   = var.alb_dns_name
+  content = var.alb_dns_name
   type    = "CNAME"
   proxied = true
+  ttl     = 1
 }
 
+moved {
+  from = cloudflare_record.apidns_intermediate
+  to   = cloudflare_dns_record.apidns_intermediate
+}
+
+
 data "cloudflare_zone" "domain" {
-  name = var.cloudflare_domain
+  filter = {
+    name = var.cloudflare_domain
+  }
 }
 
 

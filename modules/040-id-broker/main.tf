@@ -1,6 +1,6 @@
 locals {
   aws_account          = data.aws_caller_identity.this.account_id
-  aws_region           = data.aws_region.current.name
+  aws_region           = data.aws_region.current.region
   parameter_store_path = "/idp-${var.idp_name}/"
 }
 
@@ -12,7 +12,7 @@ resource "aws_alb_target_group" "broker" {
   port                 = var.enable_tls ? 443 : 80
   protocol             = var.enable_tls ? "HTTPS" : "HTTP"
   vpc_id               = var.vpc_id
-  deregistration_delay = "30"
+  deregistration_delay = 30
 
   stickiness {
     type = "lb_cookie"
@@ -30,7 +30,7 @@ resource "aws_alb_target_group" "broker" {
  */
 resource "aws_alb_listener_rule" "broker" {
   listener_arn = coalesce(var.internal_alb_listener_arn, var.alb_listener_arn)
-  priority     = "40"
+  priority     = 40
 
   action {
     target_group_arn = aws_alb_target_group.broker.arn
@@ -208,7 +208,7 @@ locals {
 
 module "ecsservice" {
   source  = "sil-org/ecs-service/aws"
-  version = "~> 0.3.0"
+  version = "~> 1.0"
 
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}"
@@ -224,13 +224,13 @@ module "ecsservice" {
   load_balancer = [{
     target_group_arn = aws_alb_target_group.broker.arn
     container_name   = "web"
-    container_port   = var.enable_tls ? "443" : "80"
+    container_port   = var.enable_tls ? 443 : 80
   }]
 }
 
 module "cron_task" {
   source  = "sil-org/scheduled-ecs-task/aws"
-  version = "~> 1.0"
+  version = "~> 1.1"
 
   name                   = "${var.idp_name}-${var.app_name}-cron-${var.app_env}-${local.aws_region}"
   event_rule_description = "Start broker scheduled tasks"
@@ -277,7 +277,7 @@ locals {
 
 module "email_service" {
   source  = "sil-org/ecs-service/aws"
-  version = "~> 0.3.0"
+  version = "~> 1.0"
 
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}-email"
@@ -293,30 +293,45 @@ module "email_service" {
 /*
  * Create Cloudflare DNS record(s)
  */
-resource "cloudflare_record" "public" {
+resource "cloudflare_dns_record" "public" {
   count = var.create_dns_record ? 1 : 0
 
   zone_id = data.cloudflare_zone.domain.id
   name    = var.subdomain
-  value   = cloudflare_record.brokerdns.hostname
+  content = cloudflare_dns_record.brokerdns.name
   type    = "CNAME"
   proxied = true
+  ttl     = 1
 }
 
-resource "cloudflare_record" "brokerdns" {
+moved {
+  from = cloudflare_record.public
+  to   = cloudflare_dns_record.public
+}
+
+resource "cloudflare_dns_record" "brokerdns" {
   zone_id = data.cloudflare_zone.domain.id
   name    = local.subdomain_with_region
-  value   = coalesce(var.internal_alb_dns_name, var.alb_dns_name)
+  content = coalesce(var.internal_alb_dns_name, var.alb_dns_name)
   type    = "CNAME"
 
   # If the internal ALB DNS name is not specified, this should be proxied to bridge between IPv4 and IPv6. Outbound
   # connections only support IPv4, for reasons not well understood by me. Inbound connections only support IPv6 by
   # design, to decrease AWS costs.
   proxied = var.internal_alb_dns_name == ""
+  ttl     = 1
 }
 
+moved {
+  from = cloudflare_record.brokerdns
+  to   = cloudflare_dns_record.brokerdns
+}
+
+
 data "cloudflare_zone" "domain" {
-  name = var.cloudflare_domain
+  filter = {
+    name = var.cloudflare_domain
+  }
 }
 
 

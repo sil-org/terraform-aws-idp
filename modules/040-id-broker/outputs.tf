@@ -5,7 +5,7 @@ output "hostname" {
 
 output "public_dns_value" {
   description = "The value to use for the 'public' DNS record, if creating it outside of this module."
-  value       = cloudflare_record.brokerdns.hostname
+  value       = "${cloudflare_dns_record.brokerdns.name}.${var.cloudflare_domain}"
 }
 
 output "access_token_search" {
