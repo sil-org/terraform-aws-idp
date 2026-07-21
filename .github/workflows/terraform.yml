@@ -8,7 +8,7 @@ jobs:
   test:
     uses: sil-org/workflows/.github/workflows/terraform.yml@main
     with:
-      terraform-version: '~> 1.5'
+      terraform-version: '~> 1.8'
       test-dir: test
 
   tftest:
@@ -19,11 +19,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      # Install Terraform 1.7, which is the earliest that supports `terraform test`.
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v4
         with:
-          terraform_version: "1.7.5"
+          terraform_version: "~> 1.8"
 
       - name: Test
         run: ./test.sh

@@ -1,6 +1,6 @@
 locals {
   aws_account          = data.aws_caller_identity.this.account_id
-  aws_region           = data.aws_region.current.name
+  aws_region           = data.aws_region.current.region
   parameter_store_path = "/idp-${var.idp_name}/"
   rds_arn = (
     coalesce(
@@ -146,7 +146,7 @@ locals {
 
 module "backup_task" {
   source  = "sil-org/scheduled-ecs-task/aws"
-  version = "~> 1.0"
+  version = "~> 1.1"
 
   name                   = "${var.idp_name}-${var.app_name}-${var.app_env}"
   event_rule_description = "Start scheduled backup"
@@ -179,7 +179,7 @@ module "aws_backup" {
   count = var.enable_aws_backup ? 1 : 0
 
   source  = "sil-org/backup/aws"
-  version = "~> 0.3.1"
+  version = "~> 1.0"
 
   app_name               = var.idp_name
   app_env                = var.app_env

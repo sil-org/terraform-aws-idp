@@ -1,6 +1,6 @@
 locals {
   aws_account          = data.aws_caller_identity.this.account_id
-  aws_region           = data.aws_region.current.name
+  aws_region           = data.aws_region.current.region
   parameter_store_path = "/idp-${var.idp_name}/"
 
   /*
@@ -43,7 +43,7 @@ locals {
 
 module "cron_task" {
   source  = "sil-org/scheduled-ecs-task/aws"
-  version = "~> 1.0"
+  version = "~> 1.1"
 
   name                   = "${var.idp_name}-${var.app_name}-cron-${var.app_env}-${local.aws_region}"
   event_rule_description = "Start ID Sync scheduled tasks"
