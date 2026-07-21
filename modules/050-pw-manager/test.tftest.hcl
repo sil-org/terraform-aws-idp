@@ -35,7 +35,6 @@ variables {
   cloudflare_domain         = "example.com"
   cloudwatch_log_group_name = ""
   cd_role_name              = ""
-  db_name                   = ""
   docker_image              = ""
   ecsServiceRole_arn        = ""
   ecs_cluster_id            = ""
@@ -45,8 +44,6 @@ variables {
   id_broker_validIpRanges   = [""]
   idp_display_name          = ""
   idp_name                  = ""
-  mysql_host                = ""
-  mysql_user                = ""
   support_email             = ""
   support_name              = ""
   support_phone             = ""

@@ -17,5 +17,5 @@ versions are:
 | [db-backup](https://github.com/sil-org/mysql-backup-restore) | 4       |
 | [idp-id-broker](https://github.com/sil-org/idp-id-broker)    | 8       |
 | [idp-id-sync](https://github.com/sil-org/idp-id-sync)        | 6       |
-| [idp-pw-api](https://github.com/sil-org/idp-pw-api)          | 9       |
+| [idp-pw-api](https://github.com/sil-org/idp-pw-api)          | 10      |
 | [ssp-base](https://github.com/sil-org/ssp-base)              | 12      |

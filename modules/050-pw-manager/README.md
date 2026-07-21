@@ -35,9 +35,7 @@ module "pwmanager" {
   cd_role_name                        = data.terraform_remote_state.core.cd_role_name
   cloudflare_domain                   = var.cloudflare_domain
   cloudwatch_log_group_name           = var.cloudwatch_log_group_name
-  code_length                         = var.code_length
   cpu                                 = var.cpu
-  db_name                             = var.db_name
   desired_count                       = var.desired_count
   docker_image                        = data.terraform_remote_state.ecr.ecr_repo_pwapi
   ecs_cluster_id                      = data.terraform_remote_state.core.ecs_cluster_id
@@ -52,8 +50,6 @@ module "pwmanager" {
   idp_display_name                    = var.idp_display_name
   idp_name                            = var.idp_name
   memory                              = var.memory
-  mysql_host                          = data.terraform_remote_state.database.rds_address
-  mysql_user                          = var.mysql_user
   password_rule_enablehibp            = var.password_rule_enablehibp
   password_rule_maxlength             = var.password_rule_maxlength
   password_rule_minlength             = var.password_rule_minlength

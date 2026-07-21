@@ -15,10 +15,8 @@ module "pw" {
   cd_role_name                        = ""
   cloudflare_domain                   = ""
   cloudwatch_log_group_name           = ""
-  code_length                         = 1
   cpu                                 = 1
   create_dns_record                   = true
-  db_name                             = ""
   desired_count                       = 1
   docker_image                        = ""
   ecsServiceRole_arn                  = ""
@@ -32,8 +30,6 @@ module "pw" {
   idp_display_name                    = ""
   idp_name                            = ""
   memory                              = 1
-  mysql_host                          = ""
-  mysql_user                          = ""
   password_rule_enablehibp            = true
   password_rule_maxlength             = 1
   password_rule_minlength             = 1
