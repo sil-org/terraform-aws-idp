@@ -84,12 +84,6 @@ variable "cloudwatch_log_group_name" {
   type        = string
 }
 
-variable "code_length" {
-  description = "Number of digits in reset code."
-  type        = number
-  default     = 6
-}
-
 variable "cpu" {
   description = "Amount of CPU to allocate to container."
   type        = number
@@ -100,11 +94,6 @@ variable "create_dns_record" {
   description = "Controls creation of a DNS CNAME record for the ECS service."
   type        = bool
   default     = true
-}
-
-variable "db_name" {
-  description = "Name of MySQL database for pw-api"
-  type        = string
 }
 
 variable "desired_count" {
@@ -200,16 +189,6 @@ variable "memory" {
   description = "Amount of memory to allocate to container."
   type        = number
   default     = 100
-}
-
-variable "mysql_host" {
-  description = "Address for RDS instance"
-  type        = string
-}
-
-variable "mysql_user" {
-  description = "MySQL username for id-broker"
-  type        = string
 }
 
 variable "password_rule_alpha_and_numeric" {

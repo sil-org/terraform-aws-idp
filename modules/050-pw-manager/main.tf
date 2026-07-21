@@ -82,9 +82,7 @@ locals {
     auth_saml_spCertificate             = var.auth_saml_spCertificate
     auth_saml_ssoUrl                    = "${var.auth_saml_idp_url}/saml2/idp/SSOService.php"
     cmd                                 = "/data/run.sh"
-    code_length                         = var.code_length
     cpu                                 = var.cpu
-    db_name                             = var.db_name
     docker_image                        = var.docker_image
     email_signature                     = var.email_signature
     extra_hosts                         = var.extra_hosts
@@ -95,8 +93,6 @@ locals {
     idp_display_name                    = var.idp_display_name
     idp_name                            = var.idp_name
     memory                              = var.memory
-    mysql_host                          = var.mysql_host
-    mysql_user                          = var.mysql_user
     parameter_store_path                = local.parameter_store_path
     password_rule_alpha_and_numeric     = var.password_rule_alpha_and_numeric
     password_rule_enablehibp            = var.password_rule_enablehibp
