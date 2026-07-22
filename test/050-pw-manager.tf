@@ -22,7 +22,6 @@ module "pw" {
   ecsServiceRole_arn                  = ""
   ecs_cluster_id                      = ""
   email_signature                     = ""
-  extra_hosts                         = ""
   help_center_url                     = ""
   id_broker_assertValidBrokerIp       = true
   id_broker_base_uri                  = ""

@@ -7,7 +7,6 @@ module "backup" {
   cloudwatch_log_group_name        = ""
   cpu                              = 1
   event_schedule                   = ""
-  db_names                         = [""]
   docker_image                     = ""
   ecs_cluster_id                   = ""
   idp_name                         = ""

@@ -130,7 +130,7 @@ locals {
     aws_region                = local.aws_region
     cloudwatch_log_group_name = var.cloudwatch_log_group_name
     cpu                       = var.cpu
-    db_names                  = join(" ", var.db_names)
+    db_names                  = "idbroker ssp"
     docker_image              = var.docker_image
     mysql_host                = var.mysql_host
     mysql_user                = var.mysql_user
