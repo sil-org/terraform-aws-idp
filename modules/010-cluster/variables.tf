@@ -14,9 +14,22 @@ variable "app_env" {
   type        = string
 }
 
-variable "aws_instance" {
-  description = "A map containing keys for `instance_type`, `volume_size`, `instance_count`"
-  type        = map(string)
+variable "instance_type" {
+  description = "Instance type for the launch template used in the autoscaling group"
+  type        = string
+  default     = "t3.micro"
+}
+
+variable "instance_count" {
+  description = "Number of instances for the autoscaling group, set as both min_size and max_size."
+  type        = number
+  default     = 3
+}
+
+variable "volume_size" {
+  description = "Size of the root volume for the instances in the autoscaling group"
+  type        = number
+  default     = 30
 }
 
 variable "aws_zones" {
