@@ -27,7 +27,6 @@ module "cluster" {
 
   app_name                = var.app_name
   app_env                 = var.app_env
-  aws_instance            = var.aws_instance
   aws_zones               = var.aws_zones
   cert_domain_name        = var.cert_domain_name
   ecs_cluster_name        = data.terraform_remote_state.core.ecs_cluster_name
