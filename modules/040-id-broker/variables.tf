@@ -53,19 +53,19 @@ variable "cpu" {
     Amount of CPU (AWS CPU units, 1000 = 1 cpu) to allocate to primary container.
   EOT
   type        = number
-  default     = 250
+  default     = 450
 }
 
 variable "cpu_cron" {
   description = "Amount of CPU (AWS CPU units, 1000 = 1 cpu) to allocate to cron container."
   type        = number
-  default     = 128
+  default     = 450
 }
 
 variable "cpu_email" {
   description = "Amount of CPU (AWS CPU units, 1000 = 1 cpu) to allocate to email container"
   type        = number
-  default     = 64
+  default     = 50
 }
 
 variable "create_access_key" {
@@ -88,7 +88,7 @@ variable "db_name" {
 variable "desired_count" {
   description = "Desired count of tasks running in ECS service"
   type        = number
-  default     = 1
+  default     = 2
 }
 
 variable "docker_image" {
@@ -142,7 +142,7 @@ variable "event_schedule" {
     rate format "rate(15 minutes)".
   EOT
   type        = string
-  default     = "cron(0 0 * * ? *)"
+  default     = "cron(10 0 * * ? *)"
 }
 
 variable "from_email" {
@@ -323,19 +323,19 @@ variable "email_task_memory" {
 variable "memory" {
   description = "Amount of memory to allocate to primary container."
   type        = number
-  default     = 200
+  default     = 250
 }
 
 variable "memory_cron" {
   description = "Amount of memory to allocate to cron container."
   type        = number
-  default     = 200
+  default     = 250
 }
 
 variable "memory_email" {
   description = "Amount of memory to allocate to email container"
   type        = number
-  default     = 64
+  default     = 50
 }
 
 variable "method_add_interval" {
@@ -482,7 +482,7 @@ variable "password_reuse_limit" {
 variable "profile_review_interval" {
   description = "Interval between reminders to review."
   type        = string
-  default     = "+12 months"
+  default     = "+6 months"
 }
 
 variable "run_task" {
