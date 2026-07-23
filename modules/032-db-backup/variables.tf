@@ -29,15 +29,6 @@ variable "cpu" {
   default     = 64
 }
 
-variable "db_names" {
-  description = "List of database names to back up."
-  type        = list(string)
-  default = [
-    "idbroker",
-    "ssp",
-  ]
-}
-
 variable "docker_image" {
   description = "The docker image to use for scheduled backup"
   type        = string
