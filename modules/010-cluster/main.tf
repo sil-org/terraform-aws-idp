@@ -81,11 +81,10 @@ data "aws_ami" "ecs_ami" {
  */
 module "asg" {
   source  = "sil-org/asg/aws"
-  version = "~> 1.2"
+  version = "~> 2.0"
 
   app_name                       = var.app_name
   app_env                        = var.app_env
-  aws_instance                   = var.aws_instance
   private_subnet_ids             = module.vpc.private_subnet_ids
   default_sg_id                  = module.vpc.vpc_default_sg_id
   ecs_instance_profile_id        = var.ecs_instance_profile_id
@@ -94,6 +93,10 @@ module "asg" {
   additional_user_data           = var.asg_additional_user_data
   tags                           = var.tags
   enable_ec2_detailed_monitoring = var.enable_ec2_detailed_monitoring
+  instance_type                  = var.instance_type
+  min_size                       = var.instance_count
+  max_size                       = var.instance_count
+  root_volume_size               = var.volume_size
 }
 
 /*

@@ -3,7 +3,6 @@ module "cluster" {
 
   app_name                       = ""
   app_env                        = ""
-  aws_instance                   = { a = "b" }
   aws_zones                      = [""]
   cert_domain_name               = ""
   create_nat_gateway             = true
