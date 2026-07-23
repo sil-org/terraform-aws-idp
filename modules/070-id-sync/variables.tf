@@ -22,7 +22,7 @@ variable "task_cpu" {
 variable "cpu" {
   description = "CPU allocation for the container. Specified in AWS CPU units: 1000 is one CPU"
   type        = number
-  default     = 200
+  default     = 500
 }
 
 variable "app_name" {

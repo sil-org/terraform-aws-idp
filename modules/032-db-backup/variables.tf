@@ -26,7 +26,7 @@ variable "cloudwatch_log_group_name" {
 variable "cpu" {
   description = "CPU resources to allot to each task instance"
   type        = number
-  default     = 32
+  default     = 64
 }
 
 variable "db_names" {
@@ -34,7 +34,6 @@ variable "db_names" {
   type        = list(string)
   default = [
     "idbroker",
-    "pwmanager",
     "ssp",
   ]
 }
@@ -55,7 +54,7 @@ variable "event_schedule" {
     where either `day-of-month` or `day-of-week` must be a question mark, or rate format "rate(15 minutes)".
   EOT
   type        = string
-  default     = "cron(0 2 * * ? *)"
+  default     = "cron(10 2 * * ? *)"
 }
 
 variable "idp_name" {
@@ -75,7 +74,7 @@ variable "kms_key_id" {
 variable "memory" {
   description = "Memory (RAM) resources to allot to each task instance"
   type        = number
-  default     = 32
+  default     = 100
 }
 
 variable "mysql_host" {
@@ -169,7 +168,7 @@ variable "backup_sns_email" {
 variable "delete_recovery_point_after_days" {
   description = "Number of days after which AWS Backup recovery points are deleted"
   type        = number
-  default     = 100
+  default     = 1
 }
 
 /*

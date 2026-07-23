@@ -87,7 +87,7 @@ variable "cloudwatch_log_group_name" {
 variable "cpu" {
   description = "Amount of CPU to allocate to container."
   type        = number
-  default     = 64
+  default     = 500
 }
 
 variable "create_dns_record" {
@@ -99,7 +99,7 @@ variable "create_dns_record" {
 variable "desired_count" {
   description = "Number of API tasks that should be run"
   type        = number
-  default     = 1
+  default     = 2
 }
 
 variable "enable_tls" {
@@ -188,7 +188,7 @@ variable "kms_key_id" {
 variable "memory" {
   description = "Amount of memory to allocate to container."
   type        = number
-  default     = 100
+  default     = 150
 }
 
 variable "password_rule_alpha_and_numeric" {

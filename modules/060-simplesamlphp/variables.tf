@@ -17,7 +17,7 @@ variable "memory" {
     "memoryReservation" container definition parameters.
   EOT
   type        = number
-  default     = 96
+  default     = 150
 }
 
 variable "task_memory" {
@@ -35,7 +35,7 @@ variable "task_cpu" {
 variable "cpu" {
   description = "CPU allocation for the container. Specified in AWS CPU units: 1000 is one CPU"
   type        = number
-  default     = 150
+  default     = 500
 }
 
 variable "app_name" {
@@ -211,7 +211,7 @@ variable "trusted_ip_addresses" {
 variable "desired_count" {
   description = "Number of instances of the task definition to place and keep running."
   type        = number
-  default     = 1
+  default     = 2
 }
 
 variable "analytics_id" {

@@ -32,9 +32,9 @@ variable "cert_domain_name" {
 }
 
 variable "create_dashboard" {
-  description = "Set to false to remove the Cloudwatch Dashboard"
+  description = "Set to true to create a Cloudwatch Dashboard"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "create_nat_gateway" {
@@ -126,7 +126,7 @@ variable "vpc_cidr_block" {
 variable "log_retention_in_days" {
   description = "Number of days to retain CloudWatch application logs"
   type        = number
-  default     = 30
+  default     = 60
 }
 
 variable "enable_ec2_detailed_monitoring" {
