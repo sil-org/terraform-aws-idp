@@ -200,7 +200,7 @@ variable "password_rule_enablehibp" {
 variable "password_rule_maxlength" {
   description = "maximum password length"
   type        = number
-  default     = 255
+  default     = 72
 }
 
 variable "password_rule_minlength" {
