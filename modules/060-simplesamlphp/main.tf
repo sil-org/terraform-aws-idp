@@ -202,6 +202,22 @@ resource "aws_iam_role_policy" "parameter_store" {
   })
 }
 
+resource "aws_iam_role_policy" "dynamodb" {
+  count = var.dynamodb_table_arn == "" ? 0 : 1
+
+  name = "dynamodb"
+  role = module.ecs_role.role_name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid      = "DynamoDbPutItem"
+      Effect   = "Allow"
+      Action   = "dynamodb:PutItem"
+      Resource = var.dynamodb_table_arn
+    }]
+  })
+}
+
 resource "aws_iam_role_policy_attachment" "cd" {
   role       = var.cd_role_name
   policy_arn = aws_iam_policy.cd.arn

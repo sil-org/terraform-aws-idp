@@ -290,9 +290,18 @@ variable "trusted_url_domains" {
   description = <<-EOT
     A comma-separated list of trusted domains for the SSP IdP service. If provided, it will be passed to
     SimpleSAMLphp as the `trusted.url.domains` configuration parameter, which is used to validate URLs before
-    any redirect. This must be set if `base_url` is a relative path. Note that the special value "NULL" 
+    any redirect. This must be set if `base_url` is a relative path. Note that the special value "NULL"
     is converted to a PHP null value, which disables the trusted URL domains check in SimpleSAMLphp.
   EOT
   type        = string
   default     = "NULL"
+}
+
+variable "dynamodb_table_arn" {
+  description = <<-EOT
+    ARN of a DynamoDB table to grant the ECS task role PutItem permission on. If not provided, no DynamoDB
+    permissions are granted.
+  EOT
+  type        = string
+  default     = ""
 }

@@ -66,3 +66,21 @@ run "cd_role_attachment" {
     error_message = "cd role policy attachment is not attached to the correct role"
   }
 }
+
+run "dynamodb_policy_not_created_by_default" {
+  assert {
+    condition     = length(aws_iam_role_policy.dynamodb) == 0
+    error_message = "dynamodb policy should not be created when dynamodb_table_arn is not set"
+  }
+}
+
+run "dynamodb_policy" {
+  variables {
+    dynamodb_table_arn = "arn:aws:dynamodb:us-east-1:111111111111:table/test-table"
+  }
+
+  assert {
+    condition     = strcontains(aws_iam_role_policy.dynamodb[0].policy, var.dynamodb_table_arn)
+    error_message = "dynamodb policy does not reference the correct table ARN"
+  }
+}
