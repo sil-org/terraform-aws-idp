@@ -267,7 +267,7 @@ variable "additional_hostnames" {
     A list of additional hostnames to allow for the ALB listener rule. This is useful for allowing
     multiple hostnames to point to the same SSP IdP service. Each hostname should be added separately
     as a CNAME record pointing to the ALB DNS name. Each entry must be a fully-qualified domain name
-    (FQDN) within the Cloudflare zone configured by `cloudflare_domain`. Metadata for each hostname 
+    (FQDN) within the Cloudflare zone configured by `cloudflare_domain`. Metadata for each hostname
     should be added to the saml2-idp-hosted.php metadata configuration file.
   EOT
   type        = list(string)
@@ -276,8 +276,8 @@ variable "additional_hostnames" {
 
 variable "base_url" {
   description = <<-EOT
-    Base URL for the SSP IdP service. If not provided, it will be constructed from the subdomain and 
-    Cloudflare domain. This is passed to SimpleSAMLphp as the `baseurlpath` configuration parameter, 
+    Base URL for the SSP IdP service. If not provided, it will be constructed from the subdomain and
+    Cloudflare domain. This is passed to SimpleSAMLphp as the `baseurlpath` configuration parameter,
     which is used to generate URLs for SAML responses and other links. It should include the protocol
     (http or https) and end with a trailing slash, or it can be a relative path if `trusted_url_domains`
     is set.
@@ -300,7 +300,7 @@ variable "trusted_url_domains" {
 variable "dynamodb_table_arn" {
   description = <<-EOT
     ARN of a DynamoDB table to grant the ECS task role PutItem permission on. If not provided, no DynamoDB
-    permissions are granted.
+    permissions are granted. Used for login event logging.
   EOT
   type        = string
   default     = ""
