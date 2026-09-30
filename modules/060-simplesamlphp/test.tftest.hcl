@@ -55,6 +55,13 @@ run "test_ip_addresses" {
   }
 }
 
+run "trusted_ip_addresses_include_cloudflare_ipv6" {
+  assert {
+    condition     = alltrue([for cidr in split(",", data.external.cloudflare_ips.result.ipv6_cidrs) : contains(local.trusted_ip_addresses, cidr)])
+    error_message = "trusted_ip_addresses must include all Cloudflare IPv6 ranges"
+  }
+}
+
 
 run "cd_role_attachment" {
   variables {
