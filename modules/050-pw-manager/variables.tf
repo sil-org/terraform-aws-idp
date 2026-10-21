@@ -258,6 +258,20 @@ variable "task_execution_role_arn" {
   type        = string
 }
 
+variable "ui_path" {
+  description = <<-EOT
+    Path at which the PW UI is served, e.g. "/profile". Must begin with a slash and must not end with one. Leave empty
+    if the UI is served from the root of its hostname.
+  EOT
+  type        = string
+  default     = ""
+
+  validation {
+    condition     = can(regex("^(/[^/]+)*$", var.ui_path))
+    error_message = "ui_path must be empty or begin with a slash, with no trailing slash."
+  }
+}
+
 variable "ui_subdomain" {
   description = "Subdomain for PW UI"
   type        = string

@@ -3,6 +3,11 @@ output "ui_hostname" {
   value       = local.ui_hostname
 }
 
+output "ui_base_url" {
+  description = "Base URL for UI, including ui_path, with no trailing slash"
+  value       = local.ui_base_url
+}
+
 output "api_public_dns_value" {
   description = "The value to use for the 'public' DNS record, if creating it outside of this module."
   value       = cloudflare_dns_record.apidns_intermediate.name

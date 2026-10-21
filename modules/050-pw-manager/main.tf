@@ -2,6 +2,7 @@ locals {
   aws_account          = data.aws_caller_identity.this.account_id
   aws_region           = data.aws_region.current.region
   ui_hostname          = "${var.ui_subdomain}.${var.cloudflare_domain}"
+  ui_base_url          = "https://${local.ui_hostname}${var.ui_path}"
   parameter_store_path = "/idp-${var.idp_name}/"
 }
 
@@ -106,7 +107,7 @@ locals {
     support_phone                       = var.support_phone
     support_url                         = var.support_url
     ui_cors_origin                      = "https://${local.ui_hostname}"
-    ui_url                              = "https://${local.ui_hostname}/#"
+    ui_url                              = "${local.ui_base_url}/#"
   })
 }
 
