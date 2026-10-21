@@ -58,6 +58,7 @@ module "pwmanager" {
   support_name                        = data.terraform_remote_state.broker.support_name
   support_phone                       = var.support_phone
   support_url                         = var.support_url
+  ui_path                             = var.ui_path
   ui_subdomain                        = var.ui_subdomain
   vpc_id                              = data.terraform_remote_state.cluster.vpc_id
 }

@@ -58,6 +58,32 @@ run "test" {
     condition     = output.ui_hostname == "${var.ui_subdomain}.${var.cloudflare_domain}"
     error_message = "ui_hostname must be of the form <ui_subdomain>.<cloudflare_domain>"
   }
+
+  assert {
+    condition     = output.ui_base_url == "https://profile.example.com"
+    error_message = "ui_base_url must be https://<ui_hostname> when ui_path is empty"
+  }
+}
+
+run "ui_path" {
+  variables {
+    ui_path = "/profile"
+  }
+
+  assert {
+    condition     = output.ui_base_url == "https://profile.example.com/profile"
+    error_message = "ui_base_url must be https://<ui_hostname><ui_path>"
+  }
+}
+
+run "ui_path_trailing_slash" {
+  command = plan
+
+  variables {
+    ui_path = "/profile/"
+  }
+
+  expect_failures = [var.ui_path]
 }
 
 run "cd_role_attachment" {
