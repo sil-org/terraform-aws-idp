@@ -15,6 +15,16 @@ mock_provider "aws" {
       arn = "arn:aws:elasticloadbalancing:us-east-1:111111111111:targetgroup/test-target-group"
     }
   }
+  mock_resource "aws_cloudwatch_log_group" {
+    defaults = {
+      arn = "arn:aws:logs:us-east-1:111111111111:log-group:test-log-group"
+    }
+  }
+  mock_resource "aws_cloudwatch_log_delivery_destination" {
+    defaults = {
+      arn = "arn:aws:logs:us-east-1:111111111111:delivery-destination:test-delivery-destination"
+    }
+  }
 
   mock_data "aws_acm_certificate" {
     defaults = {
