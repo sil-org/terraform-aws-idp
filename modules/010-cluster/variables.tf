@@ -147,3 +147,10 @@ variable "enable_ec2_detailed_monitoring" {
   type        = bool
   default     = true
 }
+
+variable "alb_log_retention_days" {
+  description = "ALB log retention in days. Set to 0 for infinite retention. Omit to disable logging."
+  type        = number
+  default     = null
+}
+

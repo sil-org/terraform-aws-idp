@@ -111,17 +111,19 @@ data "aws_acm_certificate" "wildcard" {
  */
 module "alb" {
   source  = "sil-org/alb/aws"
-  version = "~> 2.0"
+  version = "~> 3.0"
 
-  app_name            = var.app_name
-  app_env             = var.app_env
-  enable_ipv6         = var.enable_ipv6
-  disable_public_ipv4 = var.disable_public_ipv4
-  internal            = "false"
-  vpc_id              = module.vpc.id
-  security_groups     = [module.vpc.vpc_default_sg_id, aws_security_group.cloudflare.id]
-  subnets             = module.vpc.public_subnet_ids
-  certificate_arn     = data.aws_acm_certificate.wildcard.arn
+  app_name                     = var.app_name
+  app_env                      = var.app_env
+  enable_ipv6                  = var.enable_ipv6
+  disable_public_ipv4          = var.disable_public_ipv4
+  internal                     = "false"
+  vpc_id                       = module.vpc.id
+  security_groups              = [module.vpc.vpc_default_sg_id, aws_security_group.cloudflare.id]
+  subnets                      = module.vpc.public_subnet_ids
+  certificate_arn              = data.aws_acm_certificate.wildcard.arn
+  access_log_retention_in_days = var.alb_log_retention_days
+  ssl_policy                   = "ELBSecurityPolicy-TLS13-1-2-2021-06"
 }
 
 /*
@@ -131,16 +133,17 @@ module "internal_alb" {
   source  = "sil-org/alb/aws"
   version = "~> 3.0"
 
-  alb_name        = "alb-${var.app_name}-${var.app_env}-int"
-  app_name        = var.app_name
-  app_env         = var.app_env
-  internal        = "true"
-  tg_name         = "tg-${var.app_name}-${var.app_env}-int-def"
-  vpc_id          = module.vpc.id
-  security_groups = [module.vpc.vpc_default_sg_id]
-  subnets         = module.vpc.private_subnet_ids
-  certificate_arn = data.aws_acm_certificate.wildcard.arn
-  ssl_policy      = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+  alb_name                     = "alb-${var.app_name}-${var.app_env}-int"
+  app_name                     = var.app_name
+  app_env                      = var.app_env
+  internal                     = "true"
+  tg_name                      = "tg-${var.app_name}-${var.app_env}-int-def"
+  vpc_id                       = module.vpc.id
+  security_groups              = [module.vpc.vpc_default_sg_id]
+  subnets                      = module.vpc.private_subnet_ids
+  certificate_arn              = data.aws_acm_certificate.wildcard.arn
+  access_log_retention_in_days = var.alb_log_retention_days
+  ssl_policy                   = "ELBSecurityPolicy-TLS13-1-2-2021-06"
 }
 
 /*
