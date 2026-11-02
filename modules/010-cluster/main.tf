@@ -129,7 +129,7 @@ module "alb" {
  */
 module "internal_alb" {
   source  = "sil-org/alb/aws"
-  version = "~> 2.0"
+  version = "~> 3.0"
 
   alb_name        = "alb-${var.app_name}-${var.app_env}-int"
   app_name        = var.app_name
@@ -140,6 +140,7 @@ module "internal_alb" {
   security_groups = [module.vpc.vpc_default_sg_id]
   subnets         = module.vpc.private_subnet_ids
   certificate_arn = data.aws_acm_certificate.wildcard.arn
+  ssl_policy      = "ELBSecurityPolicy-TLS13-1-2-2021-06"
 }
 
 /*
