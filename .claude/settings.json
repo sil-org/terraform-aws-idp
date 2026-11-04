@@ -1,0 +1,15 @@
+{
+  "sandbox": {
+    "filesystem": {
+      "allowRead": ["."],
+      "denyRead": ["./.env"]
+    }
+  },
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(*.tfstate)",
+      "Read(*.tfvars)"
+    ]
+  }
+}
