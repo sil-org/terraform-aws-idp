@@ -123,7 +123,7 @@ module "alb" {
   subnets                      = module.vpc.public_subnet_ids
   certificate_arn              = data.aws_acm_certificate.wildcard.arn
   access_log_retention_in_days = var.alb_log_retention_days
-  ssl_policy                   = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+  ssl_policy                   = var.alb_ssl_policy
 }
 
 /*

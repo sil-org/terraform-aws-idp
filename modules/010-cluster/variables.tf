@@ -154,3 +154,11 @@ variable "alb_log_retention_days" {
   default     = null
 }
 
+variable "alb_ssl_policy" {
+  description = <<-EOT
+    SSL policy for the ALB. See https://docs.aws.amazon.com/elasticloadbalancing/latest/application/describe-ssl-policies.html
+    for valid values.
+  EOT
+  type        = string
+  default     = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+}
