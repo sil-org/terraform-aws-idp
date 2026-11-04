@@ -13,7 +13,7 @@ Submodules live under `modules/` and are numbered to indicate their dependency/d
 - `010-cluster` — VPC, security groups, ASG, ACM cert lookup, ALB, CloudWatch log group. Foundation everything else depends on.
 - `032-db-backup` — mysqldump-to-S3 (optionally synced to Backblaze B2) scheduled ECS task.
 - `040-id-broker` — ECS service for `idp-id-broker`, internal ALB, Cloudflare DNS record. Has by far the largest variable surface (email/MFA/password-policy settings).
-- `050-pw-manager` — ECS service for the password manager API (`idp-pw-api`); its UI is deployed separately via the `sil-org/pages/cloudflare` module.
+- `050-pw-manager` — ECS service for the password manager API (`idp-pw-api`); its UI is deployed separately via GitHub Actions using a repository to deploy instances.
 - `060-simplesamlphp` — ECS service for SimpleSAMLphp.
 - `070-id-sync` — scheduled ECS task for `idp-id-sync`, syncs identities from a personnel store.
 - `ecs-role` — small shared internal module (not independently published/numbered) providing the ECS task IAM role; consumed via relative `source = "../ecs-role"` by `040-id-broker`, `050-pw-manager`, `060-simplesamlphp`, and `070-id-sync`.
