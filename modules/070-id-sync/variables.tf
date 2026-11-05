@@ -113,7 +113,7 @@ variable "sync_safety_cutoff" {
 }
 
 variable "allow_empty_email" {
-  description = "Whether to allow the primary email property to be empty."
+  description = "DEPRECATED: Whether to allow the primary email property to be empty."
   type        = bool
   default     = false
 }

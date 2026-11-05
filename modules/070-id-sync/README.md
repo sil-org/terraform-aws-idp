@@ -36,6 +36,5 @@ module "idsync" {
   ecs_cluster_id              = data.terraform_remote_state.core.ecs_cluster_id
   alerts_email                = var.alerts_email
   notifier_email_to           = var.notifier_email_to
-  allow_empty_email           = var.allow_empty_email
 }
 ```
