@@ -24,7 +24,6 @@ module "broker" {
   cd_role_name                     = data.terraform_remote_state.core.cd_role_name
   cloudflare_domain                = var.cloudflare_domain
   cloudwatch_log_group_name        = var.cloudwatch_log_group_name
-  contingent_user_duration         = var.contingent_user_duration
   cpu                              = var.cpu
   cpu_cron                         = var.cpu_cron
   db_name                          = var.db_name
