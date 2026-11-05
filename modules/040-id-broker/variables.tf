@@ -43,7 +43,7 @@ variable "cloudwatch_log_group_name" {
 }
 
 variable "contingent_user_duration" {
-  description = "How long before a new user without a primary email address expires."
+  description = "DEPRECATED: How long before a new user without a primary email address expires."
   type        = string
   default     = "+4 weeks"
 }
