@@ -1,9 +1,11 @@
 locals {
-  aws_account          = data.aws_caller_identity.this.account_id
-  aws_region           = data.aws_region.current.region
-  ui_hostname          = "${var.ui_subdomain}.${var.cloudflare_domain}"
-  ui_base_url          = "https://${local.ui_hostname}${var.ui_path}"
-  parameter_store_path = "/idp-${var.idp_name}/"
+  aws_account               = data.aws_caller_identity.this.account_id
+  aws_region                = data.aws_region.current.region
+  ui_hostname               = "${var.ui_subdomain}.${var.cloudflare_domain}"
+  ui_base_url               = "https://${local.ui_hostname}${var.ui_path}"
+  parameter_store_path      = "/idp-${var.idp_name}/"
+  api_public_dns_name       = "${var.api_subdomain}.${var.cloudflare_domain}"
+  api_subdomain_with_region = "${replace(var.api_subdomain, "/^([^.]+)/", "$1-${local.aws_region}")}.${var.cloudflare_domain}"
 }
 
 /*
@@ -42,8 +44,8 @@ resource "aws_alb_listener_rule" "pwmanager" {
   condition {
     host_header {
       values = [
-        "${var.api_subdomain}.${var.cloudflare_domain}",
-        "${local.api_subdomain_with_region}.${var.cloudflare_domain}"
+        local.api_public_dns_name,
+        local.api_subdomain_with_region
       ]
     }
   }
@@ -64,8 +66,6 @@ resource "random_id" "access_token_hash" {
  * Create ECS service for API
  */
 locals {
-  api_subdomain_with_region = "${var.api_subdomain}-${local.aws_region}"
-
   task_def = templatefile("${path.module}/task-definition-api.json.tftpl", {
     access_token_hash_key_arn           = aws_ssm_parameter.access_token_hash_key.arn
     alerts_email                        = var.alerts_email
@@ -140,7 +140,7 @@ resource "cloudflare_dns_record" "apidns" {
   count = var.create_dns_record ? 1 : 0
 
   zone_id = data.cloudflare_zone.domain.id
-  name    = var.api_subdomain
+  name    = local.api_public_dns_name
   content = cloudflare_dns_record.apidns_intermediate.name
   type    = "CNAME"
   proxied = true

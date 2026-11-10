@@ -1,4 +1,9 @@
 mock_provider "aws" {
+  mock_data "aws_region" {
+    defaults = {
+      region = "us-east-1"
+    }
+  }
   mock_resource "aws_iam_role" {
     defaults = {
       arn = "arn:aws:iam::111111111111:role/test-role"
@@ -26,7 +31,7 @@ variables {
   analytics_id              = ""
   app_env                   = "test"
   cd_role_name              = ""
-  cloudflare_domain         = ""
+  cloudflare_domain         = "example.com"
   cloudwatch_log_group_name = ""
   db_name                   = ""
   docker_image              = ""
@@ -42,10 +47,58 @@ variables {
   password_change_url       = ""
   password_forgot_url       = ""
   profile_url               = ""
-  subdomain                 = ""
+  subdomain                 = "login"
   task_execution_role_arn   = ""
   trusted_ip_addresses      = []
   vpc_id                    = ""
+}
+
+run "single_label_subdomain" {
+  variables {
+    additional_hostnames = ["sso.example.org"]
+  }
+
+  assert {
+    condition     = cloudflare_dns_record.sspdns_intermediate.name == "login-us-east-1.example.com"
+    error_message = "A single-label subdomain must have the region appended before the domain."
+  }
+
+  assert {
+    condition     = output.public_dns_value == cloudflare_dns_record.sspdns_intermediate.name
+    error_message = "The public DNS value must match the regional DNS record."
+  }
+
+  assert {
+    condition     = cloudflare_dns_record.sspdns[0].name == "login.example.com" && cloudflare_dns_record.sspdns[0].content == output.public_dns_value
+    error_message = "The public DNS record must point the unmodified subdomain at the regional hostname."
+  }
+
+  assert {
+    condition     = toset(one(one(aws_alb_listener_rule.ssp.condition).host_header).values) == toset(["login.example.com", "login-us-east-1.example.com", "sso.example.org"])
+    error_message = "The listener must accept the public and regional hostnames while preserving additional hostnames."
+  }
+}
+
+run "two_label_subdomain" {
+  variables {
+    subdomain = "login.internal"
+  }
+
+  assert {
+    condition     = cloudflare_dns_record.sspdns_intermediate.name == "login-us-east-1.internal.example.com"
+    error_message = "The region must be appended to the first label, preserving the second label."
+  }
+}
+
+run "multi_label_subdomain" {
+  variables {
+    subdomain = "login.internal.staff"
+  }
+
+  assert {
+    condition     = cloudflare_dns_record.sspdns_intermediate.name == "login-us-east-1.internal.staff.example.com"
+    error_message = "The region must be appended only to the first label, preserving all remaining labels."
+  }
 }
 
 run "test_ip_addresses" {

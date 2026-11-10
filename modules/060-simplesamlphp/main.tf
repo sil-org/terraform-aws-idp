@@ -1,7 +1,9 @@
 locals {
-  aws_account          = data.aws_caller_identity.this.account_id
-  aws_region           = data.aws_region.current.region
-  parameter_store_path = "/idp-${var.idp_name}/"
+  aws_account           = data.aws_caller_identity.this.account_id
+  aws_region            = data.aws_region.current.region
+  parameter_store_path  = "/idp-${var.idp_name}/"
+  public_dns_name       = "${var.subdomain}.${var.cloudflare_domain}"
+  subdomain_with_region = "${replace(var.subdomain, "/^([^.]+)/", "$1-${local.aws_region}")}.${var.cloudflare_domain}"
 }
 
 /*
@@ -36,8 +38,8 @@ resource "aws_alb_listener_rule" "ssp" {
   condition {
     host_header {
       values = concat([
-        "${var.subdomain}.${var.cloudflare_domain}",
-        "${local.subdomain_with_region}.${var.cloudflare_domain}"
+        local.public_dns_name,
+        local.subdomain_with_region
       ], var.additional_hostnames)
     }
   }
@@ -64,8 +66,6 @@ data "external" "cloudflare_ips" {
 }
 
 locals {
-  subdomain_with_region = "${var.subdomain}-${local.aws_region}"
-
   cloudflare_ipv4_cidrs = split(",", data.external.cloudflare_ips.result.ipv4_cidrs)
   cloudflare_ipv6_cidrs = split(",", data.external.cloudflare_ips.result.ipv6_cidrs)
   trusted_ip_addresses  = concat(local.cloudflare_ipv4_cidrs, local.cloudflare_ipv6_cidrs, var.trusted_ip_addresses)
@@ -94,7 +94,7 @@ locals {
     id_broker_trusted_ip_ranges = join(",", var.id_broker_trusted_ip_ranges)
     mfa_learn_more_url          = var.mfa_learn_more_url
     mfa_setup_url               = var.mfa_setup_url
-    idp_domain_name             = "${var.subdomain}.${var.cloudflare_domain}"
+    idp_domain_name             = local.public_dns_name
     logging_level               = var.logging_level
     mysql_database              = var.db_name
     mysql_host                  = var.mysql_host
@@ -141,7 +141,7 @@ resource "cloudflare_dns_record" "sspdns" {
   count = var.create_dns_record ? 1 : 0
 
   zone_id = data.cloudflare_zone.domain.id
-  name    = var.subdomain
+  name    = local.public_dns_name
   content = cloudflare_dns_record.sspdns_intermediate.name
   type    = "CNAME"
   proxied = true

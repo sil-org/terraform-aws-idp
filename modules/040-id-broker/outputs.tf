@@ -1,6 +1,6 @@
 output "hostname" {
   description = "The url to id-broker"
-  value       = "${local.subdomain_with_region}.${var.cloudflare_domain}"
+  value       = local.subdomain_with_region
 }
 
 output "public_dns_value" {
