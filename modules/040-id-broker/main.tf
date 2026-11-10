@@ -6,7 +6,6 @@ locals {
   subdomain_with_region = "${replace(var.subdomain, "/^([^.]+)/", "$1-${local.aws_region}")}.${var.cloudflare_domain}"
 }
 
-
 /*
  * Create target group for ALB
  */

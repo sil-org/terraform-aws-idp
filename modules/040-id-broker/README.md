@@ -8,6 +8,10 @@ This module is used to create an ECS service running idp-id-broker.
  - Create task definition and ECS service for id-broker
  - Create Cloudflare DNS record
 
+DNS record names are fully qualified. The regional API hostname appends the AWS region
+to the first label of `api_subdomain`, preserving any remaining labels: for example,
+`api.login` becomes `api-us-east-1.login.example.com`.
+
 ## Terraform Registry
 
 See the [Terraform Registry](https://registry.terraform.io/modules/sil-org/idp/aws/latest/submodules/040-id-broker) for usage documentation.

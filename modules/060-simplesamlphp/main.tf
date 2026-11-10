@@ -94,7 +94,7 @@ locals {
     id_broker_trusted_ip_ranges = join(",", var.id_broker_trusted_ip_ranges)
     mfa_learn_more_url          = var.mfa_learn_more_url
     mfa_setup_url               = var.mfa_setup_url
-    idp_domain_name             = "${var.subdomain}.${var.cloudflare_domain}"
+    idp_domain_name             = local.public_dns_name
     logging_level               = var.logging_level
     mysql_database              = var.db_name
     mysql_host                  = var.mysql_host
