@@ -8,6 +8,10 @@ This module is used to create an ECS service running [SimpleSAMLphp](https://sim
  - Create task definition and ECS service for SimpleSAMLphp
  - Create Cloudflare DNS records for SSP
 
+DNS record names are fully qualified. The regional hostname appends the AWS region
+to the first label of `subdomain`, preserving any remaining labels: for example,
+`login.internal` becomes `login-us-east-1.internal.example.com`.
+
 ## Terraform Registry
 
 See the [Terraform Registry](https://registry.terraform.io/modules/sil-org/idp/aws/latest/submodules/060-simplesamlphp) for usage documentation.

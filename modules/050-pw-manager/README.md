@@ -10,6 +10,10 @@ The password manager UI can be deployed using Cloudflare's Wrangler CLI on CI/CD
  - Create task definition and ECS service for password manager API service
  - Create Cloudflare DNS record for the API service
 
+DNS record names are fully qualified. The regional API hostname appends the AWS region
+to the first label of `api_subdomain`, preserving any remaining labels: for example,
+`api.login` becomes `api-us-east-1.login.example.com`.
+
 ## Terraform Registry
 
 See the [Terraform Registry](https://registry.terraform.io/modules/sil-org/idp/aws/latest/submodules/050-pw-manager) for usage documentation.
